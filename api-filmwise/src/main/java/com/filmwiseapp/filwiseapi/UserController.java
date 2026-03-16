@@ -18,20 +18,13 @@ public class UserController {
     public User createUser(@RequestBody User user) {
         return repo.save(user);
     }
-    @GetMapping
+  
     public List<User> getUsers() {
         return repo.findAll();
     }
-    /*
-    @GetMapping
-    public List<User> obtenerUsuarios() {
-        return repo.findAll();
-    }
 
-    @PostMapping
-    public User crearUsuario(@RequestBody User user) {
-        return repo.save(user);
-    }
-    */
+
+
+  ççç
 
 }
