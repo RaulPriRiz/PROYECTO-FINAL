@@ -1,8 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import spotlight from "../assets/lights.png";
+import { useState } from "react";
+import { registerUser } from "../services/userService";
 
 function Register() {
+
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleRegister = async () => {
+    if (password !== confirmPassword) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+
+    try {
+      await registerUser({
+        name,
+        email,
+        password,
+        rol: "registrado",
+      });
+
+      alert("Usuario registrado correctamente");
+    } catch (error) {
+      alert("Error al registrar usuario");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-filmBlack flex items-center justify-center relative overflow-hidden">
 
@@ -38,6 +66,8 @@ function Register() {
             <label className="text-white text-sm">Escribe un correo</label>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full bg-transparent border-b border-gray-400 focus:outline-none text-white py-2"
             />
           </div>
@@ -48,6 +78,8 @@ function Register() {
             </label>
             <input
               type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full bg-transparent border-b border-gray-400 focus:outline-none text-white py-2"
             />
           </div>
@@ -58,6 +90,8 @@ function Register() {
             </label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-transparent border-b border-gray-400 focus:outline-none text-white py-2"
             />
           </div>
@@ -68,11 +102,15 @@ function Register() {
             </label>
             <input
               type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full bg-transparent border-b border-gray-400 focus:outline-none text-white py-2"
             />
           </div>
 
-          <button className="bg-filmGold text-filmBlack font-semibold py-3 rounded-lg hover:opacity-90 transition mt-4">
+          <button
+            onClick={handleRegister}
+            className="bg-filmGold text-filmBlack font-semibold py-3 rounded-lg hover:opacity-90 transition mt-4">
             REGISTRARSE
           </button>
 
