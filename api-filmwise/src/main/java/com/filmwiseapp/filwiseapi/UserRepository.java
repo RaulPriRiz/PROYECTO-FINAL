@@ -28,8 +28,27 @@ public class UserRepository {
 
     @Transactional
     public User create(User user) {
+
+        Integer maxId = getMaxId();
+
+        if (maxId == null) {
+            maxId = 0;
+        }
+
+        user.setId(maxId + 1);
+
         entityManager.persist(user);
+
         return user;
+    }
+
+    public Integer getMaxId() {
+        try {
+            return entityManager.createQuery(
+                    "SELECT MAX(u.id) FROM User u", Integer.class).getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
 }
