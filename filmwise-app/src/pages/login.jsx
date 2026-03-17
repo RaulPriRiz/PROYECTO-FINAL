@@ -1,5 +1,6 @@
 import React from "react";
 import spotlight from "../assets/lights.png";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
@@ -56,9 +57,9 @@ function Login() {
 
           <div className="text-sm text-filmGold">
             ¿No estás registrado?{" "}
-            <span className="underline cursor-pointer">
+            <Link to="/register" className="underline cursor-pointer">
               Regístrate ya
-            </span>
+            </Link>
           </div>
 
           <div className="text-sm text-filmGold underline cursor-pointer">

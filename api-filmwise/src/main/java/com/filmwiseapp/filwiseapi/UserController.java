@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users") //el endopoint o url
+@RequestMapping("/api/user")
 @CrossOrigin(origins = "*") //permite a React llamar a la api
 public class UserController {
 
@@ -16,22 +16,16 @@ public class UserController {
 
     @PostMapping
     public User createUser(@RequestBody User user) {
-        return repo.save(user);
+        return repo.create(user);
     }
+  
     @GetMapping
     public List<User> getUsers() {
         return repo.findAll();
     }
-    /*
-    @GetMapping
-    public List<User> obtenerUsuarios() {
-        return repo.findAll();
-    }
 
-    @PostMapping
-    public User crearUsuario(@RequestBody User user) {
-        return repo.save(user);
-    }
-    */
+    
+
+  
 
 }
