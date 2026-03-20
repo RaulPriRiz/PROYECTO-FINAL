@@ -1,7 +1,10 @@
-package com.filmwiseapp.filwiseapi;
+package com.filmwiseapp.filwiseapi.dao;
 
 import java.util.List;
 import org.springframework.stereotype.Repository;
+
+import com.filmwiseapp.filwiseapi.model.User;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
@@ -14,13 +17,20 @@ public class UserRepository {
     private EntityManager entityManager;
 
     public List<User> findAll() {
-        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+        
+        String sql = "SELECT * FROM Usuario";
+
+        return (List<User>) entityManager.createNativeQuery(sql, User.class).getResultList();
     }
 
     public User findById(int id) {
+        
+        String sql = "SELECT * FROM Usuario WHERE id = " + id;
+
         try {
-            return entityManager.createQuery(
-                    "SELECT u FROM User u WHERE u.id = ?1", User.class).setParameter(1, id).getSingleResult();
+            return (User) entityManager
+                    .createNativeQuery(sql, User.class)
+                    .getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
@@ -43,12 +53,13 @@ public class UserRepository {
     }
 
     public Integer getMaxId() {
+
+        String sql = "SELECT MAX(id) FROM Usuario";
+
         try {
-            return entityManager.createQuery(
-                    "SELECT MAX(u.id) FROM User u", Integer.class).getSingleResult();
+            return (Integer) entityManager.createNativeQuery(sql).getSingleResult();
         } catch (Exception e) {
             return 0;
         }
     }
-
 }

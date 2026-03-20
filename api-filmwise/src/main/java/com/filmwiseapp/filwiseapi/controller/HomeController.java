@@ -1,4 +1,4 @@
-package com.filmwiseapp.filwiseapi;
+package com.filmwiseapp.filwiseapi.controller;
 
 import org.springframework.web.bind.annotation.*;
 

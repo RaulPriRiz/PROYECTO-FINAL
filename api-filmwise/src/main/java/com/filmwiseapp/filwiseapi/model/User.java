@@ -1,4 +1,4 @@
-package com.filmwiseapp.filwiseapi;
+package com.filmwiseapp.filwiseapi.model;
 
 import jakarta.persistence.*;
 
@@ -7,9 +7,6 @@ import jakarta.persistence.*;
 public class User {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-   // @GeneratedValue : le dice a JPA/Hibernate que el id se genera automáticamente.
-  //strategy = GenerationType.IDENTITY : la base de datos se encarga de generar el id, normalmente con una columna AUTO_INCREMENT.
     private int id;
 
     private String name;
