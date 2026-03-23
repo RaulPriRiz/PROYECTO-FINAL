@@ -23,7 +23,7 @@ function Home() {
       <Carrusel />
 
       <div className="flex justify-center mt-10">
-        <button className="bg-filmGold text-black font-bold px-10 py-4 rounded-xl text-lg font-semibold hover:bg-white hover:text-black transition">
+        <button className="bg-filmGold text-black font-bold px-10 py-4 rounded-xl text-lg hover:bg-white hover:text-black transition">
           JUGAR PARTIDA ALEATORIA
         </button>
       </div>

@@ -62,4 +62,18 @@ public class UserRepository {
             return 0;
         }
     }
+
+    public User findByEmail(String email) {
+    
+    String sql = "SELECT * FROM Usuario WHERE email = :email";
+
+    try {
+        return (User) entityManager
+                .createNativeQuery(sql, User.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    } catch (NoResultException e) {
+        return null;
+    }
+}
 }
