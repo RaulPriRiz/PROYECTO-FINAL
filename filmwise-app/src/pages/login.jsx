@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import spotlight from "../assets/lights.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../services/userService";
 
 function Login() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const data = await loginUser(email, password);
+
+      if (!data.success) {
+        alert(data.message);
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userName", data.name);
+      localStorage.setItem("userRol", data.rol);
+
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+      alert("Error al iniciar sesión");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-filmBlack flex items-center justify-center relative overflow-hidden">
 
@@ -39,6 +65,8 @@ function Login() {
             <label className="text-white text-sm">Correo:</label>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full bg-transparent border-b border-gray-400 focus:outline-none text-white py-2"
             />
           </div>
@@ -47,11 +75,16 @@ function Login() {
             <label className="text-white text-sm">Contraseña:</label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-transparent border-b border-gray-400 focus:outline-none text-white py-2"
             />
           </div>
 
-          <button className="bg-filmGold text-filmBlack font-semibold py-3 rounded-lg hover:opacity-90 transition">
+          <button
+            onClick={handleLogin}
+            className="bg-filmGold text-filmBlack font-semibold py-3 rounded-lg hover:opacity-90 transition"
+          >
             INICIAR SESIÓN
           </button>
 
