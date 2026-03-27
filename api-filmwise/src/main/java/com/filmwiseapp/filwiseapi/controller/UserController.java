@@ -3,6 +3,7 @@ package com.filmwiseapp.filwiseapi.controller;
 import org.springframework.web.bind.annotation.*;
 import com.filmwiseapp.filwiseapi.dao.UserRepository;
 import com.filmwiseapp.filwiseapi.model.User;
+import com.filmwiseapp.filwiseapi.utils.JwtUtil;
 import com.filmwiseapp.filwiseapi.model.LoginRequest;
 import com.filmwiseapp.filwiseapi.model.LoginResponse;
 
@@ -42,12 +43,12 @@ public class UserController {
             return new LoginResponse(false, "Contraseña incorrecta", null, null, null);
         }
 
-        String Token = "token-provisional-" + user.getId();
+        String token = JwtUtil.generateToken(user);
 
         return new LoginResponse(
                 true,
                 "Login correcto",
-                Token,
+                token,
                 user.getName(),
                 user.getRol());
     }
