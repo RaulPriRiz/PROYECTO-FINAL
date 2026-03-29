@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:8080/api/user";
+import { API_BASE } from "./api";
+
+const API_URL = `${API_BASE}/user`;
 
 export const registerUser = async (userData) => {
   try {
