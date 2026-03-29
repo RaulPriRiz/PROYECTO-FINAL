@@ -6,7 +6,6 @@ import com.filmwiseapp.filwiseapi.model.User;
 import com.filmwiseapp.filwiseapi.utils.JwtUtil;
 import com.filmwiseapp.filwiseapi.model.LoginRequest;
 import com.filmwiseapp.filwiseapi.model.LoginResponse;
-
 import java.util.List;
 
 @RestController

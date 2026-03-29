@@ -18,9 +18,11 @@ function Login() {
         return;
       }
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userName", data.name);
-      localStorage.setItem("userRol", data.rol);
+      localStorage.setItem("user", JSON.stringify({
+        token: data.token,
+        name: data.name,
+        rol: data.rol
+      }));
 
       navigate("/home");
     } catch (error) {
