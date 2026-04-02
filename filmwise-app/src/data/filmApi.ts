@@ -1,6 +1,11 @@
+import { API_BASE } from "./api";
+
 const API_KEY: string = "71fb13539da0df28f3f1ad418ffa652a";
 
+const API_URL: string = `${API_BASE}/films`;
+
 export async function getMoviesByTitle(title: string) {
+  
   const API_URL = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&query=";
 
   const resp = await fetch(API_URL + title);
@@ -13,3 +18,20 @@ export async function getMoviesByTitle(title: string) {
 
   return data.results[0];
 }
+
+export const getFilms = async () => {
+  try {
+    const response = await fetch(API_URL);
+
+    if (!response.ok) {
+      throw new Error("Error al obtener las películas");
+    }
+
+    return await response.json();
+    
+  } catch (error) {
+    console.error("Error en getFilms:", error);
+    throw error;
+  
+  }
+};
