@@ -1,13 +1,13 @@
 import React from "react";
 import Carrusel from "../components/Carrusel";
 import GameList from "../components/GameList";
-import { Link } from "react-router-dom";
 
 import topIcon from "../assets/notification_bell.svg";
 import gameIcon from "../assets/movie.svg";
 
 function Home() {
-
+ //poner el carrousel un poco más pequeño
+ //tenemos que añadir más elementos a la pagina despues
   return (
     <div className="min-h-screen bg-filmBlack text-white px-16 py-10">
 

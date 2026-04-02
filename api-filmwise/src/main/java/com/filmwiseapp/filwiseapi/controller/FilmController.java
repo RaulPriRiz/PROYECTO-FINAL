@@ -9,9 +9,9 @@ import com.filmwiseapp.filwiseapi.model.LoginResponse;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/films")
 @CrossOrigin(origins = "*") //permite a React llamar a la api
-public class UserController {
+public class FilmController {
 
     private final UserRepository repo;
 

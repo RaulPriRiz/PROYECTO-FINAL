@@ -1,8 +1,8 @@
 import { API_BASE } from "./api";
 
-const API_URL = `${API_BASE}/user`;
+const API_URL: string = `${API_BASE}/user`;
 
-export const registerUser = async (userData) => {
+export const registerUser = async (userData: any) => {
   try {
     const response = await fetch(API_URL, {
       method: "POST",
@@ -23,7 +23,7 @@ export const registerUser = async (userData) => {
   }
 };
 
-export const loginUser = async (email, password) => {
+export const loginUser = async (email: string, password: string) => {
   try {
     const response = await fetch(`${API_URL}/login`, {
       method: "POST",

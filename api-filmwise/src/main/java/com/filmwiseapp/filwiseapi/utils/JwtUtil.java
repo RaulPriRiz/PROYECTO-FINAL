@@ -1,18 +1,15 @@
 package com.filmwiseapp.filwiseapi.utils;
 
-
 import java.util.Date;
 import java.security.Key;
-
 import com.filmwiseapp.filwiseapi.model.User;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 public class JwtUtil {
     
-    private static String secretKey = "Somos el mejor equipooo del mundo mundial ;)";
+    private static String secretKey = "Somos el mejor equipo del mundoooo ;)";
     
     private static final Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
     

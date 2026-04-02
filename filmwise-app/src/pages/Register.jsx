@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import spotlight from "../assets/lights.png";
 import { useState } from "react";
-import { registerUser } from "../services/userService";
+import { registerUser } from "../data/userApi";
 
 function Register() {
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import spotlight from "../assets/lights.png";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../services/userService";
+import { loginUser } from "../data/userApi";
 
 function Login() {
 
