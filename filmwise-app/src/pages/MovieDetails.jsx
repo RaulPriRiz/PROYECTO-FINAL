@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMoviesByTitle } from "../data/filmApi";
+import { Link, useParams } from "react-router";
 
 import playIcon from "../assets/play_circle.svg";
 import starIcon from "../assets/star.svg";
@@ -16,12 +17,13 @@ const GENRES = {
 };
 
 const MovieDetails = () => {
+  const { title } = useParams();
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const data = await getMoviesByTitle("Up");
+        const data = await getMoviesByTitle(title);
         setMovie(data);
       } catch (error) {
         console.error(error);

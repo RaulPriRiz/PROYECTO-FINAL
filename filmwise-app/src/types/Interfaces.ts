@@ -1,3 +1,11 @@
+//movies.jsx
+export interface Film {
+  id: number;
+  genre: string;
+  image: string;
+  title: string;
+}
+
 export interface IMovie {
   adult: boolean;
   backdrop_path: string | null;
@@ -14,6 +22,7 @@ export interface IMovie {
   vote_average: number;
   vote_count: number;
 }
+
 /*🖼️ Ejemplo con tu película
 Poster
 
