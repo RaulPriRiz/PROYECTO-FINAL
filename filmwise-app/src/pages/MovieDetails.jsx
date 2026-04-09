@@ -44,7 +44,7 @@ const MovieDetails = () => {
         <img
           src={`${IMAGE_BASE}${movie.backdrop_path}`}
           alt={movie.title}
-          className="w-full h-full object-cover opacity-40"
+          className="w-full h-full object-cover opacity-80"
         />
 
         <div className="hidden md:flex absolute inset-0 bg-black/70 px-20 py-12 gap-16 items-center">
