@@ -318,3 +318,7 @@ insert into film values (id, title, genre, image) values (4, Sinners, Terror, ht
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "insert into film (id, title, genre, image) values (4, Sinners, Terror, https[*]://m.media-amazon.com/images/M/MV5BYWE4MzFkZjEtZmJiNC00ZTdkLTk3ZmMtNjI2OWFhYjQxNTUwXkEyXkFqcGc@._V1_.jpg)"; se esperaba "(, ., [, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"
 Syntax error in SQL statement "insert into film (id, title, genre, image) values (4, Sinners, Terror, https[*]://m.media-amazon.com/images/M/MV5BYWE4MzFkZjEtZmJiNC00ZTdkLTk3ZmMtNjI2OWFhYjQxNTUwXkEyXkFqcGc@._V1_.jpg)"; expected "(, ., [, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
 insert into film (id, title, genre, image) values (4, Sinners, Terror, https://m.media-amazon.com/images/M/MV5BYWE4MzFkZjEtZmJiNC00ZTdkLTk3ZmMtNjI2OWFhYjQxNTUwXkEyXkFqcGc@._V1_.jpg) [42001-232]
+2026-04-07 18:57:38.672048+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "select * [*]film"
+Syntax error in SQL statement "select * [*]film"; SQL statement:
+select * film [42000-232]

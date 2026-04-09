@@ -25,10 +25,10 @@ export const getFilms = async () => {
 
     if (!response.ok) {
       throw new Error("Error al obtener las películas");
-    }
+    } 
 
     return await response.json();
-    
+
   } catch (error) {
     console.error("Error en getFilms:", error);
     throw error;
