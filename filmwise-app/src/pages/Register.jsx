@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import spotlight from "../assets/lights.png";
 import { useState } from "react";
 import { registerUser } from "../data/userApi";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
 
@@ -10,8 +11,10 @@ function Register() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate(); //pa navegar
 
   const handleRegister = async () => {
+    
     if (password !== confirmPassword) {
       alert("Las contraseñas no coinciden");
       return;
@@ -22,12 +25,13 @@ function Register() {
         name,
         email,
         password,
-        rol: "registrado",
+        rol: "REGISTRADO",
       });
 
-      alert("Usuario registrado correctamente");
+      navigate("/"); 
+
     } catch (error) {
-      alert("Error al registrar usuario");
+      alert(error.message);
     }
   };
 

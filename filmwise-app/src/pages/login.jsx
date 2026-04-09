@@ -25,8 +25,8 @@ function Login() {
       }));
 
       navigate("/home");
+      
     } catch (error) {
-      console.error(error);
       alert("Error al iniciar sesión");
     }
   };

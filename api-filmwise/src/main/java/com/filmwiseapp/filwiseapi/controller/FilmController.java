@@ -3,9 +3,6 @@ package com.filmwiseapp.filwiseapi.controller;
 import org.springframework.web.bind.annotation.*;
 import com.filmwiseapp.filwiseapi.dao.FilmRepository;
 import com.filmwiseapp.filwiseapi.model.Film;
-import com.filmwiseapp.filwiseapi.utils.JwtUtil;
-import com.filmwiseapp.filwiseapi.model.LoginRequest;
-import com.filmwiseapp.filwiseapi.model.LoginResponse;
 import java.util.List;
 
 @RestController

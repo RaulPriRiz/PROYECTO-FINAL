@@ -1,5 +1,7 @@
 package com.filmwiseapp.filwiseapi.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.filmwiseapp.filwiseapi.dao.UserRepository;
 import com.filmwiseapp.filwiseapi.model.User;
@@ -19,9 +21,18 @@ public class UserController {
         this.repo = repo;
     }
 
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return repo.create(user);
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+
+        User existingUser = repo.findByEmailName(user.getEmail(), user.getName());
+
+        if (existingUser != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario ya existe");
+        }
+
+        User created = repo.create(user);
+
+        return ResponseEntity.ok(created);
     }
 
     @GetMapping
@@ -35,9 +46,10 @@ public class UserController {
         User user = repo.findByEmail(loginRequest.getEmail());
 
         if (user == null) {
-            return new LoginResponse(false, "Usuario no encontrado", null, null, null);
+            return new LoginResponse(false, "Usuario no registrado", null, null, null);
         }
-
+        
+        //Si  lo ha encontrado pero la contraseña no coincide con la del loginRequest
         if (!user.getPassword().equals(loginRequest.getPassword())) {
             return new LoginResponse(false, "Contraseña incorrecta", null, null, null);
         }

@@ -28,9 +28,7 @@ public class UserRepository {
         String sql = "SELECT * FROM Usuario WHERE id = " + id;
 
         try {
-            return (User) entityManager
-                    .createNativeQuery(sql, User.class)
-                    .getSingleResult();
+            return (User) entityManager.createNativeQuery(sql, User.class).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
@@ -64,16 +62,28 @@ public class UserRepository {
     }
 
     public User findByEmail(String email) {
-    
-    String sql = "SELECT * FROM Usuario WHERE email = :email";
+        
+        String sql = "SELECT * FROM Usuario WHERE email = '" + email + "'";
 
-    try {
-        return (User) entityManager
-                .createNativeQuery(sql, User.class)
-                .setParameter("email", email)
-                .getSingleResult();
-    } catch (NoResultException e) {
-        return null;
+        try {
+            return (User) entityManager
+                    .createNativeQuery(sql, User.class)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
-}
+
+    public User findByEmailName(String email, String name)
+    {
+        String sql = "SELECT * FROM Usuario WHERE email = '" + email + "'" + " OR name = '"+ name +"'";
+
+        try {
+            return (User) entityManager
+                    .createNativeQuery(sql, User.class)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }
