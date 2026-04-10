@@ -18,7 +18,7 @@ const GENRES = {
 
 const MovieDetails = () => {
   const { title } = useParams();
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState<IMovie>(null);
 
   useEffect(() => {
     const fetchMovie = async () => {

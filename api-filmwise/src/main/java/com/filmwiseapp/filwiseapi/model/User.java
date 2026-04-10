@@ -13,6 +13,8 @@ public class User {
     private String email;
     private String password;
     private String rol; // invitado registrado o admin
+    private int score;
+    private String image;
 
     public User() {
     }
@@ -37,6 +39,14 @@ public class User {
         return rol;
     }
 
+    public int getScore() {
+       return score;
+    }
+
+    public String getImage(){
+        return image;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -56,5 +66,15 @@ public class User {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    public void setScore(int score){
+        this.score = score;
+    }
+
+    public void setImage(String image){
+        this.image = image;
+    }
+
+
 
 }

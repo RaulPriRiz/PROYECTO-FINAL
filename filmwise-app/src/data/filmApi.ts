@@ -1,10 +1,11 @@
 import { API_BASE } from "./api";
+import { IMovie} from "../types/Interfaces";
 
 const API_KEY: string = "71fb13539da0df28f3f1ad418ffa652a";
 
 const API_URL: string = `${API_BASE}/films`;
 
-export async function getMoviesByTitle(title: string) {
+export async function getMoviesByTitle(title: string) : Promise<IMovie> {
   
   const API_URL = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&query=";
 
