@@ -18,7 +18,7 @@ const GENRES = {
 
 const MovieDetails = () => {
   const { title } = useParams();
-  const [movie, setMovie] = useState<IFilmDetails>(null);
+  const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -44,7 +44,7 @@ const MovieDetails = () => {
         <img
           src={`${IMAGE_BASE}${movie.backdrop_path}`}
           alt={movie.title}
-          className="w-full h-full object-cover opacity-80"
+          className="w-full h-full object-cover opacity-60"
         />
 
         <div className="hidden md:flex absolute inset-0 bg-black/70 px-20 py-12 gap-16 items-center">

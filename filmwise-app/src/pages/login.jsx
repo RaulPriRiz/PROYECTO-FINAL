@@ -12,12 +12,7 @@ function Login() {
   const handleLogin = async () => {
     try {
       const data = await loginUser(email, password);
-
-      if (!data.success) {
-        alert(data.message);
-        return;
-      }
-
+      
       localStorage.setItem("user", JSON.stringify({
         token: data.token,
         name: data.name,
@@ -27,7 +22,7 @@ function Login() {
       navigate("/home");
       
     } catch (error) {
-      alert("Error al iniciar sesión");
+      alert(error.message);
     }
   };
 

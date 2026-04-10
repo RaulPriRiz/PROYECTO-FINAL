@@ -74,9 +74,9 @@ public class UserRepository {
         }
     }
 
-    public User findByEmailName(String email, String name)
+    public User findByName(String name)
     {
-        String sql = "SELECT * FROM Usuario WHERE email = '" + email + "'" + " OR name = '"+ name +"'";
+        String sql = "SELECT * FROM Usuario WHERE name = '"+ name +"'";
 
         try {
             return (User) entityManager

@@ -22,17 +22,22 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+    public String registerUser(@RequestBody User user) {
 
-        User existingUser = repo.findByEmailName(user.getEmail(), user.getName());
+        User existingEmail = repo.findByEmail(user.getEmail());
 
-        if (existingUser != null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario ya existe");
+        User existingName = repo.findByName(user.getName());
+
+        if (existingEmail != null) {
+            return "Ese correo ya existe";
+        }
+        if (existingName != null) {
+            return "Ese nombre ya existe";
         }
 
-        User created = repo.create(user);
+        repo.create(user);
 
-        return ResponseEntity.ok(created);
+        return "Correcto";
     }
 
     @GetMapping
@@ -42,14 +47,15 @@ public class UserController {
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest loginRequest) {
-
+        
         User user = repo.findByEmail(loginRequest.getEmail());
 
         if (user == null) {
             return new LoginResponse(false, "Usuario no registrado", null, null, null);
         }
         
-        //Si  lo ha encontrado pero la contraseña no coincide con la del loginRequest
+        System.out.println(loginRequest.getPassword());
+        //Silo ha encontrado pero la contraseña no coincide con la del loginRequest
         if (!user.getPassword().equals(loginRequest.getPassword())) {
             return new LoginResponse(false, "Contraseña incorrecta", null, null, null);
         }

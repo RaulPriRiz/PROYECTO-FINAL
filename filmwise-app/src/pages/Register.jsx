@@ -21,18 +21,14 @@ function Register() {
     }
 
     try {
-      await registerUser({
-        name,
-        email,
-        password,
-        rol: "REGISTRADO",
-      });
-
-      navigate("/"); 
+      await registerUser(name, email, password, "REGISTRADO");
+      navigate("/");
 
     } catch (error) {
       alert(error.message);
     }
+    
+
   };
 
   return (
