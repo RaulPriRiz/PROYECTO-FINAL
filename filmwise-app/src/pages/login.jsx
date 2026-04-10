@@ -10,9 +10,16 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+
+    // Campos vacios
+    if (!email || !password) {
+      alert("Debes rellenar todos los campos");
+      return;
+    }
+
     try {
       const data = await loginUser(email, password);
-      
+
       localStorage.setItem("user", JSON.stringify({
         token: data.token,
         name: data.name,
@@ -20,7 +27,7 @@ function Login() {
       }));
 
       navigate("/home");
-      
+
     } catch (error) {
       alert(error.message);
     }
