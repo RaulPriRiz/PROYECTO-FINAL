@@ -34,7 +34,7 @@ function Carrusel() {
             key={movie.id}
             src={movie.image}
             alt="movie"
-            className="w-full h-[500px] object-cover flex-shrink-0"
+            className="w-full h-[350px] object-cover object-[center_35%] flex-shrink-0"
           />
         ))}
       </div>

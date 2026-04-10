@@ -11,24 +11,41 @@ function Register() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate(); //pa navegar
+  const navigate = useNavigate(); //para navegar
 
   const handleRegister = async () => {
-    
+
+    // Campos vacios
+    if (!email || !name || !password || !confirmPassword) {
+      alert("Todos los campos son obligatorios");
+      return;
+    }
+
+    // Longitud contraseña
+    if (password.length < 8) {
+      alert("La contraseña debe tener al menos 8 caracteres");
+      return;
+    }
+
+    // Coincidencia contraseña
     if (password !== confirmPassword) {
       alert("Las contraseñas no coinciden");
       return;
     }
 
     try {
-      await registerUser(name, email, password, "REGISTRADO");
+      await registerUser({
+        name,
+        email,
+        password,
+        rol: "REGISTRADO",
+      });
+
       navigate("/");
 
     } catch (error) {
       alert(error.message);
     }
-    
-
   };
 
   return (
