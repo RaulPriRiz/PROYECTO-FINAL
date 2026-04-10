@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 
+
 function MovieCard({ title, image }) {
   return (
     <Link to={`/details/${title}`}>

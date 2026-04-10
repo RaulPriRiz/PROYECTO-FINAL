@@ -1,12 +1,12 @@
 //movies.jsx
-export interface Film {
+export interface IFilm {
   id: number;
   genre: string;
   image: string;
   title: string;
 }
 
-export interface IMovie {
+export interface IFilmDetails {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];

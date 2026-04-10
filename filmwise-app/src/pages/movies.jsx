@@ -23,12 +23,10 @@ function Movies() {
   }, []);
 
   const filteredMovies = movies.filter((movie) => {
-    const matchesTitle = movie.title
-      .toLowerCase()
-      .includes(titleFilter.toLowerCase());
+    
+    const matchesTitle = movie.title.toLowerCase().includes(titleFilter.toLowerCase());
 
-    const matchesGenre =
-      statusFilter === "Todas" || movie.genre === statusFilter;
+    const matchesGenre = statusFilter === "Todas" || movie.genre === statusFilter;
 
     return matchesTitle && matchesGenre;
   });
