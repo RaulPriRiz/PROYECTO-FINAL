@@ -60,7 +60,7 @@ export const getUser = async (name:string) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(name)
+      body: JSON.stringify({name})
   });
 
   if (!response.ok) {
@@ -79,8 +79,9 @@ export const getFriendsCount = async (name: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(name)
+      body: JSON.stringify({name})
     });
 
-  return res.json();
+    const data = await res.text();
+  return data;
 };

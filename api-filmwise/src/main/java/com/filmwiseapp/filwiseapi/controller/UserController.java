@@ -9,6 +9,7 @@ import com.filmwiseapp.filwiseapi.utils.JwtUtil;
 import com.filmwiseapp.filwiseapi.model.LoginRequest;
 import com.filmwiseapp.filwiseapi.model.LoginResponse;
 import java.util.List;
+import com.filmwiseapp.filwiseapi.model.NameRequest;
 
 @RestController
 @RequestMapping("/api/user")
@@ -41,8 +42,8 @@ public class UserController {
     }
 
     @PostMapping
-    public User getUser(@RequestBody String name) {
-        return repo.findByName(name);
+    public User getUser(@RequestBody NameRequest nameRequest) {
+        return repo.findByName(nameRequest.getName());
     }
 
     @PostMapping("/login")
@@ -66,7 +67,7 @@ public class UserController {
     }
 
     @PostMapping("/friends/number")
-    public Integer getNumberOfFriends(@RequestBody String name){
-        return repo.findNumberOfFriends(name);
+    public String getNumberOfFriends(@RequestBody NameRequest nameRequest){
+        return repo.findNumberOfFriends(nameRequest.getName());
     }
 }
