@@ -80,14 +80,14 @@ public class UserRepository {
         }
     }
 
-    public Integer findNumberOfFriends(String name){
+    public String findNumberOfFriends(String name){
         
         User user = findByName(name);
 
         String sql = "SELECT Count(*) FROM IS_FRIEND_OF WHERE Friend1 = " + user.getId() + " OR Friend2 = " + user.getId();
 
-        Number result = (Number) entityManager.createNativeQuery(sql).getSingleResult();
+        String result = entityManager.createNativeQuery(sql).getSingleResult().toString();
 
-        return result.intValue();
+        return result;
     }
 }
