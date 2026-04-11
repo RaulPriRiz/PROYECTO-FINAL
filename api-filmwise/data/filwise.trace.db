@@ -2686,3 +2686,27 @@ delete from usuario where id is not 0 [42001-232]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]USUARIO"; se esperaba "UPDATE"
 Syntax error in SQL statement "[*]USUARIO"; expected "UPDATE"; SQL statement:
 USUARIO [42001-232]
+2026-04-11 12:22:41.752161+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ISFRIENDOF" no encontrada
+Table "ISFRIENDOF" not found; SQL statement:
+select * from IsFriendOf [42102-232]
+2026-04-11 12:24:06.690186+02:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ISFRIENDOF" no encontrada
+Table "ISFRIENDOF" not found; SQL statement:
+select * from IsFriendOf [42102-232]
+2026-04-11 12:24:13.945450+02:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "IS_FRIEND_OF" no encontrada
+Table "IS_FRIEND_OF" not found; SQL statement:
+select * from IS_FRIEND_OF [42102-232]
+2026-04-11 12:52:37.463516+02:00 jdbc[17]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "EMAIL" no encontrada
+Table "EMAIL" not found; SQL statement:
+update email
+set email = 'nina@gmail.com'
+where id = 0 [42102-232]
+2026-04-11 13:18:53.113533+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "update [*]USER\000d\000aset image = 'https://static6.depositphotos.com/1085342/582/i/950/depositphotos_5821622-stock-photo-funny-nerd.jpg'\000d\000awhere id = 0"; se esperaba "identifier"
+Syntax error in SQL statement "update [*]USER\000d\000aset image = 'https://static6.depositphotos.com/1085342/582/i/950/depositphotos_5821622-stock-photo-funny-nerd.jpg'\000d\000awhere id = 0"; expected "identifier"; SQL statement:
+update USER
+set image = 'https://static6.depositphotos.com/1085342/582/i/950/depositphotos_5821622-stock-photo-funny-nerd.jpg'
+where id = 0 [42001-232]

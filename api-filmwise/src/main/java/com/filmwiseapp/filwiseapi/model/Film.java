@@ -1,6 +1,7 @@
 package com.filmwiseapp.filwiseapi.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Film")
@@ -12,6 +13,7 @@ public class Film {
     private String title;
     private String genre;
     private String image;
+    private LocalDate creationDate;
 
     public Film() {
     }
@@ -32,6 +34,10 @@ public class Film {
         return image;
     }
 
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -48,4 +54,7 @@ public class Film {
         this.image = image;
     }
 
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
 }

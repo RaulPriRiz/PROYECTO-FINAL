@@ -40,9 +40,9 @@ public class UserController {
         return "Correcto";
     }
 
-    @GetMapping
-    public List<User> getUsers() {
-        return repo.findAll();
+    @PostMapping
+    public User getUser(@RequestBody String name) {
+        return repo.findByName(name);
     }
 
     @PostMapping("/login")
@@ -55,19 +55,18 @@ public class UserController {
         }
         
         System.out.println(loginRequest.getPassword());
-        //Silo ha encontrado pero la contraseña no coincide con la del loginRequest
+        //Si lo ha encontrado pero la contraseña no coincide con la del loginRequest
         if (!user.getPassword().equals(loginRequest.getPassword())) {
             return new LoginResponse(false, "Contraseña incorrecta", null, null, null);
         }
 
         String token = JwtUtil.generateToken(user);
 
-        return new LoginResponse(
-                true,
-                "Login correcto",
-                token,
-                user.getName(),
-                user.getRol());
+        return new LoginResponse(true, "Login correcto", token, user.getName(), user.getRol());
     }
 
+    @PostMapping("/friends/number")
+    public Integer getNumberOfFriends(@RequestBody String name){
+        return repo.findNumberOfFriends(name);
+    }
 }

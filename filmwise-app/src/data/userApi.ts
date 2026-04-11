@@ -51,3 +51,36 @@ export const loginUser = async (email:string, password:string) => {
     
     return data;
 };
+
+//devuelve TODOS los datos del usuario
+export const getUser = async (name:string) => {
+
+  const response = await fetch (`${API_URL}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(name)
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al obtener el usuario');
+  }
+ 
+  const data = await response.json();
+  return data;
+};
+
+//devuelve el numero de amigos que tiene el usuario por el nombre
+export const getFriendsCount = async (name: string) => {
+  const res = await fetch(`${API_URL}/friends/number`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(name)
+    });
+
+  return res.json();
+};

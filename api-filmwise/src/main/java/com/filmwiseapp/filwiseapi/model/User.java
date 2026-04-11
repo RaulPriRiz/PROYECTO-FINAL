@@ -1,6 +1,7 @@
 package com.filmwiseapp.filwiseapi.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Usuario")
@@ -12,9 +13,13 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String rol; // invitado registrado o admin
-    private String score;
+    private String rol; //invitado, registrado o admin
+    private Integer score;
     private String image;
+    private String favoriteGenre;
+    private Integer bestScore;
+    private Integer gamesPlayed;
+    private Integer correctAnswers;
 
     public User() {
     }
@@ -39,12 +44,28 @@ public class User {
         return rol;
     }
 
-    public String getScore() {
+    public Integer getScore() {
        return score;
     }
 
     public String getImage(){
         return image;
+    }
+
+    public String getFavoriteGenre(){
+        return favoriteGenre;
+    }
+
+    public Integer getBestScore() {
+       return bestScore;
+    }
+
+    public Integer getGamesPlayed() {
+       return gamesPlayed;
+    }
+
+    public Integer getCorrectAnswers() {
+       return correctAnswers;
     }
 
     public void setId(int id) {
@@ -67,7 +88,7 @@ public class User {
         this.rol = rol;
     }
 
-    public void setScore(String score){
+    public void setScore(Integer score){
         this.score = score;
     }
 
@@ -75,6 +96,19 @@ public class User {
         this.image = image;
     }
 
+    public void setFavoriteGenre(String favoriteGenre){
+        this.favoriteGenre = favoriteGenre;
+    }
 
+    public void setBestScore(Integer bestScore){
+        this.bestScore = bestScore;
+    }
 
+    public void setGamesPlayed(Integer gamesPlayed){
+        this.gamesPlayed = gamesPlayed;
+    }
+
+    public void setCorrectAnswers(Integer correctAnswers){
+        this.correctAnswers = correctAnswers;
+    }
 }

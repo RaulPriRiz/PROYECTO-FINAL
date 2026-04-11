@@ -2,9 +2,7 @@ package com.filmwiseapp.filwiseapi.dao;
 
 import java.util.List;
 import org.springframework.stereotype.Repository;
-
 import com.filmwiseapp.filwiseapi.model.User;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
@@ -66,24 +64,30 @@ public class UserRepository {
         String sql = "SELECT * FROM Usuario WHERE email = '" + email + "'";
 
         try {
-            return (User) entityManager
-                    .createNativeQuery(sql, User.class)
-                    .getSingleResult();
+            return (User) entityManager.createNativeQuery(sql, User.class).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
     }
 
-    public User findByName(String name)
-    {
+    public User findByName(String name){
         String sql = "SELECT * FROM Usuario WHERE name = '"+ name +"'";
 
         try {
-            return (User) entityManager
-                    .createNativeQuery(sql, User.class)
-                    .getSingleResult();
+            return (User) entityManager.createNativeQuery(sql, User.class).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    public Integer findNumberOfFriends(String name){
+        
+        User user = findByName(name);
+
+        String sql = "SELECT Count(*) FROM IS_FRIEND_OF WHERE Friend1 = " + user.getId() + " OR Friend2 = " + user.getId();
+
+        Number result = (Number) entityManager.createNativeQuery(sql).getSingleResult();
+
+        return result.intValue();
     }
 }
