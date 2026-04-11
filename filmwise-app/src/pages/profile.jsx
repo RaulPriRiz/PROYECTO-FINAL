@@ -42,15 +42,10 @@ function Profile() {
 
   }, []);
 
-  const userName = user ? user.name : "Error";
+  const userName = user ? user.name : "Nombre de usuario no encontrado";
   const friendsNumber = friends ? friends : "0";
-
-  const stats = user ? [
-    { title: "Partidas jugadas", value: user.gamesPlayed, icon: play_circle },
-    { title: "Aciertos totales", value: user.correctAnswers, icon: star },
-    { title: "Mejor puntuación", value: user.bestScore, icon: competition },
-    { title: "Género preferido", value: user.favoriteGenre, icon: movie },
-  ] : [];
+  const userImage = user ? user.image : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
+  const stats = user ? [{ title: "Partidas jugadas", value: user.gamesPlayed, icon: play_circle },{ title: "Aciertos totales", value: user.correctAnswers, icon: star },{ title: "Mejor puntuación", value: user.bestScore, icon: competition },{ title: "Género preferido", value: user.favoriteGenre, icon: movie }] : [];
 
   return (
     <div className="bg-filmBlack min-h-screen text-white pt-24 pb-24">
@@ -65,7 +60,7 @@ function Profile() {
           <div className="flex items-center gap-4 flex-wrap">
 
             <img
-              src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+              src={userImage}
               alt="Profile"
               className="w-24 h-24 md:w-40 md:h-40 rounded-full object-cover"
             />
