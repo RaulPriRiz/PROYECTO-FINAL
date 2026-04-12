@@ -105,7 +105,6 @@ export const editName = async (oldName: string, newName: string) => {
 
   const data = await response.text();
   return data;
-  
 };
 
 export const editEmail = async (oldEmail: string, newEmail: string) => {
