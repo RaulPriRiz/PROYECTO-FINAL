@@ -90,4 +90,35 @@ public class UserRepository {
 
         return result;
     }
+
+    @Transactional
+    public String editName(String Oldname, String newName){
+
+        String sql = "UPDATE USUARIO SET NAME = '"+ newName +"' WHERE NAME = '" + Oldname + "'";
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+
+        return "Correcto";
+
+    }
+
+    @Transactional
+    public String editEmail(String oldEmail, String newEmail){
+
+        String sql = "UPDATE USUARIO SET EMAIL = '"+ newEmail +"' WHERE EMAIL = '" + oldEmail + "'";
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+
+        return "Correcto";
+    }
+
+    @Transactional
+    public String editImage(String name, String newImage){
+
+        String sql = "UPDATE USUARIO SET IMAGE = '"+ newImage +"' WHERE NAME = '" + name + "'";
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+
+        return "Correcto";
+    }
 }

@@ -117,7 +117,7 @@ function Profile() {
 
         </div>
 
-        {/* APARTADO STATS derecha*/}
+        {/*APARTADO STATS derecha*/}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
           {stats.map((stat, index) => (
             <StatCard

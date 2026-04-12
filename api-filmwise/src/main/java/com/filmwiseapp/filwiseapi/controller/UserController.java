@@ -1,14 +1,14 @@
 package com.filmwiseapp.filwiseapi.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.filmwiseapp.filwiseapi.dao.UserRepository;
 import com.filmwiseapp.filwiseapi.model.User;
 import com.filmwiseapp.filwiseapi.utils.JwtUtil;
+import com.filmwiseapp.filwiseapi.model.EditEmail;
+import com.filmwiseapp.filwiseapi.model.EditImage;
+import com.filmwiseapp.filwiseapi.model.EditName;
 import com.filmwiseapp.filwiseapi.model.LoginRequest;
 import com.filmwiseapp.filwiseapi.model.LoginResponse;
-import java.util.List;
 import com.filmwiseapp.filwiseapi.model.NameRequest;
 
 @RestController
@@ -70,4 +70,20 @@ public class UserController {
     public String getNumberOfFriends(@RequestBody NameRequest nameRequest){
         return repo.findNumberOfFriends(nameRequest.getName());
     }
+
+    @PostMapping("/edit/name")
+    public String editUserName(@RequestBody EditName editName){
+        return repo.editName(editName.getOldName(), editName.getNewName());
+    }
+
+    @PostMapping("/edit/email")
+    public String editUserEmail(@RequestBody EditEmail editEmail){
+        return repo.editEmail(editEmail.getOldEmail(), editEmail.getNewEmail());
+    }
+
+    @PostMapping("/edit/image")
+    public String editUserImage(@RequestBody EditImage editImage){
+        return repo.editImage(editImage.getName(), editImage.getNewImage());
+    }
+
 }

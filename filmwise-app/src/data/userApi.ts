@@ -85,3 +85,66 @@ export const getFriendsCount = async (name: string) => {
     const data = await res.text();
   return data;
 };
+
+export const editName = async (oldName: string, newName: string) => {
+
+  const response = await fetch(`${API_URL}/edit/name`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      oldName: oldName,
+      newName: newName
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar el nombre');
+  }
+
+  const data = await response.text();
+  return data;
+};
+
+export const editEmail = async (oldEmail: string, newEmail: string) => {
+
+  const response = await fetch(`${API_URL}/edit/email`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      oldMail: oldEmail,
+      newMail: newEmail
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar el email');
+  }
+
+  const data = await response.text();
+  return data;
+};
+
+export const editImage = async (name: string, newImage: string) => {
+
+  const response = await fetch(`${API_URL}/edit/image`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      newImage: newImage
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar la imagen');
+  }
+
+  const data = await response.text();
+  return data;
+};
