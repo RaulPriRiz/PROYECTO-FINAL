@@ -99,7 +99,6 @@ public class UserRepository {
         entityManager.createNativeQuery(sql).executeUpdate();
 
         return "Correcto";
-
     }
 
     @Transactional
