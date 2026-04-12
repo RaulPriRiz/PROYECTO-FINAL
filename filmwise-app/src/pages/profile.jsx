@@ -44,7 +44,7 @@ function Profile() {
 
   const userName = user ? user.name : "Nombre de usuario no encontrado";
   const friendsNumber = friends ? friends : "0";
-  const userImage = user ? user.image : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
+  const userImage = user.image ? user.image : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
   const stats = user ? [{ title: "Partidas jugadas", value: user.gamesPlayed, icon: play_circle },{ title: "Aciertos totales", value: user.correctAnswers, icon: star },{ title: "Mejor puntuación", value: user.bestScore, icon: competition },{ title: "Género preferido", value: user.favoriteGenre, icon: movie }] : [];
 
   return (
