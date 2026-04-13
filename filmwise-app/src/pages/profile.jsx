@@ -1,5 +1,4 @@
 import Navbar from "../components/Navbar";
-import bar from "../assets/bar.png";
 import { useState, useEffect } from "react";
 import StatCard from "../components/StatCard";
 import { getUser, getFriendsCount } from "../data/userApi";
@@ -8,20 +7,20 @@ import star from "../assets/star.svg";
 import competition from "../assets/competition.svg";
 import movie from "../assets/movie.svg";
 import EditProfileModal from "../components/EditProfileModal";
+import ProgressBar from "../components/ProgressBar";
 
 function Profile() {
+
   const [user, setUser] = useState(null);
   const [friends, setFriends] = useState(null);
-
   const userLogin = JSON.parse(localStorage.getItem("user"));
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const data = await getUser(userLogin.name);
-        console.log("USER:", data);
+        //console.log("USER:", data);
         setUser(data);
       } catch (error) {
         console.error("Error al cargar usuario:", error);
@@ -33,7 +32,7 @@ function Profile() {
     const friendsCount = async () => {
       try {
         const data = await getFriendsCount(userLogin.name);
-        console.log("USER:", data);
+        //console.log("FRIENDS COUNT:", data);
         setFriends(data);
       } catch (error) {
         console.error("Error al obtener número de amigos:", error);
@@ -42,13 +41,18 @@ function Profile() {
 
     friendsCount();
 
-
   }, []);
 
   const userName = user ? user.name : "Nombre de usuario no encontrado";
   const friendsNumber = friends ? friends : "0";
   const userImage = user?.image ? user.image : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
+  const userLevel = user ? user.levelId : 0;
+  const userLevelName = user ? user.levelName : "Nombre del nivel no encontrado";
   const stats = user ? [{ title: "Partidas jugadas", value: user.gamesPlayed, icon: play_circle }, { title: "Aciertos totales", value: user.correctAnswers, icon: star }, { title: "Mejor puntuación", value: user.bestScore, icon: competition }, { title: "Género preferido", value: user.favoriteGenre, icon: movie }] : [];
+  const score = user ? user.score : 0;
+  const percentage = score % 100;
+  const pointsToNextLevel = 100 - percentage;
+  const nextLevel = userLevel + 1;
 
   return (
     <div className="bg-filmBlack min-h-screen text-white pt-24 pb-24">
@@ -95,22 +99,18 @@ function Profile() {
           <div className="mt-16 bg-[#252525] rounded-2xl p-4 md:p-6 w-full md:w-[500px]">
 
             <h3 className="text-xl md:text-2xl mb-5 md:mb-8">
-              Nivel 7 - Cinéfilo Experto
+              Nivel {userLevel} - {userLevelName}
             </h3>
 
             <div className="flex items-center gap-3 md:gap-5">
 
-              <img
-                src={bar}
-                alt="progress bar"
-                className="flex-1 max-w-[80%] md:max-w-none h-6 object-cover rounded-full"
-              />
+              <ProgressBar percent={percentage} />
               <p className="text-2xl">
-                65%
+                {percentage}%
               </p>
             </div>
             <p className="mt-4">
-              35 puntos para subir al nivel 8
+              {pointsToNextLevel} puntos para subir al nivel {nextLevel}
             </p>
 
           </div>
@@ -128,8 +128,6 @@ function Profile() {
             />
           ))}
         </div>
-
-
 
       </div>
 
