@@ -2754,3 +2754,7 @@ insert into USER_COMPLETE_MISSION values (9, 2, 1, 1) [42000-232]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]¡USER_COMPLETE_MISSION"
 Syntax error in SQL statement "[*]¡USER_COMPLETE_MISSION"; SQL statement:
 ¡USER_COMPLETE_MISSION [42000-232]
+2026-04-13 10:32:00.699592+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "MISSIONS" no encontrada
+Table "MISSIONS" not found; SQL statement:
+SELECT * FROM USER_COMPLETE_MISSION U JOIN MISSIONS M ON M.ID = U.MISSION_ID WHERE USER_ID = 1 [42102-232]
