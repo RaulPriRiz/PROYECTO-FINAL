@@ -1,7 +1,6 @@
 package com.filmwiseapp.filwiseapi.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "Usuario")
@@ -20,6 +19,10 @@ public class User {
     private Integer bestScore;
     private Integer gamesPlayed;
     private Integer correctAnswers;
+    private Integer levelId;
+    //transient sirve para que no cree un campo nuevo a la tabla Usuario en la BD. Este levelName lo usamos SOLO cuando hacemos el join con la tabla LEVEL
+    @Transient
+    private String levelName;
 
     public User() {
     }
@@ -68,6 +71,10 @@ public class User {
        return correctAnswers;
     }
 
+    public Integer getLevelId(){
+        return levelId;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -110,5 +117,17 @@ public class User {
 
     public void setCorrectAnswers(Integer correctAnswers){
         this.correctAnswers = correctAnswers;
+    }
+
+    public void setLevelId(Integer levelId){
+        this.levelId = levelId;
+    }
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
     }
 }

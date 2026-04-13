@@ -2,6 +2,7 @@ package com.filmwiseapp.filwiseapi.dao;
 
 import java.util.List;
 import org.springframework.stereotype.Repository;
+import com.filmwiseapp.filwiseapi.dto.MissionResponse;
 import com.filmwiseapp.filwiseapi.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -71,7 +72,11 @@ public class UserRepository {
     }
 
     public User findByName(String name){
-        String sql = "SELECT * FROM Usuario WHERE name = '"+ name +"'";
+
+         String sql = "SELECT u.*, l.name AS levelName " +
+                 "FROM Usuario u " +
+                 "JOIN Level l ON u.LEVEL_ID = l.id " +
+                 "WHERE u.name = '" + name + "'";
 
         try {
             return (User) entityManager.createNativeQuery(sql, User.class).getSingleResult();
@@ -119,5 +124,14 @@ public class UserRepository {
         entityManager.createNativeQuery(sql).executeUpdate();
 
         return "Correcto";
+    }
+
+    public List<MissionResponse> findUserMissions(String name){
+        
+        User user = findByName(name);
+        
+        String sql = "SELECT * FROM USER_COMPLETE_MISSION U JOIN MISSION M ON M.ID = U.MISSION_ID WHERE USER_ID = " + user.getId();
+
+        return (List<MissionResponse>) entityManager.createNativeQuery(sql, MissionResponse.class).getResultList();
     }
 }

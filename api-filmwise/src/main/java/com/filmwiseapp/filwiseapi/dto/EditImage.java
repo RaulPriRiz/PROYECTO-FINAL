@@ -1,4 +1,4 @@
-package com.filmwiseapp.filwiseapi.model;
+package com.filmwiseapp.filwiseapi.dto;
 
 public class EditImage {
 

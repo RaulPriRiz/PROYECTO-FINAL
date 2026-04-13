@@ -21,4 +21,9 @@ public class FilmController {
         return repo.findAll();
     }
 
+    //devuelve solo las pelis con fecha de máximo hace una semana
+    @GetMapping("/newfilms")
+    public List<Film> getUserNewFilms() {
+        return repo.findNewFilms();
+    }
 }

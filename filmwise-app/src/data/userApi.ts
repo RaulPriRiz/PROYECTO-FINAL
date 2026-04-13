@@ -4,7 +4,7 @@ const API_URL: string = `${API_BASE}/user`;
 
 export const registerUser = async (name:string, email:string, password:string, rol:string) => {
   
-  const response = await fetch(`${API_URL}/register`, {
+  const response = await fetch(API_URL + "/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const registerUser = async (name:string, email:string, password:string, r
 export const loginUser = async (email:string, password:string) => {
 
     //un objeto response tiene ok, status, headers, body...
-    const response = await fetch(`${API_URL}/login`, {
+    const response = await fetch(API_URL + "/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export const loginUser = async (email:string, password:string) => {
 //devuelve TODOS los datos del usuario
 export const getUser = async (name:string) => {
 
-  const response = await fetch (`${API_URL}`, {
+  const response = await fetch (API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export const getUser = async (name:string) => {
 
 //devuelve el numero de amigos que tiene el usuario por el nombre
 export const getFriendsCount = async (name: string) => {
-  const res = await fetch(`${API_URL}/friends/number`,
+  const res = await fetch(API_URL + "/friends/number",
     {
       method: "POST",
       headers: {
@@ -88,7 +88,7 @@ export const getFriendsCount = async (name: string) => {
 
 export const editName = async (oldName: string, newName: string) => {
 
-  const response = await fetch(`${API_URL}/edit/name`, {
+  const response = await fetch( API_URL + "/edit/name", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -109,7 +109,7 @@ export const editName = async (oldName: string, newName: string) => {
 
 export const editEmail = async (oldEmail: string, newEmail: string) => {
 
-  const response = await fetch(`${API_URL}/edit/email`, {
+  const response = await fetch(API_URL + "/edit/email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -130,7 +130,7 @@ export const editEmail = async (oldEmail: string, newEmail: string) => {
 
 export const editImage = async (name: string, newImage: string) => {
 
-  const response = await fetch(`${API_URL}/edit/image`, {
+  const response = await fetch(API_URL + "/edit/image", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -146,5 +146,26 @@ export const editImage = async (name: string, newImage: string) => {
   }
 
   const data = await response.text();
+  return data;
+};
+
+//devuelve una lista de objetos MissionResponse del usuario con descripcion, points(los que se requieren la mission) y pointsCompleted (los que lleva el usuario)
+export const getMissions = async (name: string) => {
+
+  const response = await fetch(API_URL + "/missions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name    
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al obtener las misiones');
+  }
+
+  const data = await response.json();
   return data;
 };

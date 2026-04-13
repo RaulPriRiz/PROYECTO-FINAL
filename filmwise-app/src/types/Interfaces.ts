@@ -23,7 +23,7 @@ export interface IFilmDetails {
   vote_count: number;
 }
 
-/*🖼️ Ejemplo con tu película
+/*Ejemplo con película
 Poster
 
 Tu campo:
@@ -39,7 +39,7 @@ Backdrop (fondo)
 URL:
 
 https://image.tmdb.org/t/p/w780/hGGC9gKo7CFE3fW07RA587e5kol.jpg
-📏 Tamaños comunes
+Tamaños 
 w200 → pequeño
 w500 → recomendado para posters
 w780 → backdrops

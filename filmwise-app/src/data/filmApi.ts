@@ -19,19 +19,26 @@ export async function getMoviesByTitle(title: string) {
   return data.results[0];
 }
 
+//devuelve una lista de objetos Film con todas las pelis
 export const getFilms = async () => {
-  try {
-    const response = await fetch(API_URL);
+ 
+  const response = await fetch(API_URL);
 
-    if (!response.ok) {
-      throw new Error("Error al obtener las películas");
-    } 
+  if (!response.ok) {
+    throw new Error("Error al obtener las películas");
+  } 
 
-    return await response.json();
+  return await response.json();
+};
 
-  } catch (error) {
-    console.error("Error en getFilms:", error);
-    throw error;
+//devuelve solo las pelis con fecha de máximo hace una semana
+export const getNewFilms = async () => {
   
+  const response = await fetch(API_URL + "/newfilms");
+
+  if(!response.ok) {
+    throw new Error("Error al obtener las nuevas películas disponibles");
   }
+
+  return await response.json();
 };

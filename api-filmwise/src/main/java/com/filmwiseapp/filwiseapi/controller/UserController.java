@@ -1,15 +1,17 @@
 package com.filmwiseapp.filwiseapi.controller;
 
+import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import com.filmwiseapp.filwiseapi.dao.UserRepository;
+import com.filmwiseapp.filwiseapi.dto.EditEmail;
+import com.filmwiseapp.filwiseapi.dto.EditImage;
+import com.filmwiseapp.filwiseapi.dto.EditName;
+import com.filmwiseapp.filwiseapi.dto.LoginResponse;
+import com.filmwiseapp.filwiseapi.dto.MissionResponse;
+import com.filmwiseapp.filwiseapi.dto.NameRequest;
 import com.filmwiseapp.filwiseapi.model.User;
 import com.filmwiseapp.filwiseapi.utils.JwtUtil;
-import com.filmwiseapp.filwiseapi.model.EditEmail;
-import com.filmwiseapp.filwiseapi.model.EditImage;
-import com.filmwiseapp.filwiseapi.model.EditName;
-import com.filmwiseapp.filwiseapi.model.LoginRequest;
-import com.filmwiseapp.filwiseapi.model.LoginResponse;
-import com.filmwiseapp.filwiseapi.model.NameRequest;
+import com.filmwiseapp.filwiseapi.dto.LoginRequest;
 
 @RestController
 @RequestMapping("/api/user")
@@ -86,4 +88,8 @@ public class UserController {
         return repo.editImage(editImage.getName(), editImage.getNewImage());
     }
 
+    @PostMapping("/missions")
+    public List<MissionResponse> getUserMissions(@RequestBody NameRequest nameRequest){
+        return repo.findUserMissions(nameRequest.getName());
+    }
 }

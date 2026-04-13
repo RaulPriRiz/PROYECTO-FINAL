@@ -18,4 +18,13 @@ public class FilmRepository {
 
         return (List<Film>) entityManager.createNativeQuery(sql, Film.class).getResultList();
     }
+
+    public List<Film> findNewFilms() {
+        
+        String sql = "SELECT * FROM Film WHERE CREATION_DATE >= CURRENT_DATE - INTERVAL '7 days'";    
+
+        return (List<Film>) entityManager.createNativeQuery(sql, Film.class).getResultList();
+    }
+
+
 }
