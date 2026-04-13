@@ -73,13 +73,25 @@ public class UserRepository {
 
     public User findByName(String name){
 
-         String sql = "SELECT u.*, l.name AS levelName " +
-                 "FROM Usuario u " +
-                 "JOIN Level l ON u.LEVEL_ID = l.id " +
-                 "WHERE u.name = '" + name + "'";
-
+        String sql = "SELECT u.*, l.name AS levelName FROM Usuario u JOIN Level l ON u.LEVEL_ID = l.id WHERE u.name = '" + name + "'";
         try {
-            return (User) entityManager.createNativeQuery(sql, User.class).getSingleResult();
+            //Como levelName no es un atributo de User de la BD (lo he tenido que poner como @Transient pq es de la tabla Level) tengo que mapearlo yo manualmente, no JPA
+            Object[] result = (Object[]) entityManager.createNativeQuery(sql).getSingleResult();
+            User user = new User();
+            user.setId((Integer) result[0]);
+            user.setEmail((String) result[1]);
+            user.setName((String) result[2]);
+            user.setPassword((String) result[3]);
+            user.setRol((String) result[4]);
+            user.setImage((String) result[5]);
+            user.setScore((Integer) result[6]);
+            user.setBestScore((Integer) result[7]);
+            user.setCorrectAnswers((Integer) result[8]);
+            user.setFavoriteGenre((String) result[9]);
+            user.setGamesPlayed((Integer) result[10]);
+            user.setLevelId((Integer) result[11]);
+            user.setLevelName((String) result[12]);            
+            return user;        
         } catch (NoResultException e) {
             return null;
         }
