@@ -115,8 +115,8 @@ export const editEmail = async (oldEmail: string, newEmail: string) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      oldMail: oldEmail,
-      newMail: newEmail
+      oldEmail: oldEmail,
+      newEmail: newEmail
     })
   });
 

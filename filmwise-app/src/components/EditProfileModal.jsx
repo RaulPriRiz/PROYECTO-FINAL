@@ -1,19 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { editName, editEmail, editImage } from "../data/userApi";
 
 const EditProfileModal = ({ isOpen, onClose, user }) => {
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
+
+  // Cargar datos cuando llega user
+  useEffect(() => {
+    if (user) {
+      setName(user.name || "");
+      setEmail(user.email || "");
+      setImage(user.image || "");
+    }
+  }, [user]);
+
   if (!isOpen) return null;
 
-  const userName = user ? user.name : "Nombre de usuario no encontrado";
-  const userEmail = user ? user.email : "Correo electrónico del usuario no encontrado";
-  const userImage = user?.image ? user.image : "Url de la imagen de perfil del usuario no encontrada";
+  // GUARDAR CAMBIOS
+  const handleSave = async () => {
+    try {
+      
+      if (!name || !email) {
+        alert("Nombre y email son obligatorios");
+        return;
+      }
+
+      // SOLO llamar si hay cambios
+
+      if (name !== user.name) {
+        await editName(user.name, name);
+      }
+
+      if (email !== user.email) {
+        await editEmail(user.email, email);
+      }
+
+      if (image !== user.image) {
+        await editImage(user.name, image);
+      }
+
+      // actualizar localStorage si cambió nombre
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      storedUser.name = name;
+      localStorage.setItem("user", JSON.stringify(storedUser));
+
+      alert("Perfil actualizado correctamente");
+
+      onClose(); // cerrar modal automaticamente
+
+      // recargar para ver cambios 
+      window.location.reload();
+
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
 
       <div className="bg-filmGray w-[90%] md:w-[500px] rounded-2xl p-6 relative">
 
-        {/* BOTON CERRAR */}
+        {/* CERRAR */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-white text-xl"
@@ -34,7 +84,8 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
             </label>
             <input
               type="text"
-              defaultValue={userName}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="bg-filmBlack p-3 rounded outline-none text-white"
             />
           </div>
@@ -46,7 +97,8 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
             </label>
             <input
               type="email"
-              defaultValue={userEmail}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="bg-filmBlack p-3 rounded outline-none text-white"
             />
           </div>
@@ -58,12 +110,16 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
             </label>
             <input
               type="text"
-              defaultValue={userImage}
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
               className="bg-filmBlack p-3 rounded outline-none text-white"
             />
           </div>
 
-          <button className="bg-filmGold text-black font-bold py-3 rounded-lg mt-4 hover:opacity-90 transition">
+          <button
+            onClick={handleSave}
+            className="bg-filmGold text-black font-bold py-3 rounded-lg mt-4 hover:opacity-90 transition"
+          >
             GUARDAR CAMBIOS
           </button>
 
