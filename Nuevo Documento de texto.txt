@@ -1,0 +1,16 @@
+COSAS QUE FALTAN:
+
+-Revisar si se descuadran las cosas en las páginas. C
+-Backend y resto de lógica del home. R
+-Mejorar diseño del home (añadir más cosas, ponerlo mas vistoso y revisar). C
+-Diseño de partida. R
+-Backend de partida. F
+-Ocultar/mostrar cosas para usuario REGISTRADO o INVITADO. C 
+-Diseño pantalla especial ADMIN. R,C
+-Backend pantalla especial ADMIN. F
+-Despliegue en servidor (fran) F
+-Modal invitar amigo y backend R,F
+-Modal retar amigo y backend C,F
+-Modal ver ranking y backend C,R
+-Faltaría del backend de competición subir los puntos completados de las misiones si el usuario avanza en ellas (dificilillo) 
+-Validar tokens (ver comentarios JWTUtil). R,F

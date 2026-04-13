@@ -7,7 +7,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
 
-  // Cargar datos cuando llega user
+  //Cargar datos cuando llega user
   useEffect(() => {
     if (user) {
       setName(user.name || "");
@@ -18,7 +18,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
 
   if (!isOpen) return null;
 
-  // GUARDAR CAMBIOS
+  //GUARDAR CAMBIOS
   const handleSave = async () => {
     try {
       
@@ -27,30 +27,25 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
         return;
       }
 
-      // SOLO llamar si hay cambios
-
+      //SOLO si hay cambios
       if (name !== user.name) {
         await editName(user.name, name);
       }
-
       if (email !== user.email) {
         await editEmail(user.email, email);
       }
-
       if (image !== user.image) {
         await editImage(user.name, image);
       }
 
-      // actualizar localStorage si cambió nombre
+      //actualizar localStorage si cambió nombre
       const storedUser = JSON.parse(localStorage.getItem("user"));
       storedUser.name = name;
       localStorage.setItem("user", JSON.stringify(storedUser));
 
       alert("Perfil actualizado correctamente");
-
-      onClose(); // cerrar modal automaticamente
-
-      // recargar para ver cambios 
+      onClose(); //cerrar modal automaticamente
+      //recargar para ver cambios 
       window.location.reload();
 
     } catch (error) {
