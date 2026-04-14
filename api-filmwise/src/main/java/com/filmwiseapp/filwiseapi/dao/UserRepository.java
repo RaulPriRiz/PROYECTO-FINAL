@@ -1,5 +1,6 @@
 package com.filmwiseapp.filwiseapi.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import com.filmwiseapp.filwiseapi.dto.MissionResponse;
@@ -142,8 +143,24 @@ public class UserRepository {
         
         User user = findByName(name);
         
-        String sql = "SELECT * FROM USER_COMPLETE_MISSION U JOIN MISSION M ON M.ID = U.MISSION_ID WHERE USER_ID = " + user.getId();
+        String sql = "SELECT DESCRIPCION, POINTS, POINTS_COMPLETED FROM USER_COMPLETE_MISSION U JOIN MISSION M ON M.ID = U.MISSION_ID WHERE USER_ID = " + user.getId();
 
-        return (List<MissionResponse>) entityManager.createNativeQuery(sql, MissionResponse.class).getResultList();
+        //tenemos que mapearlo manualmente porque si no no lo mapea bien a MissionResponse (ya que MissionResponse solo funciona si es una @Entity)
+        //el getResultList devuelve una lista de arrays
+        List<Object[]> results = (List<Object[]>) entityManager.createNativeQuery(sql).getResultList();
+        
+        List<MissionResponse> missions = new ArrayList<>();
+
+        for (Object[] row : results) {
+            
+            MissionResponse mission = new MissionResponse();
+            
+            mission.setDescripcion((String) row[0]);    
+            mission.setPoints((Integer) row[1]);       
+            mission.setPointsCompleted((Integer) row[2]); 
+            missions.add(mission);
+        }
+
+        return missions;
     }
 }

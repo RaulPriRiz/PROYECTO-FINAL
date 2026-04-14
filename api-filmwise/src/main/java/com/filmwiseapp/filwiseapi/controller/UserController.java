@@ -102,6 +102,7 @@ public class UserController {
 
     @PostMapping("/missions")
     public List<MissionResponse> getUserMissions(@RequestBody NameRequest nameRequest){
+        System.out.println(nameRequest.getName());
         return repo.findUserMissions(nameRequest.getName());
     }
 }

@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 import StatCard from "../components/StatCard";
-import { getUser, getFriendsCount } from "../data/userApi";
+import { getUser, getFriendsCount, getMissions } from "../data/userApi";
 import play_circle from "../assets/play_circle.svg";
 import star from "../assets/star.svg";
 import competition from "../assets/competition.svg";
@@ -19,11 +19,7 @@ function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        console.log("Profile montado");
-        console.log("userLogin:", userLogin);
-        console.log("token:", userLogin?.token);
         const data = await getUser(userLogin.name, userLogin.token);
-        console.log("USER:", data);
         setUser(data);
       } catch (error) {
         alert("Error al cargar usuario");
