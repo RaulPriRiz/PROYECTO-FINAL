@@ -64,6 +64,10 @@ export const getUser = async (name:string, token:string) => {
       body: JSON.stringify({name}) 
   });
 
+  if (response.status === 403) {
+    throw new Error("UNAUTHORIZED");
+  }
+
   if (!response.ok) {
     throw new Error('Error al obtener el usuario');
   }
