@@ -8,8 +8,11 @@ import competition from "../assets/competition.svg";
 import movie from "../assets/movie.svg";
 import EditProfileModal from "../components/EditProfileModal";
 import ProgressBar from "../components/ProgressBar";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
+
+  const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
   const [friends, setFriends] = useState(null);
@@ -22,8 +25,11 @@ function Profile() {
         const data = await getUser(userLogin.name, userLogin.token);
         setUser(data);
       } catch (error) {
-        alert("Error al cargar usuario");
-        //navegar a no autorizado
+        if (error.message === "UNAUTHORIZED") {
+          navigate("/unauthorized");
+        } else {
+          console.error("Error al cargar usuario:", error);
+        }
       }
     };
 
