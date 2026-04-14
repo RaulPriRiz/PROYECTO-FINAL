@@ -16,19 +16,26 @@ function Profile() {
 
   const [user, setUser] = useState(null);
   const [friends, setFriends] = useState(null);
-  //BOTON CERRAR SESION SOLO HACE ESTO:
-  //localStorage.clear();
-  //navigate("/login");
-  const userLogin = JSON.parse(localStorage.getItem("user"));
+  const userLogin = JSON.parse(localStorage.getItem("user")) || null;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   useEffect(() => {
+
+    if (!userLogin || !userLogin.token) {
+      navigate("/unauthorized");
+      return;
+    }
+
     const fetchUser = async () => {
       try {
         const data = await getUser(userLogin.name, userLogin.token);
         setUser(data);
       } catch (error) {
-        if (error.message === "AUTHORIZATED") {
+        if (error.message === "UNAUTHORIZED") {
           navigate("/unauthorized");
         } else {
           console.error("Error al cargar usuario:", error);
@@ -99,6 +106,11 @@ function Profile() {
                 <button className="bg-red-900 hover:bg-red-700 px-6 py-2 md:px-10 rounded-full text-sm font-semibold transition">
                   + Amigo
                 </button>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-900 hover:bg-red-700 px-6 py-2 md:px-10 rounded-full text-sm font-semibold transition">
+                  Cerrar sesión
+                </button>
               </div>
 
             </div>
@@ -145,7 +157,7 @@ function Profile() {
         onClose={() => setIsModalOpen(false)}
         user={user}
       />
-    </div>
+    </div >
   );
 }
 
