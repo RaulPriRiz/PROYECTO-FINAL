@@ -54,6 +54,7 @@ public class UserController {
         System.out.println("**********************************");
         System.out.println("token: " + token);
         if (!JwtUtil.validateToken(token, "REGISTRADO")) {
+            System.out.println("TOKEN INVALIDO ************");
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Token inválido o sin permisos");
         }
 

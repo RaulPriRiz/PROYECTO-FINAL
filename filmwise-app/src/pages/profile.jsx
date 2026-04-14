@@ -16,6 +16,9 @@ function Profile() {
 
   const [user, setUser] = useState(null);
   const [friends, setFriends] = useState(null);
+  //BOTON CERRAR SESION SOLO HACE ESTO:
+  //localStorage.clear();
+  //navigate("/login");
   const userLogin = JSON.parse(localStorage.getItem("user"));
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -25,7 +28,7 @@ function Profile() {
         const data = await getUser(userLogin.name, userLogin.token);
         setUser(data);
       } catch (error) {
-        if (error.message === "UNAUTHORIZED") {
+        if (error.message === "AUTHORIZATED") {
           navigate("/unauthorized");
         } else {
           console.error("Error al cargar usuario:", error);
