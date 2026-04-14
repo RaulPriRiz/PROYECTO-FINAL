@@ -6,6 +6,7 @@ import Movies from "./pages/movies";
 import MovieDetails from "./pages/MovieDetails";
 import Profile from "./pages/profile";
 import Competition from "./pages/competition";
+import Unauthorized from "./pages/Unauthorized";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route path="/details/:title" element={<MovieDetails />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/competition" element={<Competition />} />
-
+        <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
     </BrowserRouter>
   );
