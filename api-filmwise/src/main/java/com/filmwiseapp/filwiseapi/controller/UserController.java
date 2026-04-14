@@ -1,7 +1,11 @@
 package com.filmwiseapp.filwiseapi.controller;
 
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.filmwiseapp.filwiseapi.dao.UserRepository;
 import com.filmwiseapp.filwiseapi.dto.EditEmail;
 import com.filmwiseapp.filwiseapi.dto.EditImage;
@@ -44,7 +48,15 @@ public class UserController {
     }
 
     @PostMapping
-    public User getUser(@RequestBody NameRequest nameRequest) {
+    public User getUser(@RequestHeader("Authorization") String authentication, @RequestBody NameRequest nameRequest) {
+        
+        String token = authentication.replace("Bearer ", "");
+        System.out.println("**********************************");
+        System.out.println("token: " + token);
+        if (!JwtUtil.validateToken(token, "REGISTRADO")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Token inválido o sin permisos");
+        }
+
         return repo.findByName(nameRequest.getName());
     }
 

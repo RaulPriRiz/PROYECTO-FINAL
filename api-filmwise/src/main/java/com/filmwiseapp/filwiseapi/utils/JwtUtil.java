@@ -21,7 +21,8 @@ public class JwtUtil {
     public static boolean validateToken(String token, String requiredRol) {
         try {
             Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-            String rol = claims.get("rol", String.class); //falta por hacer  
+            String rol = claims.get("rol", String.class);  
+            System.out.println(rol);
             //Comprobamos el rol
             if (requiredRol != null && !requiredRol.equals(rol)) return false;
             return true;

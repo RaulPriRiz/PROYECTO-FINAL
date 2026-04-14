@@ -19,11 +19,15 @@ function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const data = await getUser(userLogin.name);
-        //console.log("USER:", data);
+        console.log("Profile montado");
+        console.log("userLogin:", userLogin);
+        console.log("token:", userLogin?.token);
+        const data = await getUser(userLogin.name, userLogin.token);
+        console.log("USER:", data);
         setUser(data);
       } catch (error) {
-        console.error("Error al cargar usuario:", error);
+        alert("Error al cargar usuario");
+        //navegar a no autorizado
       }
     };
 

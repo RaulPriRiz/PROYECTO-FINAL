@@ -53,14 +53,15 @@ export const loginUser = async (email:string, password:string) => {
 };
 
 //devuelve TODOS los datos del usuario
-export const getUser = async (name:string) => {
-
+export const getUser = async (name:string, token:string) => {
+  console.log("getUser: " + token);
   const response = await fetch (API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization" : "Bearer " + token //Mando el token del usuario en el header
       },
-      body: JSON.stringify({name})
+      body: JSON.stringify({name}) 
   });
 
   if (!response.ok) {
@@ -82,7 +83,7 @@ export const getFriendsCount = async (name: string) => {
       body: JSON.stringify({name})
     });
 
-    const data = await res.text();
+  const data = await res.text();
   return data;
 };
 
