@@ -10,7 +10,7 @@ function Unauthorized() {
         ACCESO NO AUTORIZADO
       </h1>
 
-      <p className="text-gray-300 mb-10">
+      <p className="text-gray-300 mb-10 text-xl">
         No tienes permisos para acceder a esta página
       </p>
 

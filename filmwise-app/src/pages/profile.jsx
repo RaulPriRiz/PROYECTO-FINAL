@@ -25,6 +25,7 @@ function Profile() {
 
   useEffect(() => {
 
+    //el usuario directamente no hizo login ni tiene token:
     if (!userLogin || !userLogin.token) {
       navigate("/unauthorized");
       return;
@@ -35,6 +36,7 @@ function Profile() {
         const data = await getUser(userLogin.name, userLogin.token);
         setUser(data);
       } catch (error) {
+        //el usuario tiene token pero es desautorizado
         if (error.message === "UNAUTHORIZED") {
           navigate("/unauthorized");
         } else {
