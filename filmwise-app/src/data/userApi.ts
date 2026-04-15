@@ -18,7 +18,7 @@ export const registerUser = async (name:string, email:string, password:string, r
   });
 
   //convierte el body de response en un string plano (no nos hace falta más porque el servidor solo devuelve un string)
-  const data = await response.text();
+  const data = await response.text(); 
   
   if(!response.ok || data == "Ese correo ya existe" || data == "Ese nombre ya existe"){
     throw new Error(data);

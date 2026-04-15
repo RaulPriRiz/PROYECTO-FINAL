@@ -39,6 +39,6 @@ export const getNewFilms = async () => {
   if(!response.ok) {
     throw new Error("Error al obtener las nuevas películas disponibles");
   }
-
+  
   return await response.json();
 };
