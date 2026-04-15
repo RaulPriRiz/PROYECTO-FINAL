@@ -41,7 +41,7 @@ function Profile() {
         if (error.message === "UNAUTHORIZED") {
           navigate("/unauthorized", { replace: true });
         } else {
-          console.error("Error al cargar usuario:", error);
+          console.error(error.message);
         }
       }
     };
@@ -54,7 +54,7 @@ function Profile() {
         //console.log("FRIENDS COUNT:", data);
         setFriends(data);
       } catch (error) {
-        console.error("Error al obtener número de amigos:", error);
+        console.error(error.message);
       }
     };
 

@@ -35,7 +35,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public User create(User user) {
+    public User createUser(User user) {
 
         Integer maxId = getMaxId();
 
@@ -110,33 +110,27 @@ public class UserRepository {
     }
 
     @Transactional
-    public String editName(String Oldname, String newName){
+    public void editName(String Oldname, String newName){
 
         String sql = "UPDATE USUARIO SET NAME = '"+ newName +"' WHERE NAME = '" + Oldname + "'";
 
         entityManager.createNativeQuery(sql).executeUpdate();
-
-        return "Correcto";
     }
 
     @Transactional
-    public String editEmail(String oldEmail, String newEmail){
+    public void editEmail(String oldEmail, String newEmail){
 
         String sql = "UPDATE USUARIO SET EMAIL = '"+ newEmail +"' WHERE EMAIL = '" + oldEmail + "'";
 
         entityManager.createNativeQuery(sql).executeUpdate();
-
-        return "Correcto";
     }
 
     @Transactional
-    public String editImage(String name, String newImage){
+    public void editImage(String name, String newImage){
 
         String sql = "UPDATE USUARIO SET IMAGE = '"+ newImage +"' WHERE NAME = '" + name + "'";
 
         entityManager.createNativeQuery(sql).executeUpdate();
-
-        return "Correcto";
     }
 
     public List<MissionResponse> findUserMissions(String name){
@@ -145,7 +139,7 @@ public class UserRepository {
         
         String sql = "SELECT DESCRIPCION, POINTS, POINTS_COMPLETED FROM USER_COMPLETE_MISSION U JOIN MISSION M ON M.ID = U.MISSION_ID WHERE USER_ID = " + user.getId();
 
-        //tenemos que mapearlo manualmente porque si no no lo mapea bien a MissionResponse (ya que MissionResponse solo funciona si es una @Entity)
+        //tenemos que mapearlo manualmente porque si no no lo mapea bien a MissionResponse (ya que createNativeQuery(sql, MissionResponse.class) solo funciona si es una @Entity)
         //el getResultList devuelve una lista de arrays
         List<Object[]> results = (List<Object[]>) entityManager.createNativeQuery(sql).getResultList();
         

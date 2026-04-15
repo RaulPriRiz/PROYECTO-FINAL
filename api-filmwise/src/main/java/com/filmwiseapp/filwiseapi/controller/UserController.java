@@ -1,11 +1,9 @@
 package com.filmwiseapp.filwiseapi.controller;
 
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.filmwiseapp.filwiseapi.dao.UserRepository;
 import com.filmwiseapp.filwiseapi.dto.EditEmail;
 import com.filmwiseapp.filwiseapi.dto.EditImage;
@@ -42,19 +40,17 @@ public class UserController {
             return "Ese nombre ya existe";
         }
 
-        repo.create(user);
+        repo.createUser(user);
 
-        return "Correcto";
+        return "Correcto"; //en verdad si es correcto no se llega a usar
     }
 
     @PostMapping
     public User getUser(@RequestHeader("Authorization") String authentication, @RequestBody NameRequest nameRequest) {
         
         String token = authentication.replace("Bearer ", "");
-        System.out.println("**********************************");
-        System.out.println("token: " + token);
         if (!JwtUtil.validateToken(token, "REGISTRADO")) {
-            System.out.println("TOKEN INVALIDO ************");
+            System.out.println("************ TOKEN INVALIDO ************");
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Token inválido o sin permisos");
         }
 
@@ -67,13 +63,12 @@ public class UserController {
         User user = repo.findByEmail(loginRequest.getEmail());
 
         if (user == null) {
-            return new LoginResponse(false, "Usuario no registrado", null, null, null);
+            return new LoginResponse(false, "Usuario no registrado");
         }
         
-        System.out.println(loginRequest.getPassword());
         //Si lo ha encontrado pero la contraseña no coincide con la del loginRequest
         if (!user.getPassword().equals(loginRequest.getPassword())) {
-            return new LoginResponse(false, "Contraseña incorrecta", null, null, null);
+            return new LoginResponse(false, "Contraseña incorrecta");
         }
 
         String token = JwtUtil.generateToken(user);
@@ -87,23 +82,22 @@ public class UserController {
     }
 
     @PostMapping("/edit/name")
-    public String editUserName(@RequestBody EditName editName){
-        return repo.editName(editName.getOldName(), editName.getNewName());
+    public void editUserName(@RequestBody EditName editName){
+        repo.editName(editName.getOldName(), editName.getNewName());
     }
 
     @PostMapping("/edit/email")
-    public String editUserEmail(@RequestBody EditEmail editEmail){
-        return repo.editEmail(editEmail.getOldEmail(), editEmail.getNewEmail());
+    public void editUserEmail(@RequestBody EditEmail editEmail){
+        repo.editEmail(editEmail.getOldEmail(), editEmail.getNewEmail());
     }
 
     @PostMapping("/edit/image")
-    public String editUserImage(@RequestBody EditImage editImage){
-        return repo.editImage(editImage.getName(), editImage.getNewImage());
+    public void editUserImage(@RequestBody EditImage editImage){
+        repo.editImage(editImage.getName(), editImage.getNewImage());
     }
 
     @PostMapping("/missions")
     public List<MissionResponse> getUserMissions(@RequestBody NameRequest nameRequest){
-        System.out.println(nameRequest.getName());
         return repo.findUserMissions(nameRequest.getName());
     }
 }

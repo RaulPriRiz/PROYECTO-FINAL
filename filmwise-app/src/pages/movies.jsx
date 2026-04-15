@@ -15,7 +15,7 @@ function Movies() {
         const data = await getFilms();
         setMovies(data);
       } catch (error) {
-        console.error("Error al cargar películas:", error);
+        console.error("Error al cargar películas:", error.message);
       }
     };
 

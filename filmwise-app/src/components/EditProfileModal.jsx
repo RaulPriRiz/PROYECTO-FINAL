@@ -27,26 +27,38 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
         return;
       }
 
-      //SOLO si hay cambios
+      var changes = false;
+
+      //SOLO si hay cambios se edita
       if (name !== user.name) {
+
         await editName(user.name, name);
+        
+        //actualizar localStorage
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        storedUser.name = name;
+        localStorage.setItem("user", JSON.stringify(storedUser));
+        changes = true;
       }
+
       if (email !== user.email) {
         await editEmail(user.email, email);
+        changes = true;
       }
+
       if (image !== user.image) {
         await editImage(user.name, image);
+        changes = true;
       }
 
-      //actualizar localStorage si cambió nombre
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      storedUser.name = name;
-      localStorage.setItem("user", JSON.stringify(storedUser));
+      //si ha habido algun cambio hacemos alert y recargamos
+      if(changes){
+        alert("Perfil actualizado correctamente");
+        //recargar para ver cambios 
+        window.location.reload();
+      }
 
-      alert("Perfil actualizado correctamente");
       onClose(); //cerrar modal automaticamente
-      //recargar para ver cambios 
-      window.location.reload();
 
     } catch (error) {
       alert(error.message);

@@ -17,7 +17,6 @@ public class JwtUtil {
         return Jwts.builder().setSubject(user.getEmail()).claim("rol", user.getRol()).signWith(key).compact();   
     }
 
-    
     public static boolean validateToken(String token, String requiredRol) {
         try {
             Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();

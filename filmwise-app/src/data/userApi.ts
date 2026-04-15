@@ -19,11 +19,10 @@ export const registerUser = async (name:string, email:string, password:string, r
 
   //convierte el body de response en un string plano (no nos hace falta más porque el servidor solo devuelve un string)
   const data = await response.text();
-
+  
   if(!response.ok || data == "Ese correo ya existe" || data == "Ese nombre ya existe"){
     throw new Error(data);
   } 
-
 };
 
 export const loginUser = async (email:string, password:string) => {
@@ -87,6 +86,8 @@ export const getFriendsCount = async (name: string) => {
       body: JSON.stringify({name})
     });
 
+  if(!res.ok) throw new Error('Error al obtener los amigos');
+
   const data = await res.text();
   return data;
 };
@@ -107,9 +108,6 @@ export const editName = async (oldName: string, newName: string) => {
   if (!response.ok) {
     throw new Error('Error al editar el nombre');
   }
-
-  const data = await response.text();
-  return data;
 };
 
 export const editEmail = async (oldEmail: string, newEmail: string) => {
@@ -128,9 +126,6 @@ export const editEmail = async (oldEmail: string, newEmail: string) => {
   if (!response.ok) {
     throw new Error('Error al editar el email');
   }
-
-  const data = await response.text();
-  return data;
 };
 
 export const editImage = async (name: string, newImage: string) => {
@@ -149,9 +144,6 @@ export const editImage = async (name: string, newImage: string) => {
   if (!response.ok) {
     throw new Error('Error al editar la imagen');
   }
-
-  const data = await response.text();
-  return data;
 };
 
 //devuelve una lista de objetos MissionResponse del usuario con descripcion, points(los que se requieren la mission) y pointsCompleted (los que lleva el usuario)
