@@ -51,7 +51,7 @@ public class UserController {
         String token = authentication.replace("Bearer ", "");
         if (!JwtUtil.validateToken(token, "REGISTRADO")) {
             System.out.println("************ TOKEN INVALIDO ************");
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Token inválido o sin permisos");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
         return repo.findByName(nameRequest.getName());
