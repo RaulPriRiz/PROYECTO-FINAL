@@ -11,7 +11,6 @@ COSAS QUE FALTAN:
 -Modal invitar amigo y backend 
 -Modal retar amigo y backend 
 -Modal ver ranking y backend 
--Validar tokens. Solo habría que repetir lo que ya está hecho en Perfil para más páginas. 
 -Faltaría del backend de competición subir los puntos completados de las misiones si el usuario avanza en ellas (dificilillo) ¿¿¿¿????
 
 De miércoles a miércoles hay 3 semanas y 4 días.
@@ -19,7 +18,6 @@ De miércoles a miércoles hay 3 semanas y 4 días.
 --> ESTA SEMANA:
 -PRIORIDAD ALTA: Hacer pantalla partida totalmente funcional.
 -PRIORIDAD MEDIA: Hacer backend home e implementarlo en frontend. Modales.
--PRIORIDAD BAJA: Acabar ya los tokens (rápido, solo repetir).
 
 Backend misiones¿¿¿???
 
