@@ -1,8 +1,7 @@
 COSAS QUE FALTAN:
 
 -Revisar si se descuadran las cosas en las páginas. 
--Backend y resto de lógica del home. 
--Mejorar diseño del home (añadir más cosas, ponerlo mas vistoso y revisar). 
+-Backend e implementación frontend en el home. 
 -Diseño de partida. 
 -Backend de partida. 
 -Ocultar/mostrar cosas para usuario REGISTRADO o INVITADO.  
@@ -12,5 +11,33 @@ COSAS QUE FALTAN:
 -Modal invitar amigo y backend 
 -Modal retar amigo y backend 
 -Modal ver ranking y backend 
--Faltaría del backend de competición subir los puntos completados de las misiones si el usuario avanza en ellas (dificilillo) 
--Validar tokens (ver comentarios JWTUtil). 
+-Validar tokens. Solo habría que repetir lo que ya está hecho en Perfil para más páginas. 
+-Faltaría del backend de competición subir los puntos completados de las misiones si el usuario avanza en ellas (dificilillo) ¿¿¿¿????
+
+De miércoles a miércoles hay 3 semanas y 4 días.
+
+--> ESTA SEMANA:
+-PRIORIDAD ALTA: Hacer pantalla partida totalmente funcional.
+-PRIORIDAD MEDIA: Hacer backend home e implementarlo en frontend. Modales.
+-PRIORIDAD BAJA: Acabar ya los tokens (rápido, solo repetir).
+
+Backend misiones¿¿¿???
+
+Charli diseño modales + algun backend de modal como ranking.
+Raúl y Fran que vayan haciendo Partida completa.
+Después backend del home. Implementación en el frontend.
+
+--> SEMANA QUE VIENE:
+
+-PRIORIDAD ALTA:
+Pantalla Admin completa.
+Distinguir entre usuario registrado y usuario invitado (con if o renderizados condicionales {isRegistered && <LoQSea>}).
+Acabar modales.
+Backend misiones¿¿¿???
+
+--> SEMANA TERCERA y 4 días:
+Tenemos que ponernos de acuerdo en quedar y verlo todo juntos.
+Prepararnos la exposición y revisarlo todo juntos.
+
+
+

@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 
 function Unauthorized() {
   const navigate = useNavigate();
-
   return (
     <div className="min-h-screen bg-filmBlack flex flex-col items-center justify-center text-white px-6 text-center">
 

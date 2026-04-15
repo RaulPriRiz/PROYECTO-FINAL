@@ -27,7 +27,8 @@ function Profile() {
 
     //el usuario directamente no hizo login ni tiene token:
     if (!userLogin || !userLogin.token) {
-      navigate("/unauthorized");
+      //cambia la última ruta del historial que sería profile por /unauthorized para que no se quede en bucle al darle a Atrás
+      navigate("/unauthorized", {replace: true});
       return;
     }
 
@@ -38,7 +39,7 @@ function Profile() {
       } catch (error) {
         //el usuario tiene token pero es desautorizado
         if (error.message === "UNAUTHORIZED") {
-          navigate("/unauthorized");
+          navigate("/unauthorized", { replace: true });
         } else {
           console.error("Error al cargar usuario:", error);
         }
