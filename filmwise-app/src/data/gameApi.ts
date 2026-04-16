@@ -31,7 +31,7 @@ export const updateGame = async (id: number, lastSeconds: number) => {
     body: JSON.stringify({
       id: id,
       lastSeconds: lastSeconds
-      //La fecha 'lastPlayed' la puede poner el Backend automáticamente con LocalDate.now()
+      //La fecha lastPlayed'la puede poner el Backend automáticamente con LocalDate.now()
     })
   });
 

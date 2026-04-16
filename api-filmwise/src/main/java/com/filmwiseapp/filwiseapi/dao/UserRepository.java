@@ -133,6 +133,14 @@ public class UserRepository {
         entityManager.createNativeQuery(sql).executeUpdate();
     }
 
+    //sumamos al score actual del usuario el scoreIncrease cuando se termina una partida
+    @Transactional
+    public void editScore(String name, int scoreIncrease){
+        String sql = "UPDATE USUARIO SET SCORE = SCORE + "+ scoreIncrease +" WHERE NAME = '" + name + "'";
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+
     public List<MissionResponse> findUserMissions(String name){
         
         User user = findByName(name);

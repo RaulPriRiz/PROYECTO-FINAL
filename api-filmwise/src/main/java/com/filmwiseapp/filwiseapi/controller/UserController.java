@@ -8,6 +8,7 @@ import com.filmwiseapp.filwiseapi.dao.UserRepository;
 import com.filmwiseapp.filwiseapi.dto.EditEmail;
 import com.filmwiseapp.filwiseapi.dto.EditImage;
 import com.filmwiseapp.filwiseapi.dto.EditName;
+import com.filmwiseapp.filwiseapi.dto.EditScore;
 import com.filmwiseapp.filwiseapi.dto.LoginResponse;
 import com.filmwiseapp.filwiseapi.dto.MissionResponse;
 import com.filmwiseapp.filwiseapi.dto.NameRequest;
@@ -99,5 +100,11 @@ public class UserController {
     @PostMapping("/missions")
     public List<MissionResponse> getUserMissions(@RequestBody NameRequest nameRequest){
         return repo.findUserMissions(nameRequest.getName());
+    }
+
+    //sumamos al score actual del usuario el scoreIncrease cuando se termina una partida
+    @PostMapping("/edit/score")
+    public void editUserScore(@RequestBody EditScore editScore){
+        repo.editScore(editScore.getName(), editScore.getScoreIncrease());
     }
 }

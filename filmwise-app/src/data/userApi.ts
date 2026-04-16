@@ -166,3 +166,20 @@ export const getMissions = async (name: string) => {
   const data = await response.json();
   return data;
 };
+
+export const editScore = async (name: string, scoreIncrease:number) => {
+  const response = await fetch(API_URL + "/edit/score", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      scoreIncrease: scoreIncrease    
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar la imagen');
+  }
+}
