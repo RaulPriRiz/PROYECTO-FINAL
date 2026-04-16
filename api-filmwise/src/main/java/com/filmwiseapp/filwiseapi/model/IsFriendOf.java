@@ -14,6 +14,13 @@ public class IsFriendOf {
 
     public IsFriendOf(){}
 
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
     public Integer getFriend1(){
         return Friend1;
     }

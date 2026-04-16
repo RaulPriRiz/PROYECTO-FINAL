@@ -3,7 +3,12 @@ package com.filmwiseapp.filwiseapi.dao;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
+
+import com.filmwiseapp.filwiseapi.dto.FriendRequest;
+import com.filmwiseapp.filwiseapi.dto.FriendsResponse;
 import com.filmwiseapp.filwiseapi.dto.MissionResponse;
+import com.filmwiseapp.filwiseapi.model.FriendMessage;
+import com.filmwiseapp.filwiseapi.model.IsFriendOf;
 import com.filmwiseapp.filwiseapi.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -164,5 +169,119 @@ public class UserRepository {
         }
 
         return missions;
+    }
+
+    public List<FriendsResponse> findUserMessages(String name){
+        
+        User user = findByName(name);
+
+        String sql = "SELECT * FROM FRIEND_MESSAGE WHERE idUserReceptor = " + user.getId() + " AND status = 'PENDIENTE'";
+
+        List<FriendsResponse> res = new ArrayList<>();
+        
+        List<Object[]> results = (List<Object[]>) entityManager.createNativeQuery(sql).getResultList();
+
+        for(Object[] row : results) {
+            FriendsResponse friendMessage = new FriendsResponse();
+
+            //buscamos el nombre del usuario que ha enviado el mensaje
+            User emisorUser = findById((Integer)row[1]);
+
+            friendMessage.setEmisorName(emisorUser.getName());
+            friendMessage.setStatus((String)row[3]);
+            res.add(friendMessage);
+        }
+
+        return res;
+    }
+
+    @Transactional
+    public void createMessage(String emisorName, String receptorName) {
+        
+        Integer maxId = getMaxIdFriendMessage();
+
+        if (maxId == null) {
+            maxId = 0;
+        }
+
+        User userEmisor = findByName(emisorName);
+        User userReceptor = findByName(receptorName);
+
+        FriendMessage friendMessage = new FriendMessage();
+        friendMessage.setId(maxId + 1);
+        friendMessage.setIdUserEmisor(userEmisor.getId());
+        friendMessage.setIdUserReceptor(userReceptor.getId());
+        friendMessage.setStatus("PENDIENTE");
+
+        entityManager.persist(friendMessage);
+    }
+
+    public Integer getMaxIdFriendMessage() {
+
+        String sql = "SELECT MAX(id) FROM FRIEND_MESSAGE";
+
+        try {
+            return (Integer) entityManager.createNativeQuery(sql).getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    @Transactional
+    public void editStatusMessage(String emisorName, String receptorName, String newStatus){
+
+        User user = findByName(emisorName);
+        //nos falta por saber el id del otro amigo (el del receptor)
+        User user2 = findByName(receptorName);
+
+        String sql = "UPDATE FRIEND_MESSAGE SET STATUS = '" + newStatus + "' WHERE ID_USER_EMISOR = " + user.getId() + " AND ID_USER_RECEPTOR = " + user2.getId();
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+
+        //ahora añadimos la nueva amistad a la tabla IsFriendOf SOLO SI EL NUEVO ESTADO ES ACEPTADA (PUEDE SER TAMBIEN RECHAZADA)
+        if(newStatus.equals("ACEPTADA")){
+            
+            Integer maxId = getMaxIdIsFriendOf();
+
+            if (maxId == null) {
+                maxId = 0;
+            }
+            
+
+            //PERO ANTES HAY QUE COMPROBAR QUE NO EXISTA LA AMISTAD YA
+            if(areFriends(user.getId(), user2.getId())) return;
+
+            //si no existe ya la amistad entonces se crea:
+            IsFriendOf newFriendShip = new IsFriendOf();
+            newFriendShip.setId(maxId + 1);
+            newFriendShip.setFriend1(user.getId());
+            newFriendShip.setFriend2(user2.getId());
+            entityManager.persist(newFriendShip);
+        }
+    }
+
+    public boolean areFriends(int id1, int id2){
+
+        String sql = "SELECT * FROM IS_FRIEND_OF WHERE Friend1 = " + id1 +" AND Friend2 = " + id2 + " OR Friend1 = " + id2 + " AND Friend2 = " + id1;
+    
+        //si hay registros devuelve true
+        try {
+            entityManager.createNativeQuery(sql).getSingleResult();
+            return true;
+            //si no hay registros devuelve false
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Integer getMaxIdIsFriendOf() {
+
+        String sql = "SELECT MAX(id) FROM IS_FRIEND_OF";
+
+        try {
+            return (Integer) entityManager.createNativeQuery(sql).getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

@@ -7,8 +7,11 @@ import org.springframework.web.server.ResponseStatusException;
 import com.filmwiseapp.filwiseapi.dao.UserRepository;
 import com.filmwiseapp.filwiseapi.dto.EditEmail;
 import com.filmwiseapp.filwiseapi.dto.EditImage;
+import com.filmwiseapp.filwiseapi.dto.EditMessageStatus;
 import com.filmwiseapp.filwiseapi.dto.EditName;
 import com.filmwiseapp.filwiseapi.dto.EditScore;
+import com.filmwiseapp.filwiseapi.dto.FriendRequest;
+import com.filmwiseapp.filwiseapi.dto.FriendsResponse;
 import com.filmwiseapp.filwiseapi.dto.LoginResponse;
 import com.filmwiseapp.filwiseapi.dto.MissionResponse;
 import com.filmwiseapp.filwiseapi.dto.NameRequest;
@@ -106,5 +109,20 @@ public class UserController {
     @PostMapping("/edit/score")
     public void editUserScore(@RequestBody EditScore editScore){
         repo.editScore(editScore.getName(), editScore.getScoreIncrease());
+    }
+
+    @PostMapping("/friends/messages")
+    public List<FriendsResponse> getUserMessages(@RequestBody NameRequest nameRequest){
+        return repo.findUserMessages(nameRequest.getName());
+    }
+
+    @PostMapping("/friends/newMessage")
+    public void sendMessage(@RequestBody FriendRequest friendsRequest){
+        repo.createMessage(friendsRequest.getEmisorName(), friendsRequest.getReceptorName());
+    }
+
+    @PostMapping("/friends/editStatus")
+    public void editMessageStatus(@RequestBody EditMessageStatus editMessageStatus){
+        repo.editStatusMessage(editMessageStatus.getNameEmisor(), editMessageStatus.getNameReceptor(), editMessageStatus.getNewStatus());
     }
 }

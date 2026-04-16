@@ -34,7 +34,7 @@ public class FilmRepository {
 
         try{
 
-        return (Film) entityManager.createNativeQuery(sql).getSingleResult();
+        return (Film) entityManager.createNativeQuery(sql, Film.class).getSingleResult();
         } catch(NoResultException e){
             return null;
         }
