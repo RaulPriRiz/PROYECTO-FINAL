@@ -13,6 +13,9 @@ public class Question {
     private String questionText;
     private Integer startSeconds;
 
+    public Question(){
+    }
+
     public int getId() {
         return id;
     }

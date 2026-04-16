@@ -13,6 +13,10 @@ public class Answer {
     private String answertext;
     private boolean isCorrect;
     
+    public Answer(){
+
+    }
+    
     public int getId() {
         return id;
     }

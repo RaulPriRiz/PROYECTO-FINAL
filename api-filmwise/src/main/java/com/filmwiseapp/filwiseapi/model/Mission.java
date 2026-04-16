@@ -13,6 +13,9 @@ public class Mission {
     private Integer points;
     private String descripcion;
 
+    public Mission(){
+    }
+
     public int getId() {
         return id;
     }

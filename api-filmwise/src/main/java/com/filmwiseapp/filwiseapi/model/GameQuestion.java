@@ -12,6 +12,8 @@ public class GameQuestion {
     private Integer gameId;
     private Integer questionId;
 
+    public GameQuestion(){
+    }
 
     public int getId() {
         return id;
