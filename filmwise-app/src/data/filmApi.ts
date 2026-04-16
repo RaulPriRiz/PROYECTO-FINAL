@@ -31,7 +31,7 @@ export const getFilms = async () => {
   return await response.json();
 };
 
-//devuelve solo las pelis con fecha de máximo hace una semana
+//devuelve solo las pelis con fecha de máximo hace una semana para el carrousel
 export const getNewFilms = async () => {
   
   const response = await fetch(API_URL + "/newfilms");
@@ -43,9 +43,18 @@ export const getNewFilms = async () => {
   return await response.json();
 };
 
-export const getFilm = async () => {
+export const getFilm = async (title:string) => {
 
-  const response = await fetch(API_URL + "/film");
+  const response = await fetch(API_URL + "/film", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },  
+    //envia un string en forma de JSON
+    body: JSON.stringify({
+    name: title
+    })
+  });
 
   if(!response.ok){
     throw new Error("Error al obtener la película");
@@ -54,3 +63,23 @@ export const getFilm = async () => {
   return await response.json();
 };
 
+//Devuelve una LISTA de preguntas dado un titulo de una pelicula y cada pregunta tiene OTRA LISTA de respuestas
+export const getFilmQuestions = async (title: string) => {
+
+  const response = await fetch(API_URL + "/film/questions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },  
+    //envia un string en forma de JSON
+    body: JSON.stringify({
+    name: title
+    })
+  });
+
+  if(!response.ok){
+    throw new Error ("Error al obtener las preguntas y respuestas de la pelicula");
+  }
+
+  return await response.json();
+}

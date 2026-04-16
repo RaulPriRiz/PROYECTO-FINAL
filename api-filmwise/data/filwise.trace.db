@@ -2821,3 +2821,44 @@ alter table FILM add column VIDEO_URL varchar(5000) [42121-232]
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:842)
+2026-04-16 12:18:34.711726+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM GAME \000d\000aALTER [*]TABLE GAME DROP COLUMN LAST_SECONDS"
+Syntax error in SQL statement "SELECT * FROM GAME \000d\000aALTER [*]TABLE GAME DROP COLUMN LAST_SECONDS"; SQL statement:
+SELECT * FROM GAME 
+ALTER TABLE GAME DROP COLUMN LAST_SECONDS [42000-232]
+2026-04-16 12:32:42.404475+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO GAME VALUES (1, 2, '2026-04-16', 'NORMAL', 1, \000d\000a\000d\000aINSERT [*]INTO QUESTION VALUES (1, 2, '¿A qué tribu dice Russell que pertenece?', 20)"; se esperaba "(, ., [, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"
+Syntax error in SQL statement "INSERT INTO GAME VALUES (1, 2, '2026-04-16', 'NORMAL', 1, \000d\000a\000d\000aINSERT [*]INTO QUESTION VALUES (1, 2, '¿A qué tribu dice Russell que pertenece?', 20)"; expected "(, ., [, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
+INSERT INTO GAME VALUES (1, 2, '2026-04-16', 'NORMAL', 1, 
+
+INSERT INTO QUESTION VALUES (1, 2, '¿A qué tribu dice Russell que pertenece?', 20) [42001-232]
+2026-04-16 12:37:54.996787+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO GAME VALUES (1, 2, '2026-04-16', 'NORMAL', 1, 36)\000d\000a\000d\000a[*]INSERT INTO QUESTION VALUES (3, 2, '¿Cuántas veces le dice Carl a Russell que tiene que aplaudir para atraer al cuervo?', 130)"
+Syntax error in SQL statement "INSERT INTO GAME VALUES (1, 2, '2026-04-16', 'NORMAL', 1, 36)\000d\000a\000d\000a[*]INSERT INTO QUESTION VALUES (3, 2, '¿Cuántas veces le dice Carl a Russell que tiene que aplaudir para atraer al cuervo?', 130)"; SQL statement:
+INSERT INTO GAME VALUES (1, 2, '2026-04-16', 'NORMAL', 1, 36)
+
+INSERT INTO QUESTION VALUES (3, 2, '¿Cuántas veces le dice Carl a Russell que tiene que aplaudir para atraer al cuervo?', 130) [42000-232]
+2026-04-16 12:37:54.997774+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM QUESTION\000d\000a\000d\000aINSERT [*]INTO ANSWER VALUES(1, 0, 1, 'Tribu 45')\000d\000a\000d\000a select * from answer"
+Syntax error in SQL statement "SELECT * FROM QUESTION\000d\000a\000d\000aINSERT [*]INTO ANSWER VALUES(1, 0, 1, 'Tribu 45')\000d\000a\000d\000a select * from answer"; SQL statement:
+SELECT * FROM QUESTION
+
+INSERT INTO ANSWER VALUES(1, 0, 1, 'Tribu 45')
+
+ select * from answer [42000-232]
+2026-04-16 12:39:24.021963+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ANSWER VALUES(2, 1, 1, 'Tribu 54')\000d\000a[*]INSERT INTO ANSWER VALUES(3, 0, 1, 'Tribu de los Amigos')"
+Syntax error in SQL statement "INSERT INTO ANSWER VALUES(2, 1, 1, 'Tribu 54')\000d\000a[*]INSERT INTO ANSWER VALUES(3, 0, 1, 'Tribu de los Amigos')"; SQL statement:
+INSERT INTO ANSWER VALUES(2, 1, 1, 'Tribu 54')
+INSERT INTO ANSWER VALUES(3, 0, 1, 'Tribu de los Amigos') [42000-232]
+2026-04-16 12:41:30.338541+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ANSWER VALUES(4, 1, 2, 'Insignia de ayuda a los mayores')\000d\000a[*]INSERT INTO ANSWER VALUES(5, 0, 2, 'Insignia por buen comportamiento')\000d\000aINSERT INTO ANSWER VALUES(6, 0, 2, 'Insignia de la amistad')"
+Syntax error in SQL statement "INSERT INTO ANSWER VALUES(4, 1, 2, 'Insignia de ayuda a los mayores')\000d\000a[*]INSERT INTO ANSWER VALUES(5, 0, 2, 'Insignia por buen comportamiento')\000d\000aINSERT INTO ANSWER VALUES(6, 0, 2, 'Insignia de la amistad')"; SQL statement:
+INSERT INTO ANSWER VALUES(4, 1, 2, 'Insignia de ayuda a los mayores')
+INSERT INTO ANSWER VALUES(5, 0, 2, 'Insignia por buen comportamiento')
+INSERT INTO ANSWER VALUES(6, 0, 2, 'Insignia de la amistad') [42000-232]
+2026-04-16 12:43:09.318776+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM QUESTION\000d\000a [*]select * from answer"
+Syntax error in SQL statement "SELECT * FROM QUESTION\000d\000a [*]select * from answer"; SQL statement:
+SELECT * FROM QUESTION
+ select * from answer [42000-232]

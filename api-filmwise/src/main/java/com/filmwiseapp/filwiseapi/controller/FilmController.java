@@ -47,7 +47,7 @@ public class FilmController {
         }
     }
 
-    //coge todas las preguntas con ese nombre de pelicula y devuelve una lista de QuestionReponse (pregunta + List de sus answers)
+    //coge todas las preguntas con ese nombre de pelicula y devuelve una lista de QuestionReponse que es un dto con pregunta + List de sus answers
     @PostMapping("/film/questions")
     public List<QuestionResponse> getFilmQuestions(@RequestBody NameRequest nameRequest){
 

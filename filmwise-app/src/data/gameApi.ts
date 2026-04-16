@@ -24,7 +24,7 @@ export const createNewGame = async (userId:number, filmId:number, mode:string) =
 
 export const updateGame = async (id: number, lastSeconds: number) => {
   const response = await fetch(`${API_URL}/update`, {
-    method: "PUT", // Usamos PUT porque estamos actualizando algo que ya existe
+    method: "POST", 
     headers: {
       "Content-Type": "application/json",
     },
