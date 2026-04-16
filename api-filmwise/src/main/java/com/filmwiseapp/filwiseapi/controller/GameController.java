@@ -2,6 +2,7 @@ package com.filmwiseapp.filwiseapi.controller;
 
 import org.springframework.web.bind.annotation.*;
 import com.filmwiseapp.filwiseapi.dao.GameRepository;
+import com.filmwiseapp.filwiseapi.dto.UpdateGameRequest;
 import com.filmwiseapp.filwiseapi.model.Game;
 
 @RestController
@@ -19,5 +20,9 @@ public class GameController {
     public void createNewGame(@RequestBody Game game) {
         repo.createGame(game);
     }
-     
+
+    @PutMapping("/update")
+    public void updateGame(@RequestBody UpdateGameRequest request) {
+        repo.updateGame(request.getId(), request.getLastSeconds());
+    }
 }

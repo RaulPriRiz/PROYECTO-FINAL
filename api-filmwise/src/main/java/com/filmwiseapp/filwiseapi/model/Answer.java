@@ -10,7 +10,7 @@ public class Answer {
     private int id;
 
     private Integer questionId;
-    private String answertext;
+    private String answerText;
     private boolean isCorrect;
     
     public Answer(){
@@ -33,12 +33,12 @@ public class Answer {
         this.questionId = idQuestion;
     }
 
-    public String getAnswertext() {
-        return answertext;
+    public String getAnswerText() {
+        return answerText;
     }
 
-    public void setAnswertext(String answertext) {
-        this.answertext = answertext;
+    public void setAnswerText(String answerText) {
+        this.answerText = answerText;
     }
 
     public boolean isCorrect() {

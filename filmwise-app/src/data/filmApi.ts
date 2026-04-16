@@ -42,3 +42,15 @@ export const getNewFilms = async () => {
   
   return await response.json();
 };
+
+export const getFilm = async () => {
+
+  const response = await fetch(API_URL + "/film");
+
+  if(!response.ok){
+    throw new Error("Error al obtener la película");
+  }
+
+  return await response.json();
+};
+

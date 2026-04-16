@@ -13,7 +13,6 @@ public class GameRepository {
     private EntityManager entityManager;
 
     //creamos un nuevo registro de Game con el id de usuario y el de pelicula
-
     public Integer getMaxId() {
 
         String sql = "SELECT MAX(id) FROM Game";
@@ -40,8 +39,17 @@ public class GameRepository {
         return game;
     }
 
+    @Transactional
+    public void updateGame(int id, int lastSeconds) {
+        
+        String today = java.time.LocalDate.now().toString();
 
-    //funcion de charles para coger las últimas partidas (ordenalas por fecha mayor) y coge unas cuantas para el home:
+        String sql = "UPDATE Game SET LAST_SECONDS = " + lastSeconds + ", LAST_PLAYED = '" + today + "' WHERE ID = " + id;
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+
+    //funcion de charles para coger las últimas partidas (ordenalas por fecha mayor) y coge unas cuantas para el home junto con la imagen de la pelicula (join):
 
     
 }
