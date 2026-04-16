@@ -14,6 +14,7 @@ public class Film {
     private String genre;
     private String image;
     private LocalDate creationDate;
+    private String videoUrl;
 
     public Film() {
     }
@@ -38,6 +39,10 @@ public class Film {
         return creationDate;
     }
 
+    public String getVideoUrl(){
+        return videoUrl;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -56,5 +61,9 @@ public class Film {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public void setVideoUrl(String videoUrl){
+        this.videoUrl = videoUrl;
     }
 }

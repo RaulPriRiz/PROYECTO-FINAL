@@ -26,5 +26,10 @@ public class FilmRepository {
         return (List<Film>) entityManager.createNativeQuery(sql, Film.class).getResultList();
     }
 
+    public String findGameFilmURL(String title) {
 
+        String sql = "SELECT VIDEO_URL FROM Film where TITLE = '" + title + "'";
+
+        return (String) entityManager.createNativeQuery(sql).getSingleResult();
+    }
 }

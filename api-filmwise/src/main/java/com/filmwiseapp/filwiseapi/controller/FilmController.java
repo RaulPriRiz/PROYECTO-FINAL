@@ -2,6 +2,7 @@ package com.filmwiseapp.filwiseapi.controller;
 
 import org.springframework.web.bind.annotation.*;
 import com.filmwiseapp.filwiseapi.dao.FilmRepository;
+import com.filmwiseapp.filwiseapi.dto.NameRequest;
 import com.filmwiseapp.filwiseapi.model.Film;
 import java.util.List;
 
@@ -25,5 +26,11 @@ public class FilmController {
     @GetMapping("/newfilms")
     public List<Film> getUserNewFilms() {
         return repo.findNewFilms();
+    }
+
+    //hemos reutilizado nameRequest porque al fin y al cabo es un DTO que manda un string y punto y nos sirve tambien para este caso
+    @PostMapping("/filmURL")
+    public String getGameFilmURL(@RequestBody NameRequest nameRequest) {
+        return repo.findGameFilmURL(nameRequest.getName());
     }
 }
