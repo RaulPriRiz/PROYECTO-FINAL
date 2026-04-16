@@ -180,6 +180,6 @@ export const editScore = async (name: string, scoreIncrease:number) => {
   });
 
   if (!response.ok) {
-    throw new Error('Error al editar la imagen');
+    throw new Error('Error al editar score');
   }
 }
