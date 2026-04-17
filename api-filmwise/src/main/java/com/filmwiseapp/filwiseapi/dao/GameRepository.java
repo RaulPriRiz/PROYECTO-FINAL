@@ -12,7 +12,7 @@ public class GameRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    //creamos un nuevo registro de Game con el id de usuario y el de pelicula
+    //creamos un nuevo registro de Game con el id de usuario y el de pelicula cuando el usuario pulsa jugar partida o lo que sea
     public Integer getMaxId() {
 
         String sql = "SELECT MAX(id) FROM Game";
@@ -40,11 +40,11 @@ public class GameRepository {
     }
 
     @Transactional
-    public void updateGame(int id, int lastSeconds) {
+    public void updateGame(int userId, int filmId, int lastSeconds) {
         
         String today = java.time.LocalDate.now().toString();
 
-        String sql = "UPDATE Game SET LAST_SECONDS = " + lastSeconds + ", LAST_PLAYED = '" + today + "' WHERE ID = " + id;
+        String sql = "UPDATE Game SET LAST_SECONDS = " + lastSeconds + ", LAST_PLAYED = '" + today + "' WHERE FILM_ID = " + filmId + " AND USER_ID = " + userId;
 
         entityManager.createNativeQuery(sql).executeUpdate();
     }

@@ -23,6 +23,6 @@ public class GameController {
 
     @PutMapping("/update")
     public void updateGame(@RequestBody UpdateGameRequest request) {
-        repo.updateGame(request.getId(), request.getLastSeconds());
+        repo.updateGame(request.getUserId(),request.getFilmId(), request.getLastSeconds());
     }
 }

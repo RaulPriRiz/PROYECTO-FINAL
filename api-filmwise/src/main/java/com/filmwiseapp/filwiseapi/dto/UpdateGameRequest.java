@@ -1,16 +1,29 @@
 package com.filmwiseapp.filwiseapi.dto;
 
 public class UpdateGameRequest {
-    private int id;
+    
+    private int userId;
+    private int filmId;
     private int lastSeconds;
 
-   
-    public int getId() { 
-        return id; 
+    public UpdateGameRequest(){}
+    
+    public int getUserId() { 
+        return userId; 
     }
-    public void setId(int id) { 
-        this.id = id; 
+
+    public int getFilmId() {
+        return filmId;
     }
+
+    public void setUserId(int userId) { 
+        this.userId = userId; 
+    }
+
+    public void setFilmId(int filmId) { 
+        this.filmId = filmId; 
+    }
+
     public int getLastSeconds() { 
         return lastSeconds; 
     }
