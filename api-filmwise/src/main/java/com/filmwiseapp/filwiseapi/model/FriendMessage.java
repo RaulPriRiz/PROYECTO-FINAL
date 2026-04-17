@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table
 public class FriendMessage {
     
-     @Id
+    @Id
     private int id;
 
     private Integer idUserEmisor;
@@ -47,8 +47,4 @@ public class FriendMessage {
     public void setStatus(String status) {
         this.status = status;
     }
-
-
-
-
 }
