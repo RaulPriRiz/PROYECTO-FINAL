@@ -229,7 +229,7 @@ public class UserRepository {
     public void editStatusMessage(String emisorName, String receptorName, String newStatus){
 
         User user = findByName(emisorName);
-        //nos falta por saber el id del otro amigo (el del receptor)
+        
         User user2 = findByName(receptorName);
 
         String sql = "UPDATE FRIEND_MESSAGE SET STATUS = '" + newStatus + "' WHERE ID_USER_EMISOR = " + user.getId() + " AND ID_USER_RECEPTOR = " + user2.getId();
