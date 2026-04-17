@@ -14,24 +14,23 @@ export const createNewGame = async (userId:number, filmId:number, mode:string) =
       mode: mode
     })
   });
-
-  const data = await response.text(); 
   
   if(!response.ok){
-    throw new Error("Error al crear el juego");
+    throw new Error("Error al crear la partida");
   } 
 }
 
-export const updateGame = async (id: number, lastSeconds: number) => {
+export const updateGame = async (userId:number, filmdId:number, lastTime:number) => {
   const response = await fetch(`${API_URL}/update`, {
     method: "POST", 
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      id: id,
-      lastSeconds: lastSeconds
-      //La fecha lastPlayed'la puede poner el Backend automáticamente con LocalDate.now()
+      userId:userId,
+      filmdId:filmdId,
+      lastTime: lastTime
+      //La fecha lastPlayed la puede poner el Backend automáticamente con LocalDate.now()
     })
   });
 

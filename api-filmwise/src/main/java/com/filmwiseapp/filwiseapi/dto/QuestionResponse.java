@@ -12,7 +12,6 @@ public class QuestionResponse {
 
     public QuestionResponse(){}
     
-    // Getter y Setter para questionText
     public String getQuestionText() {
         return questionText;
     }
@@ -21,7 +20,6 @@ public class QuestionResponse {
         this.questionText = questionText;
     }
 
-    // Getter y Setter para startSeconds
     public int getStartSeconds() {
         return startSeconds;
     }
@@ -30,7 +28,6 @@ public class QuestionResponse {
         this.startSeconds = startSeconds;
     }
 
-    // Getter y Setter para answer
     public List<Answer> getAnswers() {
         return answers;
     }

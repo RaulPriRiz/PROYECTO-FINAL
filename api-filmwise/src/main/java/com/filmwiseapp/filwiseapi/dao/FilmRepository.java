@@ -33,8 +33,7 @@ public class FilmRepository {
         String sql = "SELECT * FROM Film where TITLE = '" + title + "'";
 
         try{
-
-        return (Film) entityManager.createNativeQuery(sql, Film.class).getSingleResult();
+            return (Film) entityManager.createNativeQuery(sql, Film.class).getSingleResult();
         } catch(NoResultException e){
             return null;
         }

@@ -2862,3 +2862,15 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SEL
 Syntax error in SQL statement "SELECT * FROM QUESTION\000d\000a [*]select * from answer"; SQL statement:
 SELECT * FROM QUESTION
  select * from answer [42000-232]
+2026-04-17 08:50:06.976080+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM USER_COMPLETE_MISSION \000d\000a\000d\000a[*]SELECT * FROM MISSION"
+Syntax error in SQL statement "SELECT * FROM USER_COMPLETE_MISSION \000d\000a\000d\000a[*]SELECT * FROM MISSION"; SQL statement:
+SELECT * FROM USER_COMPLETE_MISSION 
+
+SELECT * FROM MISSION [42000-232]
+2026-04-17 08:50:43.847689+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM USER_COMPLETE_MISSION \000d\000a\000d\000a[*]SELECT * FROM MISSION"
+Syntax error in SQL statement "SELECT * FROM USER_COMPLETE_MISSION \000d\000a\000d\000a[*]SELECT * FROM MISSION"; SQL statement:
+SELECT * FROM USER_COMPLETE_MISSION 
+
+SELECT * FROM MISSION [42000-232]
