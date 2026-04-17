@@ -66,18 +66,6 @@
         <mxCell id="X31NF_qNFWhcwQ052VKp-44" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Tiene" vertex="1">
           <mxGeometry height="65" width="120" x="490" y="670" as="geometry" />
         </mxCell>
-        <mxCell id="X31NF_qNFWhcwQ052VKp-56" edge="1" parent="1" source="X31NF_qNFWhcwQ052VKp-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="X31NF_qNFWhcwQ052VKp-55">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="hIpVBTg7VGbsX9FP4esM-12" edge="1" parent="1" source="X31NF_qNFWhcwQ052VKp-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="p8qRHE4X08rXURELGsA0-3">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="X31NF_qNFWhcwQ052VKp-52" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Accede" vertex="1">
-          <mxGeometry height="65" width="120" x="-370" y="270" as="geometry" />
-        </mxCell>
-        <mxCell id="X31NF_qNFWhcwQ052VKp-55" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Ranking" vertex="1">
-          <mxGeometry height="60" width="120" x="-370" y="415" as="geometry" />
-        </mxCell>
         <mxCell id="X31NF_qNFWhcwQ052VKp-63" parent="1" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;IdUsuario&lt;/b&gt;&lt;/div&gt;Nickname&lt;div&gt;Contraseña&lt;/div&gt;&lt;div&gt;Email&lt;/div&gt;" vertex="1">
           <mxGeometry height="70" width="82.5" x="-135" y="210" as="geometry" />
         </mxCell>
@@ -121,9 +109,6 @@
         <mxCell id="hIpVBTg7VGbsX9FP4esM-1" parent="1" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" value="FechaRegistro&lt;div&gt;Puntuacion&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="60" width="90" x="-190" y="800" as="geometry" />
         </mxCell>
-        <mxCell id="hIpVBTg7VGbsX9FP4esM-4" parent="1" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Usuarios registrados&lt;/span&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="30" width="130" x="-510" y="415.63" as="geometry" />
-        </mxCell>
         <mxCell id="hIpVBTg7VGbsX9FP4esM-5" parent="1" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;Nombre&lt;/b&gt;&lt;/div&gt;Dificultad&lt;div&gt;Tiempo&lt;/div&gt;&lt;div&gt;Descripción&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="65" width="130" x="635" y="805" as="geometry" />
         </mxCell>
@@ -141,9 +126,6 @@
         </mxCell>
         <mxCell id="hIpVBTg7VGbsX9FP4esM-10" parent="1" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" value="N:M" vertex="1">
           <mxGeometry height="30" width="40" x="434" y="687.5" as="geometry" />
-        </mxCell>
-        <mxCell id="hIpVBTg7VGbsX9FP4esM-13" parent="1" style="text;strokeColor=#b85450;fillColor=#f8cecc;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;align=center;" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Usamos un check en la bd o a través de la lógica de la app para que el invitado no acceda al ranking&lt;/span&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="70" width="200" x="-630" y="270" as="geometry" />
         </mxCell>
         <mxCell id="hIpVBTg7VGbsX9FP4esM-14" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;rounded=0;" value="En principio no queremos guardar las preguntas de IA ya que son datos efímeros" vertex="1">
           <mxGeometry height="53.75" width="180" x="950" y="676.87" as="geometry" />
