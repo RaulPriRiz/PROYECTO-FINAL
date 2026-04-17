@@ -19,7 +19,6 @@ function Competition() {
     const fetchMissions = async () => {
       try {
         const data = await getMissions(userLogin.name);
-        console.log("MISIONES:", data);
         setMissions(data);
       } catch (error) {
         console.error("Error al obtener misiones:", error);

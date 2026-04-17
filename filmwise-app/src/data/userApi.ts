@@ -60,7 +60,7 @@ export const getUser = async (name:string, token:string) => {
         "Content-Type": "application/json",
         "Authorization" : "Bearer " + token //Mando el token del usuario en el header
       },
-      body: JSON.stringify({name}) 
+      body: JSON.stringify({name:name}) 
   });
 
   if (response.status === 403) {
@@ -81,15 +81,68 @@ export const getFriendsCount = async (name: string) => {
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({name})
+      body: JSON.stringify({name:name})
     });
 
   if(!res.ok) throw new Error('Error al obtener los amigos');
 
   const data = await res.text();
   return data;
+};
+
+//devuelve los mensajes de las solicitudes de amistad de un usuario que tengan status PENDIENTE
+export const getFriendsMessages = async (name: string) => {
+  const response = await fetch(API_URL + "/friends/messages", 
+    {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({name:name})
+    });
+
+    if(!response.ok) throw new Error("Error al obtener tus mensajes");
+
+    const data = await response.json();
+    return data;
+};
+
+//si el usuario acepta o rechaza el mensaje, hay que editar el status del mensaje de amistad
+export const editMessageStatus = async (nameEmisor: string, newStatus:string, nameReceptor:string) => {
+  const response = await fetch(API_URL + "/friends/editStatus",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({
+        nameEmisor:nameEmisor,
+        newStatus:newStatus,
+        nameReceptor:nameReceptor
+      })
+    });
+
+    if(!response.ok) throw new Error("Error al aceptar o rechazar la solicitud");
+};
+
+//registra un nuevo mensaje de amistad en la BD con el nombre de quien lo envia y a quien lo envia
+export const createNewMessage = async (emisorName:string, receptorName:string) => {
+  const response = await fetch(API_URL + "/friends/newMessage",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({
+        emisorName:emisorName, 
+        receptorName:receptorName
+      })
+    });
+
+    if(!response.ok) throw new Error("Error al enviar el mensaje");
+
 };
 
 export const editName = async (oldName: string, newName: string) => {
@@ -183,3 +236,4 @@ export const editScore = async (name: string, scoreIncrease:number) => {
     throw new Error('Error al editar score');
   }
 }
+

@@ -3,8 +3,6 @@ package com.filmwiseapp.filwiseapi.dao;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
-
-import com.filmwiseapp.filwiseapi.dto.FriendRequest;
 import com.filmwiseapp.filwiseapi.dto.FriendsResponse;
 import com.filmwiseapp.filwiseapi.dto.MissionResponse;
 import com.filmwiseapp.filwiseapi.model.FriendMessage;
@@ -262,7 +260,7 @@ public class UserRepository {
 
     public boolean areFriends(int id1, int id2){
 
-        String sql = "SELECT * FROM IS_FRIEND_OF WHERE Friend1 = " + id1 +" AND Friend2 = " + id2 + " OR Friend1 = " + id2 + " AND Friend2 = " + id1;
+        String sql = "SELECT * FROM IS_FRIEND_OF WHERE (Friend1 = " + id1 +" AND Friend2 = " + id2 + ") OR (Friend1 = " + id2 + " AND Friend2 = " + id1 + ")";
     
         //si hay registros devuelve true
         try {
