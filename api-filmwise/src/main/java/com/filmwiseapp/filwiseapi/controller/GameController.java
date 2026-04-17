@@ -2,7 +2,6 @@ package com.filmwiseapp.filwiseapi.controller;
 
 import org.springframework.web.bind.annotation.*;
 import com.filmwiseapp.filwiseapi.dao.GameRepository;
-import com.filmwiseapp.filwiseapi.dto.UpdateGameRequest;
 import com.filmwiseapp.filwiseapi.model.Game;
 
 @RestController
@@ -22,7 +21,12 @@ public class GameController {
     }
 
     @PutMapping("/update")
-    public void updateGame(@RequestBody UpdateGameRequest request) {
-        repo.updateGame(request.getUserId(),request.getFilmId(), request.getLastSeconds());
+    public void updateGame(@RequestBody Game game) {
+        repo.updateGame(game.getUserId(),game.getFilmId(), game.getLastTime());
+    }
+
+    @PostMapping
+    public Game getGame(@RequestBody Game game) {
+        return repo.findGame(game.getUserId(), game.getFilmId());
     }
 }

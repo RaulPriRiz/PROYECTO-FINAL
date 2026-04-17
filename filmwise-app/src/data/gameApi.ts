@@ -20,7 +20,7 @@ export const createNewGame = async (userId:number, filmId:number, mode:string) =
   } 
 }
 
-export const updateGame = async (userId:number, filmdId:number, lastSeconds: number) => {
+export const updateGame = async (userId:number, filmdId:number, lastTime:number) => {
   const response = await fetch(`${API_URL}/update`, {
     method: "POST", 
     headers: {
@@ -29,7 +29,7 @@ export const updateGame = async (userId:number, filmdId:number, lastSeconds: num
     body: JSON.stringify({
       userId:userId,
       filmdId:filmdId,
-      lastSeconds: lastSeconds
+      lastTime: lastTime
       //La fecha lastPlayed la puede poner el Backend automáticamente con LocalDate.now()
     })
   });
