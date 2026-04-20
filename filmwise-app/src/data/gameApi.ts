@@ -38,3 +38,21 @@ export const updateGame = async (userId:number, filmdId:number, lastTime:number)
     throw new Error("Error al actualizar la partida");
   }
 };
+
+export const getRecentGames = async (name:string) => {
+  const response = await fetch(`${API_URL}/recent`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name:name
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al obtener partidas recientes");
+  }
+
+  return await response.json();
+};

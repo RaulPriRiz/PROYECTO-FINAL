@@ -1,4 +1,3 @@
-
 function GameCard({ title, mode, image }) {
   return (
     <div

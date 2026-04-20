@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-import MovieList from "./MovieList";
-
+import { useState, useEffect } from "react";
 import leftArrow from "../assets/left.svg";
 import rightArrow from "../assets/right.svg";
 
-function Carrusel() {
+function Carrusel({ movies }) {
 
-  const movies = MovieList();
   const [index, setIndex] = useState(0);
 
   const next = () => {
@@ -19,9 +16,12 @@ function Carrusel() {
 
   // AUTOPLAY
   useEffect(() => {
+    if (movies.length === 0) return;
     const interval = setInterval(next, 8000);
     return () => clearInterval(interval);
-  }, []);
+  }, [movies]);
+
+  if (movies.length === 0) return null;
 
   return (
     <div className="relative w-full mt-6 overflow-hidden">
@@ -32,8 +32,8 @@ function Carrusel() {
         {movies.map((movie) => (
           <img
             key={movie.id}
-            src={movie.image}
-            alt="movie"
+            src={movie.imageCarrousel}
+            alt={movie.title}
             className="w-full h-[350px] object-cover object-[center_35%] flex-shrink-0"
           />
         ))}

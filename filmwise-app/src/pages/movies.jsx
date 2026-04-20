@@ -13,6 +13,7 @@ function Movies() {
     const fetchFilms = async () => {
       try {
         const data = await getFilms();
+        console.log("MOVIES:", data);
         setMovies(data);
       } catch (error) {
         console.error("Error al cargar películas:", error.message);
