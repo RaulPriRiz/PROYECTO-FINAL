@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMoviesByTitle } from "../data/filmApi";
 import { Link, useParams } from "react-router";
-import { getFilm } from "../data/filmApi";
 import { useNavigate } from "react-router-dom";
 
 import playIcon from "../assets/play_circle.svg";
@@ -22,17 +21,11 @@ const MovieDetails = () => {
   const { title } = useParams();
   const [movie, setMovie] = useState(null);
 
-  const [film, setFilm] = useState(null);
-  const navigate = useNavigate();
-
   useEffect(() => {
     const fetchMovie = async () => {
       try {
         const data = await getMoviesByTitle(title);
         setMovie(data);
-
-        const filmData = await getFilm(title);
-        setFilm(filmData);
 
       } catch (error) {
         console.error(error);
@@ -134,12 +127,14 @@ const MovieDetails = () => {
 
         <div>
           <div className="flex gap-3 mb-4">
-            <button
-              onClick={() => navigate("/game", { state: { film } })}
-              className="flex-1 bg-filmRed py-2 rounded flex items-center justify-center gap-2">
-              <img src={playIcon} className="w-4" />
-              NORMAL
-            </button>
+            <Link to={`/game/${title}`}>
+              <button
+                className="flex-1 bg-filmRed py-2 rounded flex items-center justify-center gap-2"
+              >
+                <img src={playIcon} className="w-4" />
+                NORMAL
+              </button>
+            </Link>
 
             <button className="flex-1 bg-filmRed py-2 rounded flex items-center justify-center gap-2">
               <img src={playIcon} className="w-4" />
@@ -162,15 +157,14 @@ const MovieDetails = () => {
       <div className="hidden md:flex justify-between items-center px-20 py-7 bg-filmGray">
 
         <div className="flex gap-6">
-          <button
-            disabled={!film}
-            onClick={() => navigate("/game", { state: { film } })}
-            className="flex-1 bg-filmRed py-2 rounded flex items-center justify-center gap-2 disabled:opacity-50"
-          >
-            <img src={playIcon} className="w-4" />
-            NORMAL
-          </button>
-
+          <Link to={`/game/${title}`}>
+            <button
+              className="bg-filmRed px-10 py-5 rounded-xl flex items-center gap-3 text-lg"
+            >
+              <img src={playIcon} className="w-4" />
+              NORMAL
+            </button>
+          </Link>
           <button className="bg-filmRed px-10 py-5 rounded-xl flex items-center gap-3 text-lg">
             <img src={playIcon} className="w-6" />
             RÁPIDO

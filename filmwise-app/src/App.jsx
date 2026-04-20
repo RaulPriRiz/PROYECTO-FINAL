@@ -21,7 +21,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/competition" element={<Competition />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/game" element={<Game />} />
+        <Route path="/game/:title" element={<Game />} />
       </Routes>
     </BrowserRouter>
   );
