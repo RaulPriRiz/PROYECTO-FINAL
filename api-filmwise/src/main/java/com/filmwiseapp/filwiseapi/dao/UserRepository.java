@@ -1,10 +1,12 @@
 package com.filmwiseapp.filwiseapi.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
-import com.filmwiseapp.filwiseapi.dto.FriendsResponse;
+import com.filmwiseapp.filwiseapi.dto.MessageResponse;
 import com.filmwiseapp.filwiseapi.dto.MissionResponse;
+import com.filmwiseapp.filwiseapi.model.ChallengeMessage;
 import com.filmwiseapp.filwiseapi.model.FriendMessage;
 import com.filmwiseapp.filwiseapi.model.IsFriendOf;
 import com.filmwiseapp.filwiseapi.model.User;
@@ -169,18 +171,18 @@ public class UserRepository {
         return missions;
     }
 
-    public List<FriendsResponse> findUserMessages(String name){
+    public List<MessageResponse> findUserMessages(String name){
         
         User user = findByName(name);
 
-        String sql = "SELECT * FROM FRIEND_MESSAGE WHERE idUserReceptor = " + user.getId() + " AND status = 'PENDIENTE'";
+        String sql = "SELECT * FROM FRIEND_MESSAGE WHERE ID_USER_RECEPTOR = " + user.getId() + " AND status = 'PENDIENTE'";
 
-        List<FriendsResponse> res = new ArrayList<>();
+        List<MessageResponse> res = new ArrayList<>();
         
         List<Object[]> results = (List<Object[]>) entityManager.createNativeQuery(sql).getResultList();
 
         for(Object[] row : results) {
-            FriendsResponse friendMessage = new FriendsResponse();
+            MessageResponse friendMessage = new MessageResponse();
 
             //buscamos el nombre del usuario que ha enviado el mensaje
             User emisorUser = findById((Integer)row[1]);
@@ -275,6 +277,86 @@ public class UserRepository {
     public Integer getMaxIdIsFriendOf() {
 
         String sql = "SELECT MAX(id) FROM IS_FRIEND_OF";
+
+        try {
+            return (Integer) entityManager.createNativeQuery(sql).getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    //devuelve todos los usuarios de mayor a menor score
+    public List<User> getRankingUsers(){
+
+        String sql = "SELECT * FROM USUARIO ORDER BY SCORE DESC";
+
+        return (List<User>) entityManager.createNativeQuery(sql, User.class).getResultList();
+    }
+
+    @Transactional
+    public void editStatusChallengeMessage(String emisorName, String receptorName, String newStatus){
+
+        User user = findByName(emisorName);
+        
+        User user2 = findByName(receptorName);
+
+        String sql = "UPDATE CHALLENGE_MESSAGE SET STATUS = '" + newStatus + "' WHERE ID_USER_EMISOR = " + user.getId() + " AND ID_USER_RECEPTOR = " + user2.getId();
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+ 
+    public List<MessageResponse> findUserChallengeMessages(String name){
+        
+        User user = findByName(name);
+
+        String sql = "SELECT * FROM CHALLENGE_MESSAGE WHERE ID_USER_RECEPTOR = " + user.getId() + " AND status = 'PENDIENTE'";
+
+        List<MessageResponse> res = new ArrayList<>();
+        
+        List<Object[]> results = (List<Object[]>) entityManager.createNativeQuery(sql).getResultList();
+
+        for(Object[] row : results) {
+            MessageResponse friendMessage = new MessageResponse();
+
+            //buscamos el nombre del usuario que ha enviado el mensaje
+            User emisorUser = findById((Integer)row[1]);
+
+            friendMessage.setEmisorName(emisorUser.getName());
+            friendMessage.setStatus((String)row[5]);
+            friendMessage.setFilmTitle((String) row[2]);
+            friendMessage.setDate((LocalDate) row[1]);
+            res.add(friendMessage);
+        }
+
+        return res;
+    }
+
+    @Transactional
+    public void createChallengeMessage(String emisorName, String receptorName, String filmTitle) {
+        
+        Integer maxId = getMaxIdChallengeMessage();
+
+        if (maxId == null) {
+            maxId = 0;
+        }
+
+        User userEmisor = findByName(emisorName);
+        User userReceptor = findByName(receptorName);
+
+        ChallengeMessage challengeMessage = new ChallengeMessage();
+        challengeMessage.setId(maxId + 1);
+        challengeMessage.setIdUserEmisor(userEmisor.getId());
+        challengeMessage.setIdUserReceptor(userReceptor.getId());
+        challengeMessage.setStatus("PENDIENTE");
+        challengeMessage.setDate(LocalDate.now()); //la fecha de cuando se quiere guardar el mensaje de reto
+        challengeMessage.setFilmTitle(filmTitle); //el titulo de la pelicula a la que se quiere retar
+
+        entityManager.persist(challengeMessage);
+    }
+
+    public Integer getMaxIdChallengeMessage() {
+
+        String sql = "SELECT MAX(id) FROM CHALLENGE_MESSAGE";
 
         try {
             return (Integer) entityManager.createNativeQuery(sql).getSingleResult();

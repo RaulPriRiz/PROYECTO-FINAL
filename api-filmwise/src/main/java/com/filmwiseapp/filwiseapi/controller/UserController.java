@@ -5,19 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import com.filmwiseapp.filwiseapi.dao.UserRepository;
-import com.filmwiseapp.filwiseapi.dto.EditEmail;
-import com.filmwiseapp.filwiseapi.dto.EditImage;
-import com.filmwiseapp.filwiseapi.dto.EditMessageStatus;
-import com.filmwiseapp.filwiseapi.dto.EditName;
-import com.filmwiseapp.filwiseapi.dto.EditScore;
-import com.filmwiseapp.filwiseapi.dto.FriendRequest;
-import com.filmwiseapp.filwiseapi.dto.FriendsResponse;
-import com.filmwiseapp.filwiseapi.dto.LoginResponse;
-import com.filmwiseapp.filwiseapi.dto.MissionResponse;
-import com.filmwiseapp.filwiseapi.dto.NameRequest;
+import com.filmwiseapp.filwiseapi.dto.*;
 import com.filmwiseapp.filwiseapi.model.User;
 import com.filmwiseapp.filwiseapi.utils.JwtUtil;
-import com.filmwiseapp.filwiseapi.dto.LoginRequest;
 
 @RestController
 @RequestMapping("/api/user")
@@ -112,17 +102,37 @@ public class UserController {
     }
 
     @PostMapping("/friends/messages")
-    public List<FriendsResponse> getUserMessages(@RequestBody NameRequest nameRequest){
+    public List<MessageResponse> getUserMessages(@RequestBody NameRequest nameRequest){
         return repo.findUserMessages(nameRequest.getName());
     }
 
     @PostMapping("/friends/newMessage")
-    public void sendMessage(@RequestBody FriendRequest friendsRequest){
+    public void sendMessage(@RequestBody MessageRequest friendsRequest){
         repo.createMessage(friendsRequest.getEmisorName(), friendsRequest.getReceptorName());
     }
 
     @PostMapping("/friends/editStatus")
     public void editMessageStatus(@RequestBody EditMessageStatus editMessageStatus){
         repo.editStatusMessage(editMessageStatus.getNameEmisor(), editMessageStatus.getNameReceptor(), editMessageStatus.getNewStatus());
+    }
+
+    @GetMapping("/rankingUsers")
+    public List<User> getRankingUsers(){
+        return repo.getRankingUsers();
+    }
+
+    @PostMapping("/challenges/messages")
+    public List<MessageResponse> getUserChallengeMessages(@RequestBody NameRequest nameRequest){
+        return repo.findUserChallengeMessages(nameRequest.getName());
+    }
+
+    @PostMapping("/challenges/newMessage")
+    public void sendChallengeMessage(@RequestBody MessageRequest challengesRequest){
+        repo.createChallengeMessage(challengesRequest.getEmisorName(), challengesRequest.getReceptorName(), challengesRequest.getFilmTitle());
+    }
+
+    @PostMapping("/challenges/editStatus")
+    public void editChallengeStatus(@RequestBody EditMessageStatus editMessageStatus){
+        repo.editStatusChallengeMessage(editMessageStatus.getNameEmisor(), editMessageStatus.getNameReceptor(), editMessageStatus.getNewStatus());
     }
 }

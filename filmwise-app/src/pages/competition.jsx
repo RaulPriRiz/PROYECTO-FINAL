@@ -91,7 +91,7 @@ function Competition() {
               Retar a un amigo
             </button>
 
-            <button className="h-20 md:h-40 md:flex-1 flex items-center justify-center gap-3 bg-filmGold transition-colors text-white text-xl md:text-2xl rounded-xl">
+            <button className="h-20 md:h-40 md:flex-1 flex items-center justify-center gap-3 bg-filmGold hover:brightness-90 transition-colors text-white text-xl md:text-2xl rounded-xl">
               <img src={ranking} alt="ranking icon" className="w-12 h-12 md:w-16 md:h-16" />
               Ver ranking
             </button>
