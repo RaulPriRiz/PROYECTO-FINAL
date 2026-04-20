@@ -33,6 +33,22 @@ function Login() {
     }
   };
 
+  const handleInvitedUser = () => {
+    //fecha ahora exacta con milisegundos
+    const invitedId = Date.now();
+    //esa es el nombre del in
+    const guestName = "Invitado " + invitedId;
+    //Guardamos en localStorage con el rol INVITADO
+    localStorage.setItem("user", JSON.stringify({
+      token: "TOKEN_INVITADO",
+      name: guestName,
+      rol: "INVITADO"
+    }));
+
+    navigate("/home");
+  }
+
+
   return (
     <div className="min-h-screen bg-filmBlack flex items-center justify-center relative overflow-hidden">
 
@@ -99,7 +115,8 @@ function Login() {
             </Link>
           </div>
 
-          <div className="text-sm text-filmGold underline cursor-pointer">
+          <div className="text-sm text-filmGold underline cursor-pointer"
+            onClick={handleInvitedUser}>
             Jugar como invitado
           </div>
 

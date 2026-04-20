@@ -53,7 +53,6 @@ export const loginUser = async (email:string, password:string) => {
 
 //devuelve TODOS los datos del usuario
 export const getUser = async (name:string, token:string) => {
-  console.log("getUser: " + token);
   const response = await fetch (API_URL, {
       method: "POST",
       headers: {

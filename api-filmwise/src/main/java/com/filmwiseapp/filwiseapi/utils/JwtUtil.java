@@ -18,11 +18,15 @@ public class JwtUtil {
     }
 
     public static boolean validateToken(String token, String requiredRol) {
+        
+        //como el token de invitado es especial porque no se hace con generateToken, tenemos que comprobarlo manualmente
+        if (token.equals("TOKEN_INVITADO") && (requiredRol.equals("REGISTRADO") || requiredRol.equals("ADMIN"))) return false;
+
         try {
             Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
             String rol = claims.get("rol", String.class);  
-            System.out.println(rol);
-            //Comprobamos el rol
+            System.out.println("****ROL****:" + rol);
+            //Comprobamos si coincide el rol del usuario con el rol requerido
             if (requiredRol != null && !requiredRol.equals(rol)) return false;
             return true;
         } catch (Exception e) {
