@@ -1,9 +1,13 @@
 package com.filmwiseapp.filwiseapi.dto;
 
-public class FriendsResponse {
+import java.time.LocalDate;
+
+public class MessageResponse {
 
     public String emisorName;
     public String status;
+    public String filmTitle; 
+    public LocalDate date;
 
     public String getEmisorName() {
         return emisorName;
@@ -13,7 +17,14 @@ public class FriendsResponse {
         this.emisorName = emisorName;
     }
 
-    // Getter y Setter para status
+    public String getFilmTitle(){
+        return filmTitle;
+    }
+
+    public void setFilmTitle(String filmTitle){
+        this.filmTitle = filmTitle;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -22,4 +33,11 @@ public class FriendsResponse {
         this.status = status;
     }
 
+    public void setDate(LocalDate date){
+        this.date = date;
+    }
+
+    public LocalDate getDate(){
+        return date;
+    }
 }
