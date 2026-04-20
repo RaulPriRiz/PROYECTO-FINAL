@@ -8,6 +8,7 @@ import Profile from "./pages/profile";
 import Competition from "./pages/competition";
 import Unauthorized from "./pages/Unauthorized";
 import Game from "./pages/Game";
+import GameFast from "./pages/GameFast";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/competition" element={<Competition />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/game/:title" element={<Game />} />
+        <Route path="/game-fast/:title" element={<GameFast />} />
       </Routes>
     </BrowserRouter>
   );
