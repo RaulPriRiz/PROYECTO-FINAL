@@ -134,7 +134,7 @@ function Profile() {
               </p>
             </div>
             <p className="mt-4">
-              {score} puntos - {pointsToNextLevel} puntos para subir al nivel {nextLevel}
+              {score} puntos - {pointsToNextLevel} puntos más para subir al nivel {nextLevel}
             </p>
 
           </div>
