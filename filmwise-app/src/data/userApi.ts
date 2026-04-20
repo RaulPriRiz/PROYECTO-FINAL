@@ -246,3 +246,55 @@ export const getRankingUsers = async() => {
   return await response.json();
 
 }
+
+export const getChallengesMessages = async (name:string) => {
+    const response = await fetch(API_URL + "/challenges/messages", 
+    {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({name:name})
+    });
+
+    if(!response.ok) throw new Error("Error al obtener tus mensajes de retos");
+
+    const data = await response.json();
+    return data;
+}
+
+export const editMessageChallengeStatus = async (nameEmisor: string, newStatus:string, nameReceptor:string) => {
+  const response = await fetch(API_URL + "/challenges/editStatus",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({
+        nameEmisor:nameEmisor,
+        newStatus:newStatus,
+        nameReceptor:nameReceptor
+      })
+    });
+
+    if(!response.ok) throw new Error("Error al aceptar o rechazar el reto");
+
+}
+
+export const createNewChallengeMessage = async(emisorName:string, receptorName:string, filmTitle:string) => {
+    const response = await fetch(API_URL + "/challenges/newMessage",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({
+        emisorName:emisorName, 
+        receptorName:receptorName,
+        filmTitle:filmTitle
+      })
+    });
+
+    if(!response.ok) throw new Error("Error al enviar el mensaje");
+
+}
