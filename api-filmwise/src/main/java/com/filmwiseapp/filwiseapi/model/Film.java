@@ -15,6 +15,7 @@ public class Film {
     private String image;
     private LocalDate creationDate;
     private String videoUrl;
+    private String imageCarrousel;
 
     public Film() {
     }
@@ -65,5 +66,13 @@ public class Film {
 
     public void setVideoUrl(String videoUrl){
         this.videoUrl = videoUrl;
+    }
+
+    public String getImageCarrousel(){
+        return imageCarrousel;
+    }
+
+    public void setImageCarrousel(String imageCarrousel){
+        this.imageCarrousel = imageCarrousel;
     }
 }
