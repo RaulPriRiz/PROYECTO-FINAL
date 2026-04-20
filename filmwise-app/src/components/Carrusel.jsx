@@ -32,7 +32,7 @@ function Carrusel({ movies }) {
         {movies.map((movie) => (
           <img
             key={movie.id}
-            src={movie.image}
+            src={movie.imageCarrousel}
             alt={movie.title}
             className="w-full h-[350px] object-cover object-[center_35%] flex-shrink-0"
           />

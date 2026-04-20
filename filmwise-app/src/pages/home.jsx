@@ -13,6 +13,8 @@ function Home() {
   const [newFilms, setNewFilms] = useState([]);
   const [recentGames, setRecentGames] = useState([]);
 
+  const userLogin = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     const fetchFilms = async () => {
       try {
@@ -20,7 +22,7 @@ function Home() {
         console.log("NEW FILMS:", data);
         setNewFilms(data);
       } catch (error) {
-        console.error("Error al obtener películas nuevas:", error);
+        console.log(error.message);
       }
     };
 
@@ -28,11 +30,11 @@ function Home() {
 
     const fetchGames = async () => {
       try {
-        const data = await getRecentGames();
+        const data = await getRecentGames(userLogin.name);
         console.log("RECENT GAMES:", data);
         setRecentGames(data);
       } catch (error) {
-        console.error("Error al obtener partidas recientes:", error);
+        console.log(error.message);
       }
     };
 
@@ -81,9 +83,9 @@ function Home() {
           {recentGames.map((game, index) => (
             <GameCard
               key={index}
-              title={"movie.title"}
+              title={game.title}
               mode={game.mode}
-              image={"movie.image"}
+              image={game.image}
             />
           ))}
         </div>

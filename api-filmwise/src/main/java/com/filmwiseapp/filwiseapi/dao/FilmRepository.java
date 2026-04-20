@@ -23,18 +23,18 @@ public class FilmRepository {
 
     public List<Film> findNewFilms() {
 
-        String sql = "SELECT * FROM Film WHERE CREATION_DATE >= CURRENT_DATE - INTERVAL '7 days'";
+        String sql = "SELECT * FROM Film WHERE CREATION_DATE >= DATEADD('DAY', -7, CURRENT_DATE)";
 
-        return (List<Film>) entityManager.createNativeQuery(sql, Film.class).getResultList();
+        return entityManager.createNativeQuery(sql, Film.class).getResultList();
     }
 
     public Film findFilm(String title) {
 
         String sql = "SELECT * FROM Film where TITLE = '" + title + "'";
 
-        try{
+        try {
             return (Film) entityManager.createNativeQuery(sql, Film.class).getSingleResult();
-        } catch(NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }

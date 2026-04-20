@@ -39,7 +39,7 @@ export const updateGame = async (userId:number, filmdId:number, lastTime:number)
   }
 };
 
-export const getRecentGames = async (name:String) => {
+export const getRecentGames = async (name:string) => {
   const response = await fetch(`${API_URL}/recent`, {
     method: "POST",
     headers: {

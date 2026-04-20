@@ -11,11 +11,11 @@ public class RecentGameResponse {
     public RecentGameResponse() {
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public int getFilmId() {
+    public Integer getFilmId() {
         return filmId;
     }
 
@@ -50,4 +50,5 @@ public class RecentGameResponse {
     public void setTitle(String title) {
         this.title = title;
     }
+    
 }

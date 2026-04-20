@@ -33,7 +33,7 @@ public class GameController {
         return repo.findGame(game.getUserId(), game.getFilmId());
     }
 
-    @GetMapping("/recent")
+    @PostMapping("/recent")
     public List<RecentGameResponse> getRecentGames(@RequestBody NameRequest nameRequest) {
         return repo.findRecentGames(nameRequest.getName());
     }
