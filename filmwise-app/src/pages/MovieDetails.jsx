@@ -136,10 +136,12 @@ const MovieDetails = () => {
               </button>
             </Link>
 
-            <button className="flex-1 bg-filmRed py-2 rounded flex items-center justify-center gap-2">
-              <img src={playIcon} className="w-4" />
-              RÁPIDO
-            </button>
+            <Link to={`/game-fast/${title}`}>
+              <button className="flex-1 bg-filmRed py-2 rounded flex items-center justify-center gap-2">
+                <img src={playIcon} className="w-4" />
+                RÁPIDO
+              </button>
+            </Link>
           </div>
 
           <div className="bg-filmRed p-3 rounded-lg flex items-center justify-center gap-2">
@@ -165,10 +167,12 @@ const MovieDetails = () => {
               NORMAL
             </button>
           </Link>
-          <button className="bg-filmRed px-10 py-5 rounded-xl flex items-center gap-3 text-lg">
-            <img src={playIcon} className="w-6" />
-            RÁPIDO
-          </button>
+          <Link to={`/game-fast/${title}`}>
+            <button className="bg-filmRed px-10 py-5 rounded-xl flex items-center gap-3 text-lg">
+              <img src={playIcon} className="w-6" />
+              RÁPIDO
+            </button>
+          </Link>
         </div>
 
         <div className="bg-filmRed px-6 py-3 rounded-lg flex items-center gap-3">
