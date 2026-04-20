@@ -96,7 +96,7 @@ function Profile() {
               <h2 className="text-3xl md:text-4xl font-serif font-bold">
                 {userName}
               </h2>
-              <span className="text-sm mt-1 font-semibold">
+              <span className="text-md mt-1 font-semibold mt-3">
                 {friendsNumber} Amigos
               </span>
 
@@ -134,7 +134,7 @@ function Profile() {
               </p>
             </div>
             <p className="mt-4">
-              {pointsToNextLevel} puntos para subir al nivel {nextLevel}
+              {score} puntos - {pointsToNextLevel} puntos para subir al nivel {nextLevel}
             </p>
 
           </div>
