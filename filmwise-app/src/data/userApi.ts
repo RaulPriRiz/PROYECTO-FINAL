@@ -237,3 +237,13 @@ export const editScore = async (name: string, scoreIncrease:number) => {
   }
 }
 
+export const getRankingUsers = async() => {
+  const response = await fetch(API_URL + "/rankingUsers");
+
+  if (!response.ok) {
+    throw new Error("Error al obtener los usuarios del ranking");
+  } 
+
+  return await response.json();
+
+}

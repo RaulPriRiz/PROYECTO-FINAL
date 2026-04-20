@@ -282,4 +282,13 @@ public class UserRepository {
             return 0;
         }
     }
+
+    //devuelve todos los usuarios de mayor a menor score
+    public List<User> getRankingUsers(){
+
+        String sql = "SELECT * FROM USUARIO ORDER BY SCORE DESC";
+
+        return (List<User>) entityManager.createNativeQuery(sql, User.class).getResultList();
+    }
+
 }

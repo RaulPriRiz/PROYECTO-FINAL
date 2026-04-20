@@ -125,4 +125,11 @@ public class UserController {
     public void editMessageStatus(@RequestBody EditMessageStatus editMessageStatus){
         repo.editStatusMessage(editMessageStatus.getNameEmisor(), editMessageStatus.getNameReceptor(), editMessageStatus.getNewStatus());
     }
+
+    @GetMapping("/rankingUsers")
+    public List<User> getRankingUsers(){
+        return repo.getRankingUsers();
+    }
+
+
 }
