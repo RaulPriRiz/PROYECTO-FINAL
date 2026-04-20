@@ -15,15 +15,15 @@ public class FilmRepository {
     private EntityManager entityManager;
 
     public List<Film> findAll() {
-        
+
         String sql = "SELECT * FROM Film";
 
         return (List<Film>) entityManager.createNativeQuery(sql, Film.class).getResultList();
     }
 
     public List<Film> findNewFilms() {
-        
-        String sql = "SELECT * FROM Film WHERE CREATION_DATE >= CURRENT_DATE - INTERVAL '7 days'";    
+
+        String sql = "SELECT * FROM Film WHERE CREATION_DATE >= CURRENT_DATE - INTERVAL '7 days'";
 
         return (List<Film>) entityManager.createNativeQuery(sql, Film.class).getResultList();
     }
@@ -39,10 +39,10 @@ public class FilmRepository {
         }
     }
 
-    public List<Question> findFilmQuestions(String title){
-        
+    public List<Question> findFilmQuestions(String title) {
+
         Film film = findFilm(title);
-        
+
         String sql = "SELECT * FROM QUESTION where FILM_ID = " + film.getId();
 
         return (List<Question>) entityManager.createNativeQuery(sql, Question.class).getResultList();
