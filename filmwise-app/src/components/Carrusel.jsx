@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import leftArrow from "../assets/left.svg";
 import rightArrow from "../assets/right.svg";
+import { Link } from "react-router";
 
 function Carrusel({ movies }) {
 
@@ -26,16 +27,17 @@ function Carrusel({ movies }) {
   return (
     <div className="relative w-full mt-6 overflow-hidden">
 
-      <div
-        className="flex transition-transform duration-500 ease-in-out"
-        style={{ transform: `translateX(-${index * 100}%)` }}>
+      <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${index * 100}%)` }}>
         {movies.map((movie) => (
-          <img
+          <Link
             key={movie.id}
+            to={`/details/${movie.title}`}
+            className="min-w-full flex-shrink-0">
+          <img
             src={movie.imageCarrousel}
             alt={movie.title}
-            className="w-full h-[350px] object-cover object-[center_35%] flex-shrink-0"
-          />
+            className="w-full h-[350px] object-cover object-[center_35%]"
+          /></Link>
         ))}
       </div>
 
