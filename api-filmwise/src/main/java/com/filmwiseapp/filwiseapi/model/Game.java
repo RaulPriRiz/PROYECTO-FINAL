@@ -15,7 +15,7 @@ public class Game {
     private String mode;
     private LocalDate lastPlayed;
     private Integer lastTime; //por qué segundos de la pelicula ha dejado la pelicula
-
+    
     public Game() {
     }
 

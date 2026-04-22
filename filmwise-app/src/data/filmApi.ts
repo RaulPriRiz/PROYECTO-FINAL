@@ -15,8 +15,11 @@ export async function getMoviesByTitle(title: string) {
   }
 
   const data = await resp.json();
-
-  return data.results[0];
+  
+  // @ts-ignore
+  const exactMatch = data.results.find(movie => movie.title === title);
+  
+  return exactMatch;
 }
 
 //devuelve una lista de objetos Film con todas las pelis
