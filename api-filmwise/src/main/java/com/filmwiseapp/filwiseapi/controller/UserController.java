@@ -34,6 +34,7 @@ public class UserController {
             return "Ese nombre ya existe";
         }
 
+        user.setRol("REGISTRADO");
         repo.createUser(user);
 
         return "Correcto"; //en verdad si es correcto no se llega a usar
@@ -43,7 +44,7 @@ public class UserController {
     public User getUser(@RequestHeader("Authorization") String authentication, @RequestBody NameRequest nameRequest) {
         
         String token = authentication.replace("Bearer ", "");
-        if (!JwtUtil.validateToken(token, "REGISTRADO")) {
+        if (!JwtUtil.validateToken(token, "REGISTRADO") && !JwtUtil.validateToken(token, "ADMIN")) {
             System.out.println("************ TOKEN INVALIDO ************");
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }

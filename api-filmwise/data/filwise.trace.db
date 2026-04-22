@@ -6928,11 +6928,19 @@ INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_
 org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
 Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
 INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
-2026-04-22 13:35:09.913927+02:00 jdbc[3]: exception
+2026-04-22 14:09:56.281531+02:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
 Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
 INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
-2026-04-22 14:46:24.534154+02:00 jdbc[3]: exception
+2026-04-22 16:04:23.435855+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
+2026-04-22 16:29:21.026521+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
+2026-04-22 16:35:21.192860+02:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
 Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
 INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
