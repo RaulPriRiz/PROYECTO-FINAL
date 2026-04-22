@@ -9,11 +9,13 @@ import ProgressBar from "../components/ProgressBar";
 import movie from "../assets/movie.svg";
 import play_circle from "../assets/play_circle.svg";
 import competition from "../assets/competition.svg";
+import RankingModal from "../components/RankingModal";
 
 function Competition() {
 
   const [missions, setMissions] = useState([]);
   const userLogin = JSON.parse(localStorage.getItem("user"));
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchMissions = async () => {
@@ -83,7 +85,7 @@ function Competition() {
 
           </div>
 
-          
+
           <div className="w-full md:w-[700px] flex flex-col md:flex-row gap-4 mt-4">
 
             <button className="h-20 md:h-40 md:flex-1 flex items-center justify-center gap-5 bg-red-600 hover:bg-red-700 transition-colors text-white text-xl md:text-2xl rounded-xl">
@@ -91,7 +93,9 @@ function Competition() {
               Retar a un amigo
             </button>
 
-            <button className="h-20 md:h-40 md:flex-1 flex items-center justify-center gap-3 bg-filmGold hover:brightness-90 transition-colors text-white text-xl md:text-2xl rounded-xl">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="h-20 md:h-40 md:flex-1 flex items-center justify-center gap-3 bg-filmGold hover:brightness-90 transition-colors text-white text-xl md:text-2xl rounded-xl">
               <img src={ranking} alt="ranking icon" className="w-12 h-12 md:w-16 md:h-16" />
               Ver ranking
             </button>
@@ -101,6 +105,11 @@ function Competition() {
         </div>
 
       </div>
+
+      <RankingModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
 
     </div>
   );

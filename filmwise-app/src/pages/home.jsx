@@ -15,7 +15,7 @@ function Home() {
   const [newFilms, setNewFilms] = useState([]);
   const [recentGames, setRecentGames] = useState([]);
   const [movies, setMovies] = useState([]);
-  
+
   const userLogin = JSON.parse(localStorage.getItem("user"));
 
   const randomMovieTitle = movies[Math.floor(Math.random() * movies.length)]?.title;
@@ -46,16 +46,16 @@ function Home() {
     fetchGames();
 
     const fetchFilms = async () => {
-        try {
-          const data = await getFilms();
-          console.log("MOVIES:", data);
-          setMovies(data);
-        } catch (error) {
-          console.log(error.message);
-        }
-      };
-  
-      fetchFilms();
+      try {
+        const data = await getFilms();
+        console.log("MOVIES:", data);
+        setMovies(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchFilms();
   }, []);
 
   return (
@@ -90,12 +90,14 @@ function Home() {
 
         <div className="flex gap-6 mt-4 flex-wrap">
           {recentGames.map((game, index) => (
-            <GameCard
+            <Link
               key={index}
-              title={game.title}
-              mode={game.mode}
-              image={game.image}
-            />
+              to={`/details/${game.title}`}>
+              <GameCard
+                title={game.title}
+                mode={game.mode}
+                image={game.image}
+              /></Link>
           ))}
         </div>
 

@@ -24,7 +24,7 @@ function Movies() {
   }, []);
 
   const filteredMovies = movies.filter((movie) => {
-    
+
     const matchesTitle = movie.title.toLowerCase().includes(titleFilter.toLowerCase());
 
     const matchesGenre = statusFilter === "Todas" || movie.genre === statusFilter;
@@ -67,7 +67,7 @@ function Movies() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 justify-items-center">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-x-10 md:gap-y-20 justify-items-center">
         {filteredMovies.map((movie) => (
           <MovieCard
             key={movie.id}
