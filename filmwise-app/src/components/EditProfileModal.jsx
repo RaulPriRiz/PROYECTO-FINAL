@@ -21,7 +21,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
   //GUARDAR CAMBIOS
   const handleSave = async () => {
     try {
-      
+
       if (!name || !email) {
         alert("Nombre y email son obligatorios");
         return;
@@ -33,7 +33,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
       if (name !== user.name) {
 
         await editName(user.name, name);
-        
+
         //actualizar localStorage
         const storedUser = JSON.parse(localStorage.getItem("user"));
         storedUser.name = name;
@@ -52,7 +52,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
       }
 
       //si ha habido algun cambio hacemos alert y recargamos
-      if(changes){
+      if (changes) {
         alert("Perfil actualizado correctamente");
         //recargar para ver cambios 
         window.location.reload();
