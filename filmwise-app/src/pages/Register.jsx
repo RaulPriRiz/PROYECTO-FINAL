@@ -131,13 +131,13 @@ function Register() {
             REGISTRARSE
           </button>
 
-          <Link
-            to="/"
-            className="text-filmGold underline text-sm mt-2"
-          >
-            Atrás
-          </Link>
-
+          <div className="text-sm text-filmGold">
+            O si ya tienes una cuenta,{" "}
+            <Link to="/" className="underline cursor-pointer">
+              Inicia sesión
+            </Link>
+          </div>
+          
         </div>
       </div>
     </div>
