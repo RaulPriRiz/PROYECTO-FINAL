@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import MissionCard from "../components/MissionCard";
 import star from "../assets/star.svg";
 import { useState, useEffect } from "react";
-import { getMissions } from "../data/userApi";
+import { getUser, getMissions } from "../data/userApi";
 import swords from "../assets/swords.svg";
 import ranking from "../assets/ranking.svg";
 import ProgressBar from "../components/ProgressBar";
@@ -10,24 +10,41 @@ import movie from "../assets/movie.svg";
 import play_circle from "../assets/play_circle.svg";
 import competition from "../assets/competition.svg";
 import RankingModal from "../components/RankingModal";
+import { useNavigate } from "react-router-dom";
 
 function Competition() {
 
+  const navigate = useNavigate();
+
   const [missions, setMissions] = useState([]);
-  const userLogin = JSON.parse(localStorage.getItem("user"));
+  const userLogin = JSON.parse(localStorage.getItem("user")) || null;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchMissions = async () => {
+
+    //el usuario directamente no hizo login ni tiene token:
+    if (!userLogin || !userLogin.token) {
+      //cambia la última ruta del historial que sería competition por /unauthorized para que no se quede en bucle al darle a Atrás
+      navigate("/unauthorized", { replace: true });
+      return;
+    }
+
+    const fetchData = async () => {
       try {
+        await getUser(userLogin.name, userLogin.token);
         const data = await getMissions(userLogin.name);
         setMissions(data);
       } catch (error) {
-        console.error("Error al obtener misiones:", error);
+        //el usuario tiene token pero es desautorizado
+        if (error.message === "UNAUTHORIZED") {
+          navigate("/unauthorized", { replace: true });
+        } else {
+          console.error(error.message);
+        }
       }
     };
 
-    fetchMissions();
+    fetchData();
   }, []);
 
   const icons = [star, movie, play_circle, competition];

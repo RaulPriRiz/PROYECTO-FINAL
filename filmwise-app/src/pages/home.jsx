@@ -8,6 +8,7 @@ import gameIcon from "../assets/movie.svg";
 import { getRecentGames } from "../data/gameApi";
 import GameCard from "../components/GameCard";
 import { Link } from "react-router";
+import bgFilm from "../assets/bgFilm.jpg";
 
 
 function Home() {
@@ -17,6 +18,7 @@ function Home() {
   const [movies, setMovies] = useState([]);
 
   const userLogin = JSON.parse(localStorage.getItem("user"));
+  const isRegistered = userLogin?.rol === "REGISTRADO";
 
   const randomMovieTitle = movies[Math.floor(Math.random() * movies.length)]?.title;
 
@@ -67,9 +69,11 @@ function Home() {
         <h1 className="text-2xl md:text-4xl font-semibold">
           NUEVAS PELÍCULAS DISPONIBLES
         </h1>
-        <button className="hover:opacity-70 transition">
-          <img src={bell} alt="icono" className="w-6 md:w-8" />
-        </button>
+        {isRegistered && (
+          <button className="hover:opacity-70 transition">
+            <img src={bell} alt="icono" className="w-6 md:w-8" />
+          </button>
+        )}
       </div>
 
       <Carrusel movies={newFilms} />
@@ -82,27 +86,62 @@ function Home() {
         </Link>
       </div>
 
-      <div className="mt-14">
-        <div className="inline-flex items-center gap-3 bg-filmGray text-white px-5 py-2 rounded-full font-semibold mb-4">
-          <img src={gameIcon} alt="icono" className="w-5 md:w-6" />
-          <span>PARTIDAS RECIENTES</span>
-        </div>
+      <div className="mt-10">
 
-        <div className="flex gap-6 mt-4 flex-wrap">
-          {recentGames.map((game, index) => (
-            <Link
-              key={index}
-              to={`/details/${game.title}`}>
-              <GameCard
-                title={game.title}
-                mode={game.mode}
-                image={game.image}
-              /></Link>
-          ))}
-        </div>
+        {isRegistered ? (
+          //Si está registrado
+          <>
+            <div className="inline-flex items-center gap-3 bg-filmGray text-white px-5 py-2 rounded-full font-semibold mb-4">
+              <img src={gameIcon} alt="icono" className="w-5 md:w-6" />
+              <span>PARTIDAS RECIENTES</span>
+            </div>
 
+            <div className="flex gap-6 mt-4 flex-wrap">
+              {recentGames.map((game, index) => (
+                <Link
+                  key={index}
+                  to={`/details/${game.title}`}>
+                  <GameCard
+                    title={game.title}
+                    mode={game.mode}
+                    image={game.image}
+                  /></Link>
+              ))}
+            </div>
+          </>
+
+        ) : (
+          //Si no está registrado
+          <>
+            <div
+              className="relative overflow-hidden rounded-2xl h-[200px] flex items-center justify-center px-6 py-10"
+              style={{ backgroundImage: `url(${bgFilm})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+
+              <div className="absolute inset-0 bg-black/70"></div>
+              <div className="relative z-10 text-center">
+
+                <h2 className="text-center text-filmGold font-serif font-bold text-2xl md:text-3xl">
+                  ESTÁS JUGANDO COMO USUARIO INVITADO
+                </h2>
+
+                <p className="text-center text-sm text-filmGold mt-5 md:mt-8">
+                  Desbloquea todo el potencial de FilmWise{" "}
+                  <Link to="/register" className="underline cursor-pointer">
+                    Registrándote aquí
+                  </Link>
+                  , o{" "}
+                  <Link to="/" className="underline cursor-pointer">
+                    Inicia sesión
+                  </Link>
+                  {" "}si ya tienes una cuenta.
+                </p>
+
+              </div>
+            </div>
+          </>
+        )}
+        
       </div>
-
     </div>
   );
 }
