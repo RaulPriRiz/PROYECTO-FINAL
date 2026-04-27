@@ -105,10 +105,9 @@ function Competition() {
 
           </div>
 
-
           <div className="w-full md:w-[700px] flex flex-col md:flex-row gap-4 mt-4">
 
-            <button 
+            <button
               onClick={() => setIsChallengeFriendOpen(true)}
               className="h-20 md:h-40 md:flex-1 flex items-center justify-center gap-5 bg-red-600 hover:bg-red-700 transition-colors text-white text-xl md:text-2xl rounded-xl">
               <img src={swords} alt="swords icon" className="w-10 h-10 md:w-12 md:h-12" />

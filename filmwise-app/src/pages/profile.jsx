@@ -109,7 +109,7 @@ function Profile() {
                   className="bg-red-900 hover:bg-red-700 px-4 py-2 md:px-8 rounded-full text-sm font-semibold transition">
                   Editar perfil
                 </button>
-                <button 
+                <button
                   onClick={() => setIsAddFriendOpen(true)}
                   className="bg-red-900 hover:bg-red-700 px-6 py-2 md:px-10 rounded-full text-sm font-semibold transition">
                   + Amigo
