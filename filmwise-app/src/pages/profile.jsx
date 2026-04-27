@@ -9,6 +9,7 @@ import movie from "../assets/movie.svg";
 import EditProfileModal from "../components/EditProfileModal";
 import ProgressBar from "../components/ProgressBar";
 import { useNavigate } from "react-router-dom";
+import AddFriendModal from "../components/AddFriendModal";
 
 function Profile() {
 
@@ -17,7 +18,9 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [friends, setFriends] = useState(null);
   const userLogin = JSON.parse(localStorage.getItem("user")) || null;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [isAddFriendOpen, setIsAddFriendOpen] = useState(false);
+
   const handleLogout = () => {
     localStorage.clear();
     navigate("/");
@@ -102,11 +105,13 @@ function Profile() {
 
               <div className="flex gap-5 mt-4 md:mt-10">
                 <button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => setIsEditProfileOpen(true)}
                   className="bg-red-900 hover:bg-red-700 px-4 py-2 md:px-8 rounded-full text-sm font-semibold transition">
                   Editar perfil
                 </button>
-                <button className="bg-red-900 hover:bg-red-700 px-6 py-2 md:px-10 rounded-full text-sm font-semibold transition">
+                <button 
+                  onClick={() => setIsAddFriendOpen(true)}
+                  className="bg-red-900 hover:bg-red-700 px-6 py-2 md:px-10 rounded-full text-sm font-semibold transition">
                   + Amigo
                 </button>
                 <button
@@ -156,10 +161,17 @@ function Profile() {
       </div>
 
       <EditProfileModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isEditProfileOpen}
+        onClose={() => setIsEditProfileOpen(false)}
         user={user}
       />
+
+      <AddFriendModal
+        isOpen={isAddFriendOpen}
+        onClose={() => setIsAddFriendOpen(false)}
+        user={user}
+      />
+
     </div >
   );
 }
