@@ -34,12 +34,7 @@ function Register() {
     }
 
     try {
-      await registerUser({
-        name,
-        email,
-        password,
-        rol: "REGISTRADO",
-      });
+      await registerUser(name,email,password,"REGISTRADO");
 
       navigate("/");
 

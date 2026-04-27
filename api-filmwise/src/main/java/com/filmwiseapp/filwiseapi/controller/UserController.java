@@ -45,7 +45,7 @@ public class UserController {
         return "Correcto"; //en verdad si es correcto no se llega a usar
     }
 
-    @PostMapping
+    @PostMapping("/getUser")
     public User getUser(@RequestHeader("Authorization") String authentication, @RequestBody NameRequest nameRequest) {
         
         String token = authentication.replace("Bearer ", "");

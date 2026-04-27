@@ -51,16 +51,22 @@ public class UserRepository {
         user.setId(maxId + 1);
 
         entityManager.persist(user);
-        //ponemos los score por defecto que tendria el usuario nada más registrarse
+        //ponemos las cosas por defecto que tendria el usuario nada más registrarse
         user.setBestScore(0);
         user.setScore(0);
-
+        user.setLevelId(1);
+        user.setBestScore(0);
+        user.setCorrectAnswers(0);
+        user.setFavoriteGenre("¡Juega unas cuantas partidas más!");
+        user.setGamesPlayed(0);
         //si se ha creado un nuevo usuario debemos registrar sus misiones por completas en la tabla USER_COMPLETE_MISSION 
-        String sql = "SELECT ID FROM MISSIONS";
+        String sql = "SELECT ID FROM MISSION";
         List<Object> missionIds = entityManager.createNativeQuery(sql).getResultList();
-
+        
+        Integer maxMissionUserId = getMissionUserMaxId();
         for (Object missionId : missionIds) {
-            String sql2 = "INSERT INTO USER_COMPLETE_MISSIONS (USER_ID, MISSION_ID, POINTS_COMPLETED) VALUES (" + user.getId() + ", " + missionId + ", 0)";
+            maxMissionUserId++;
+            String sql2 = "INSERT INTO USER_COMPLETE_MISSION (ID, USER_ID, MISSION_ID, POINTS_COMPLETED) VALUES ("+ maxMissionUserId +","+ user.getId() + ", " + missionId + ", 0)";
         
             entityManager.createNativeQuery(sql2).executeUpdate();
         }
@@ -79,6 +85,16 @@ public class UserRepository {
         }
     }
 
+    public Integer getMissionUserMaxId(){
+        
+        String sql = "SELECT MAX(id) FROM USER_COMPLETE_MISSION";
+
+        try {
+            return (Integer) entityManager.createNativeQuery(sql).getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
     public User findByEmail(String email) {
         
         String sql = "SELECT * FROM Usuario WHERE email = '" + email + "'";

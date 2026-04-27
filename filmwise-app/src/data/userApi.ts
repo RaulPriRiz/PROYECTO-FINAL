@@ -65,7 +65,7 @@ export const loginUser = async (email:string, password:string) => {
 
 //devuelve TODOS los datos del usuario
 export const getUser = async (name:string, token:string) => {
-  const response = await fetch (API_URL, {
+  const response = await fetch (API_URL + "/getUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
