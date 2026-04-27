@@ -2,6 +2,18 @@ import { API_BASE } from "./api";
 
 const API_URL: string = `${API_BASE}/user`;
 
+//devuelve una lista de objetos User con todas los usuarios
+export const getUsers = async () => {
+ 
+  const response = await fetch(API_URL);
+
+  if (!response.ok) {
+    throw new Error("Error al obtener lo usuarios");
+  } 
+
+  return await response.json();
+};
+
 export const registerUser = async (name:string, email:string, password:string, rol:string) => {
   
   const response = await fetch(API_URL + "/register", {
@@ -227,12 +239,46 @@ export const editScore = async (name: string, scoreIncrease:number) => {
     },
     body: JSON.stringify({
       name: name,
-      scoreIncrease: scoreIncrease    
+      number: scoreIncrease    
     })
   });
 
   if (!response.ok) {
     throw new Error('Error al editar score');
+  }
+}
+
+export const editCorrectAnswers = async (name: string, correctAnswersIncrease:number) => {
+  const response = await fetch(API_URL + "/edit/correctAnswers", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      number: correctAnswersIncrease    
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar el número de respuestas correctas');
+  }
+}
+
+export const editBestScore = async (name: string, actualScore:number) => {
+  const response = await fetch(API_URL + "/edit/bestScore", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      number: actualScore    
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar el mejor score');
   }
 }
 
@@ -298,3 +344,34 @@ export const createNewChallengeMessage = async(emisorName:string, receptorName:s
     if(!response.ok) throw new Error("Error al enviar el mensaje");
 
 }
+
+export const editUser = async (user:any) => {
+
+  const response = await fetch(`${API_URL}/updateUser`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user)
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al actualizar el usuario");
+  }
+};
+
+export const deleteUser = async (name: string) => {
+  const response = await fetch(`${API_BASE}/deleteUser`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("No se pudo eliminar al usuario");
+  }
+};

@@ -79,7 +79,7 @@ function Home() {
       <Carrusel movies={newFilms} />
 
       <div className="flex justify-center mt-10">
-        <Link to={`/details/${randomMovieTitle}`} className="flex items-center gap-3 bg-filmGold text-black font-serif font-bold px-6 md:px-7 py-3 md:py-4 rounded-xl text-lg hover:bg-white hover:text-black transition">
+        <Link to={`/details/${randomMovieTitle}`} className="flex items-center gap-3 bg-emerald-500 text-black font-serif font-bold px-6 md:px-7 py-3 md:py-4 rounded-xl text-lg hover:bg-white hover:text-black transition">
           <img src={dice} alt="icono" className="w-6 md:w-8" />
 
           <span>JUGAR PELÍCULA ALEATORIA</span>
@@ -124,14 +124,14 @@ function Home() {
                   ESTÁS JUGANDO COMO USUARIO INVITADO
                 </h2>
 
-                <p className="text-center text-sm text-filmGold mt-5 md:mt-8">
+                <p className="text-center text-md mt-5 md:mt-8">
                   Desbloquea todo el potencial de FilmWise{" "}
-                  <Link to="/register" className="underline cursor-pointer">
-                    Registrándote aquí
+                  <Link to="/register" className="underline cursor-pointer font-bold text-filmGold">
+                    registrándote aquí
                   </Link>
                   , o{" "}
-                  <Link to="/" className="underline cursor-pointer">
-                    Inicia sesión
+                  <Link to="/" className="underline cursor-pointer font-bold text-filmGold">
+                    inicia sesión
                   </Link>
                   {" "}si ya tienes una cuenta.
                 </p>

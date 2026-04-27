@@ -1,14 +1,13 @@
 package com.filmwiseapp.filwiseapi.dao;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import com.filmwiseapp.filwiseapi.dto.RecentGameResponse;
+import com.filmwiseapp.filwiseapi.model.Film;
 import com.filmwiseapp.filwiseapi.model.Game;
 import com.filmwiseapp.filwiseapi.model.User;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
@@ -21,12 +20,15 @@ public class GameRepository {
     private EntityManager entityManager;
 
     private final UserRepository userRepository;
+    private final FilmRepository filmRepository;
 
-    public GameRepository(UserRepository userRepository) {
+    public GameRepository(UserRepository userRepository, FilmRepository filmRepository) {
         this.userRepository = userRepository;
+        this.filmRepository = filmRepository;
     }
-    // creamos un nuevo registro de Game con el id de usuario y el de pelicula
-    // cuando el usuario pulsa jugar partida o lo que sea
+
+    //creamos un nuevo registro de Game con el id de usuario y el de pelicula
+    //cuando el usuario pulsa jugar partida o lo que sea
     public Integer getMaxId() {
 
         String sql = "SELECT MAX(id) FROM Game";
@@ -39,34 +41,58 @@ public class GameRepository {
     }
 
     @Transactional
-    public Game createGame(Game game) {
+    public Game createGame(String userName, String filmTitle, String mode) {
+        
+        Game existingGame = findGame(userName, filmTitle, mode);
+
+        if (existingGame != null) {
+            return existingGame;
+        }
+        
         Integer maxId = getMaxId();
 
         if (maxId == null) {
             maxId = 0;
         }
 
-        game.setId(maxId + 1);
+        Game game = new Game();
+        User user = userRepository.findByName(userName);
+        Film film = filmRepository.findFilm(filmTitle);
 
+        game.setId(maxId + 1);
+        game.setFilmId(film.getId());
+        game.setUserId(user.getId());
+        game.setMode(mode);
+        game.setLastTime(0);
+        game.setScore(0);
+        game.setIsFinished(false);
+        LocalDate today = java.time.LocalDate.now();
+        game.setLastPlayed(today);
         entityManager.persist(game);
 
         return game;
     }
 
     @Transactional
-    public void updateGame(int userId, int filmId, int lastTime) {
+    public void updateGame(String userName, String filmTitle, int lastTime) {
 
         String today = java.time.LocalDate.now().toString();
 
+        User user = userRepository.findByName(userName);
+        Film film = filmRepository.findFilm(filmTitle);
+
         String sql = "UPDATE Game SET LAST_TIME = " + lastTime + ", LAST_PLAYED = '" + today + "' WHERE FILM_ID = "
-                + filmId + " AND USER_ID = " + userId;
+                + film.getId() + " AND USER_ID = " + user.getId();
 
         entityManager.createNativeQuery(sql).executeUpdate();
     }
 
-    public Game findGame(int idUser, int idFilm) {
+    public Game findGame(String userName, String filmTitle, String mode) {
+        
+        User user = userRepository.findByName(userName);
+        Film film = filmRepository.findFilm(filmTitle);
 
-        String sql = "SELECT * FROM Game where USER_ID = " + idUser + " AND FILM_ID = " + idFilm;
+        String sql = "SELECT * FROM Game where USER_ID = " + user.getId() + " AND FILM_ID = " + film.getId() + " AND MODE = '" + mode + "' AND IS_FINISHED = FALSE";
 
         try {
             return (Game) entityManager.createNativeQuery(sql, Game.class).getSingleResult();
@@ -99,4 +125,27 @@ public class GameRepository {
         return res;
     }
 
+    @Transactional
+    public void editScore(String userName, String filmTitle, int scoreIncrease){
+        
+        User user = userRepository.findByName(userName);
+        Film film = filmRepository.findFilm(filmTitle);
+
+        String sql = "UPDATE Game SET SCORE = SCORE + " + scoreIncrease + " WHERE FILM_ID = " + film.getId() + " AND USER_ID = " + user.getId();
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+
+    }
+
+    @Transactional
+    public void editIsFinished(String userName, String filmTitle){
+        
+        User user = userRepository.findByName(userName);
+        Film film = filmRepository.findFilm(filmTitle);
+
+        String sql = "UPDATE Game SET IS_FINISHED = TRUE WHERE FILM_ID = " + film.getId() + " AND USER_ID = " + user.getId();
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+
+    }
 }

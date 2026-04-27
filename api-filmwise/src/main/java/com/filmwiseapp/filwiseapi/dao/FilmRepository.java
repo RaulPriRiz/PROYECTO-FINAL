@@ -1,5 +1,6 @@
 package com.filmwiseapp.filwiseapi.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import com.filmwiseapp.filwiseapi.model.Film;
@@ -7,6 +8,7 @@ import com.filmwiseapp.filwiseapi.model.Question;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
 @Repository
 public class FilmRepository {
@@ -16,7 +18,7 @@ public class FilmRepository {
 
     public List<Film> findAll() {
 
-        String sql = "SELECT * FROM Film";
+        String sql = "SELECT * FROM Film ORDER BY TITLE ASC";
 
         return (List<Film>) entityManager.createNativeQuery(sql, Film.class).getResultList();
     }
@@ -47,4 +49,43 @@ public class FilmRepository {
 
         return (List<Question>) entityManager.createNativeQuery(sql, Question.class).getResultList();
     }
+
+    @Transactional
+    public void createFilm(Film film) {
+
+        Integer maxId = getMaxId();
+
+        if (maxId == null) {
+            maxId = 0;
+        }
+
+        film.setId(maxId + 1);
+        LocalDate today = java.time.LocalDate.now();
+        film.setCreationDate(today);
+        entityManager.persist(film);
+    } 
+
+    public Integer getMaxId() {
+
+        String sql = "SELECT MAX(id) FROM Film";
+
+        try {
+            return (Integer) entityManager.createNativeQuery(sql).getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public void deleteFilm(String title){
+        
+        String sql = "DELETE FROM FILM WHERE TITLE = '" + title + "'";
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+
+    @Transactional
+    public void updateFilm(Film film) {
+        //merge se encarga de hacer el UPDATE de todos los campos basándose en el ID
+        entityManager.merge(film); 
+    } 
 }

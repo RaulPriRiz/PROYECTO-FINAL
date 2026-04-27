@@ -85,4 +85,35 @@ export const getFilmQuestions = async (title: string) => {
   }
 
   return await response.json();
-}
+};
+
+export const editFilm = async (film:any) => {
+
+  const response = await fetch(`${API_URL}/updateFilm`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(film)
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al actualizar la película");
+  }
+};
+
+export const deleteFilm = async (title: string) => {
+  const response = await fetch(`${API_BASE}/deleteFilm`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: title
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error("No se pudo eliminar la película");
+  }
+};

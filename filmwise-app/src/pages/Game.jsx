@@ -1,17 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import ReactPlayerImport from "react-player";
 import { useLocation } from "react-router-dom";
-import { getFilmQuestions } from "../data/filmApi";
 import { Link, useParams } from "react-router";
-import { getFilm } from "../data/filmApi";
+import { getFilm, getFilmQuestions } from "../data/filmApi";
 import Navbar from "../components/Navbar";
 import seats from "../assets/asientos.png";
-import { editScore } from "../data/userApi";
+import { editCorrectAnswers, editScore, editBestScore } from "../data/userApi";
+import { createNewGame, editGameScore, editGameIsFinished } from "../data/gameApi";
 import QuestionModal from "../components/QuestionModal";
 
 // (evita error de "object")
-const ReactPlayer =
-    ReactPlayerImport?.default ?? ReactPlayerImport;
+const ReactPlayer = ReactPlayerImport?.default ?? ReactPlayerImport;
 
 function Game() {
 
@@ -19,8 +18,7 @@ function Game() {
     const [film, setFilm] = useState(null);
     const userLogin = JSON.parse(localStorage.getItem("user")) || null;
     const [showEndModal, setShowEndModal] = useState(false);
-
-
+    const [currentTime, setCurrentTime] = useState(0); //estado pa guardar el tiempo
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -40,68 +38,84 @@ function Game() {
     const playerRef = useRef(null);
 
     const [questions, setQuestions] = useState([]);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [showQuestion, setShowQuestion] = useState(false);
     const [score, setScore] = useState(0);
     const [playing, setPlaying] = useState(true);
+    const [game, setGame] = useState(null);
+    const [correctAnswers, setCorrectAnswers] = useState(0);
+    const [preguntaActual, setPreguntaActual] = useState(null);
 
-    const preguntaActual = questions[currentQuestionIndex];
-
-    // CARGA PREGUNTAS
+    //cargar las preguntas + crear partida
     useEffect(() => {
         if (!film) return;
 
-        const fetchQuestions = async () => {
+        const start = async () => {
             try {
                 const data = await getFilmQuestions(film.title);
                 setQuestions(data);
             } catch (error) {
-                console.error("Error cargando preguntas:", error);
+                console.error("Error cargando preguntas:", error.message);
+            }
+
+            if (userLogin) {
+                const game = await createNewGame(userLogin.name, film.title, "NORMAL");
+                setGame(game);
+                //ponemos el score guardado de la partida en el score que se va guardado
+                setScore(game.score);
             }
         };
 
-        fetchQuestions();
+        start();
     }, [film]);
 
-    // CONTROL VIDEO
     const handleProgress = (state) => {
-        const currentTime = Math.floor(state.playedSeconds);
+        const time = Math.floor(state.playedSeconds);
+        setCurrentTime(time);
 
-        if (
-            preguntaActual &&
-            currentTime >= preguntaActual.startSeconds &&
-            !showQuestion
-        ) {
+        const preguntaParaAhora = questions.find(q => q.startSeconds === time);
+
+        if (preguntaParaAhora && !showQuestion) {
             setPlaying(false);
+            setPreguntaActual(preguntaParaAhora);
             setShowQuestion(true);
         }
     };
 
-    // RESPUESTA
-    const handleAnswer = (answer) => {
+    //si ha pulsado Guardar y salir guardamos la partida y la actualizamos
+    const handleSaveGame = async () => {
+        await updateGame(userLogin.name, film.title, currentTime);
+    };
+
+    //cuando el player esté ready entonces ejecutamos está función que pone el tiempo del vídeo igual que el atributo lastTime de la partida encontrada
+    const handlePlayerReady = () => {
+        if(game) playerRef.current.seekTo(game.lastTime, "seconds");
+    };
+
+    //RESPUESTA
+    const handleAnswer = async (answer) => {
 
         if (answer.correct) {
-            setScore((prev) => prev + 10);
+            const newScore = score + 10; 
+            setScore(newScore);       
+            await editGameScore(userLogin.name, film.title, 10);
+            setCorrectAnswers(prev => prev + 1);
         }
 
         setTimeout(() => {
-
             setShowQuestion(false);
-
-            setCurrentQuestionIndex((prev) => prev + 1);
             setPlaying(true);
-
         }, 1000);
     };
 
     const handleEndGame = async () => {
         try {
             await editScore(userLogin.name, score);
-
+            await editCorrectAnswers(userLogin.name, correctAnswers);
+            await editBestScore(userLogin.name, score);
+            await editGameIsFinished(userLogin.name, film.title);
             setShowEndModal(true);
-
         } catch (error) {
-            console.error("Error actualizando score:", error);
+            console.error("Error actualizando score:", error.message);
         }
     };
 
@@ -127,6 +141,7 @@ function Game() {
                                 ref={playerRef}
                                 url={film.videoUrl}
                                 playing={playing}
+                                onReady={handlePlayerReady}
                                 onProgress={handleProgress}
                                 controls
                                 width="100%"

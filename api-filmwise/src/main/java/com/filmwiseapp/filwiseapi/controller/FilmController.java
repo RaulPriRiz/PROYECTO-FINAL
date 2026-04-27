@@ -32,19 +32,16 @@ public class FilmController {
         return repo.findAll();
     }
 
-    // devuelve solo las pelis con fecha de máximo hace una semana
+    //devuelve solo las pelis con fecha de máximo hace una semana
     @GetMapping("/newfilms")
-    public List<Film> getUserNewFilms() {
+    public List<Film> getNewFilms() {
         return repo.findNewFilms();
     }
 
-    // hemos reutilizado nameRequest porque al fin y al cabo es un DTO que manda un
-    // string y punto y nos sirve tambien para este caso
+    //hemos reutilizado nameRequest porque al fin y al cabo es un DTO que manda un
+    //string y punto y nos sirve tambien para este caso
     @PostMapping("/film")
     public Film getFilm(@RequestBody NameRequest nameRequest) {
-
-        System.out.println("BUSCANDO PELI: " + nameRequest.getName()); 
-
         try {
             return repo.findFilm(nameRequest.getName());
         } catch (NoResultException e) {
@@ -52,8 +49,8 @@ public class FilmController {
         }
     }
 
-    // coge todas las preguntas con ese nombre de pelicula y devuelve una lista de
-    // QuestionReponse que es un dto con pregunta + List de sus answers
+    //coge todas las preguntas con ese nombre de pelicula y devuelve una lista de
+    //QuestionReponse que es un dto con pregunta + List de sus answers
     @PostMapping("/film/questions")
     public List<QuestionResponse> getFilmQuestions(@RequestBody NameRequest nameRequest) {
 
@@ -61,15 +58,15 @@ public class FilmController {
 
         List<Question> questions = repo.findFilmQuestions(nameRequest.getName());
 
-        // Vamos creando cada QuestionResponse y vamos añadiendo por cada question sus
-        // answers y sus questionText y startSeconds:
+        //Vamos creando cada QuestionResponse y vamos añadiendo por cada question sus
+        //answers y sus questionText y startSeconds:
         for (Question question : questions) {
 
             QuestionResponse questionResponse = new QuestionResponse();
             questionResponse.setQuestionText(question.getQuestionText());
             questionResponse.setStartSeconds(question.getstartSeconds());
 
-            // encontramos en la BD las answers a cada pregunta y las añadimos
+            //encontramos en la BD las answers a cada pregunta y las añadimos
             List<Answer> answers = answerRepository.findAnswers(question.getId());
 
             questionResponse.setAnswers(answers);
@@ -78,5 +75,20 @@ public class FilmController {
         }
 
         return res;
+    }
+
+    @PostMapping("/newFilm")
+    public void createNewFilm(@RequestBody Film film){
+        repo.createFilm(film);
+    }
+
+    @PostMapping("/deleteFilm")
+    public void deleteFilm(@RequestBody NameRequest nameRequest){
+        repo.deleteFilm(nameRequest.getName());
+    }
+
+    @PostMapping("/updateFilm")
+    public void updateFilm(@RequestBody Film film){
+        repo.updateFilm(film);
     }
 }

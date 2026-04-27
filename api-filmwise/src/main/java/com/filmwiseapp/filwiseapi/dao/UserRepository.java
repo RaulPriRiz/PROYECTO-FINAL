@@ -23,7 +23,7 @@ public class UserRepository {
 
     public List<User> findAll() {
         
-        String sql = "SELECT * FROM Usuario";
+        String sql = "SELECT * FROM Usuario ORDER BY NAME ASC";
 
         return (List<User>) entityManager.createNativeQuery(sql, User.class).getResultList();
     }
@@ -51,6 +51,19 @@ public class UserRepository {
         user.setId(maxId + 1);
 
         entityManager.persist(user);
+        //ponemos los score por defecto que tendria el usuario nada más registrarse
+        user.setBestScore(0);
+        user.setScore(0);
+
+        //si se ha creado un nuevo usuario debemos registrar sus misiones por completas en la tabla USER_COMPLETE_MISSION 
+        String sql = "SELECT ID FROM MISSIONS";
+        List<Object> missionIds = entityManager.createNativeQuery(sql).getResultList();
+
+        for (Object missionId : missionIds) {
+            String sql2 = "INSERT INTO USER_COMPLETE_MISSIONS (USER_ID, MISSION_ID, POINTS_COMPLETED) VALUES (" + user.getId() + ", " + missionId + ", 0)";
+        
+            entityManager.createNativeQuery(sql2).executeUpdate();
+        }
 
         return user;
     }
@@ -144,6 +157,23 @@ public class UserRepository {
         String sql = "UPDATE USUARIO SET SCORE = SCORE + "+ scoreIncrease +" WHERE NAME = '" + name + "'";
 
         entityManager.createNativeQuery(sql).executeUpdate();
+    }
+
+    @Transactional
+    public void editCorrectAnswers(String name, int correctAnswersIncrease){
+        String sql = "UPDATE USUARIO SET CORRECT_ANSWERS = CORRECT_ANSWERS + "+ correctAnswersIncrease +" WHERE NAME = '" + name + "'";
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+
+    //solo lo cambia si el score que acaba de conseguir es mayor a su bestScore
+    @Transactional
+    public void editBestScore(String name, int actualScore){
+        User user = findByName(name);
+        if(actualScore > user.getBestScore()){
+            String sql = "UPDATE USUARIO SET BEST_SCORE ="+ actualScore +" WHERE NAME = '" + name + "'";
+            entityManager.createNativeQuery(sql).executeUpdate();
+        }
     }
 
     public List<MissionResponse> findUserMissions(String name){
@@ -364,4 +394,19 @@ public class UserRepository {
             return 0;
         }
     }
+
+    @Transactional
+    public void deleteUser(String name) {
+
+        String sql = "DELETE FROM USUARIO WHERE NAME = '" + name + "'";
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+
+    @Transactional
+    public void updateUser(User user) {
+        //merge se encarga de hacer el UPDATE de todos los campos basándose en el ID
+        entityManager.merge(user); 
+    }
+
 }

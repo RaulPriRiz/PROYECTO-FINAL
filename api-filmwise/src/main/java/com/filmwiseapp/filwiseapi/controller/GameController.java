@@ -2,6 +2,7 @@ package com.filmwiseapp.filwiseapi.controller;
 
 import org.springframework.web.bind.annotation.*;
 import com.filmwiseapp.filwiseapi.dao.GameRepository;
+import com.filmwiseapp.filwiseapi.dto.GameRequest;
 import com.filmwiseapp.filwiseapi.dto.NameRequest;
 import com.filmwiseapp.filwiseapi.dto.RecentGameResponse;
 import com.filmwiseapp.filwiseapi.model.Game;
@@ -19,22 +20,27 @@ public class GameController {
     }
 
     @PostMapping("/newGame")
-    public void createNewGame(@RequestBody Game game) {
-        repo.createGame(game);
+    public Game createNewGame(@RequestBody GameRequest gameRequest) {
+        return repo.createGame(gameRequest.getUserName(), gameRequest.getFilmTitle(), gameRequest.getMode());
     }
 
-    @PutMapping("/update")
-    public void updateGame(@RequestBody Game game) {
-        repo.updateGame(game.getUserId(), game.getFilmId(), game.getLastTime());
-    }
-
-    @PostMapping
-    public Game getGame(@RequestBody Game game) {
-        return repo.findGame(game.getUserId(), game.getFilmId());
+    @PostMapping("/update")
+    public void updateGame(@RequestBody GameRequest gameRequest) {
+        repo.updateGame(gameRequest.getUserName(), gameRequest.getFilmTitle(), gameRequest.getLastTime());
     }
 
     @PostMapping("/recent")
     public List<RecentGameResponse> getRecentGames(@RequestBody NameRequest nameRequest) {
         return repo.findRecentGames(nameRequest.getName());
+    }
+
+    @PostMapping("/editScore")
+     public void editScore(@RequestBody GameRequest gameRequest) {
+        repo.editScore(gameRequest.getUserName(), gameRequest.getFilmTitle(), gameRequest.getScore());
+    }
+
+    @PostMapping("/editIsFinished")
+    public void editIsFinished(@RequestBody GameRequest gameRequest){
+        repo.editIsFinished(gameRequest.getUserName(), gameRequest.getFilmTitle());
     }
 }

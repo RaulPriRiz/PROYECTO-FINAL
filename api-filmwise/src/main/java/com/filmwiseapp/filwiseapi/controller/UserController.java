@@ -20,6 +20,11 @@ public class UserController {
         this.repo = repo;
     }
 
+    @GetMapping
+    public List<User> getUsers() {
+        return repo.findAll();
+    }
+
     @PostMapping("/register")
     public String registerUser(@RequestBody User user) {
 
@@ -98,8 +103,18 @@ public class UserController {
 
     //sumamos al score actual del usuario el scoreIncrease cuando se termina una partida
     @PostMapping("/edit/score")
-    public void editUserScore(@RequestBody EditScore editScore){
-        repo.editScore(editScore.getName(), editScore.getScoreIncrease());
+    public void editUserScore(@RequestBody EditNumber editScore){
+        repo.editScore(editScore.getName(), editScore.getNumber());
+    }
+
+    @PostMapping("/edit/correctAnswers")
+    public void editUserCorrectAnswers(@RequestBody EditNumber editCorrectAnswers){
+        repo.editCorrectAnswers(editCorrectAnswers.getName(), editCorrectAnswers.getNumber());
+    }
+
+    @PostMapping("/edit/bestScore")
+    public void editBestScore(@RequestBody EditNumber editBestScore){
+        repo.editBestScore(editBestScore.getName(), editBestScore.getNumber());
     }
 
     @PostMapping("/friends/messages")
@@ -136,4 +151,14 @@ public class UserController {
     public void editChallengeStatus(@RequestBody EditMessageStatus editMessageStatus){
         repo.editStatusChallengeMessage(editMessageStatus.getNameEmisor(), editMessageStatus.getNameReceptor(), editMessageStatus.getNewStatus());
     }
-}
+
+    @PostMapping("/deleteUser")
+    public void deleteUser(@RequestBody NameRequest nameRequest){
+        repo.deleteUser(nameRequest.getName());
+    }
+
+    @PostMapping("/updateUser")
+    public void updateUser(@RequestBody User user){
+        repo.updateUser(user);
+    }
+}   
