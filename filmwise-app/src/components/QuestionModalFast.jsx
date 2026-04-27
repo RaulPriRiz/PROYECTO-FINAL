@@ -46,9 +46,7 @@ function QuestionModalFast({ isOpen, question, onAnswer, onTimeout }) {
     if (!answered) return "bg-filmGold text-filmBlack";
 
     if (selected === ans) {
-      return ans.correct
-        ? "bg-green-500 text-white"
-        : "bg-red-500 text-white";
+      return ans.correct ? "bg-green-500 text-white" : "bg-red-500 text-white";
     }
 
     return "bg-gray-600 text-gray-300";

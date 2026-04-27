@@ -15,7 +15,9 @@ public class Game {
     private String mode;
     private LocalDate lastPlayed;
     private Integer lastTime; //por qué segundos de la pelicula ha dejado la pelicula
-    
+    private Integer score;
+    private boolean isFinished;
+
     public Game() {
     }
 
@@ -43,6 +45,14 @@ public class Game {
         return lastTime;
     }
 
+    public Integer getScore(){
+        return score;
+    }
+
+    public boolean getIsFinished(){
+        return isFinished;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -67,5 +77,11 @@ public class Game {
         this.lastTime = lastTime;
     }
 
+    public void setScore(Integer score){
+        this.score = score;
+    }
 
+    public void setIsFinished(boolean isFinished){
+        this.isFinished = isFinished;
+    }
 }
