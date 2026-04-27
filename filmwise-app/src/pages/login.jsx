@@ -25,7 +25,6 @@ function Login() {
         name: data.name,
         rol: data.rol
       }));
-
       navigate("/home");
 
     } catch (error) {

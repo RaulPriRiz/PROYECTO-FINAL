@@ -44,7 +44,8 @@ function Game() {
     const [game, setGame] = useState(null);
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [preguntaActual, setPreguntaActual] = useState(null);
-
+    const [lastTriggeredSecond, setLastTriggeredSecond] = useState(null);
+    
     //cargar las preguntas + crear partida
     useEffect(() => {
         if (!film) return;
@@ -74,10 +75,11 @@ function Game() {
 
         const preguntaParaAhora = questions.find(q => q.startSeconds === time);
 
-        if (preguntaParaAhora && !showQuestion) {
+        if (preguntaParaAhora && !showQuestion && lastTriggeredSecond !== time) {
             setPlaying(false);
             setPreguntaActual(preguntaParaAhora);
             setShowQuestion(true);
+            setLastTriggeredSecond(time); // Bloqueamos este segundo
         }
     };
 
@@ -88,7 +90,10 @@ function Game() {
 
     //cuando el player esté ready entonces ejecutamos está función que pone el tiempo del vídeo igual que el atributo lastTime de la partida encontrada
     const handlePlayerReady = () => {
-        if(game) playerRef.current.seekTo(game.lastTime, "seconds");
+        if(game){
+            playerRef.current.seekTo(game.lastTime, "seconds");
+            console.log(game.lastTime);
+        }
     };
 
     //RESPUESTA

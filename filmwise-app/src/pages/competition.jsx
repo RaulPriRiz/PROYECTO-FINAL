@@ -33,13 +33,14 @@ function Competition() {
       try {
         await getUser(userLogin.name, userLogin.token);
         const data = await getMissions(userLogin.name);
+        console.log("Datos que llegan de las misiones:", data);
         setMissions(data);
       } catch (error) {
         //el usuario tiene token pero es desautorizado
         if (error.message === "UNAUTHORIZED") {
           navigate("/unauthorized", { replace: true });
         } else {
-          console.error(error.message);
+          console.log(error);
         }
       }
     };
