@@ -416,7 +416,7 @@ export const editUser = async (user:any) => {
 };
 
 export const deleteUser = async (name: string) => {
-  const response = await fetch(`${API_BASE}/deleteUser`, {
+  const response = await fetch(`${API_URL}/deleteUser`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
