@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getMoviesByTitle } from "../data/filmApi";
 import { Link, useParams } from "react-router";
+import { getFilm } from "../data/filmApi";
 import { useNavigate } from "react-router-dom";
 
 import playIcon from "../assets/play_circle.svg";
@@ -21,12 +22,17 @@ const MovieDetails = () => {
   const { title } = useParams();
   const [movie, setMovie] = useState(null);
 
+  const [film, setFilm] = useState(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchMovie = async () => {
       try {
         const data = await getMoviesByTitle(title);
         setMovie(data);
 
+        const filmData = await getFilm(title);
+        setFilm(filmData);
       } catch (error) {
         console.error(error);
       }

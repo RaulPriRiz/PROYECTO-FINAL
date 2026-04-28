@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getFilmQuestions } from "../../data/filmApi";
 import { deleteQuestion } from "../../data/questionApi";
 import AdminModal from "./AdminModal";
-
+import QuestionEditor from "./QuestionEditor";
 
 function AdminFilmDetail({ film, onClose }) {
 
@@ -58,15 +58,17 @@ function AdminFilmDetail({ film, onClose }) {
                 </div>
 
                 {/* BOTÓN AÑADIR */}
-                <button className="mb-6 bg-green-600 px-4 py-2 rounded">
+                <button
+                    className="mb-6 bg-green-600 px-4 py-2 rounded"
+                >
                     + Añadir pregunta
                 </button>
 
                 {/* LISTADO DE PREGUNTAS */}
                 <div className="flex flex-col gap-6">
 
-                    {questions.map((q, i) => (
-                        <div key={i} className="bg-[#1f1f1f] p-6 rounded">
+                    {questions.map((q) => (
+                        <div key={q.id} className="bg-[#1f1f1f] p-6 rounded">
 
                             {/* PREGUNTA */}
                             <div className="flex justify-between mb-4">

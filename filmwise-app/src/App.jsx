@@ -11,6 +11,7 @@ import Game from "./pages/Game";
 import GameFast from "./pages/GameFast";
 import AdminPanel from "./pages/AdminPanel";
 
+
 function App() {
   return (
     <BrowserRouter>
