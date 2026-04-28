@@ -242,7 +242,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void createMessage(String emisorName, String receptorName) {
+    public String createMessage(String emisorName, String receptorName) {
         
         Integer maxId = getMaxIdFriendMessage();
 
@@ -252,6 +252,7 @@ public class UserRepository {
 
         User userEmisor = findByName(emisorName);
         User userReceptor = findByName(receptorName);
+        if(userReceptor == null) return "Error: usuario no encontrado";
 
         FriendMessage friendMessage = new FriendMessage();
         friendMessage.setId(maxId + 1);
@@ -260,6 +261,8 @@ public class UserRepository {
         friendMessage.setStatus("PENDIENTE");
 
         entityManager.persist(friendMessage);
+
+        return "Mensaje enviado correctamente";
     }
 
     public Integer getMaxIdFriendMessage() {
@@ -378,7 +381,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void createChallengeMessage(String emisorName, String receptorName, String filmTitle) {
+    public String createChallengeMessage(String emisorName, String receptorName, String filmTitle) {
         
         Integer maxId = getMaxIdChallengeMessage();
 
@@ -388,6 +391,7 @@ public class UserRepository {
 
         User userEmisor = findByName(emisorName);
         User userReceptor = findByName(receptorName);
+        if(userReceptor == null) return "Error: usuario no encontrado";
 
         ChallengeMessage challengeMessage = new ChallengeMessage();
         challengeMessage.setId(maxId + 1);
@@ -398,6 +402,7 @@ public class UserRepository {
         challengeMessage.setFilmTitle(filmTitle); //el titulo de la pelicula a la que se quiere retar
 
         entityManager.persist(challengeMessage);
+        return "Mensaje enviado correctamente";
     }
 
     public Integer getMaxIdChallengeMessage() {

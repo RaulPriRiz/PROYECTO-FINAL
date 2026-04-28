@@ -123,8 +123,8 @@ public class UserController {
     }
 
     @PostMapping("/friends/newMessage")
-    public void sendMessage(@RequestBody MessageRequest friendsRequest){
-        repo.createMessage(friendsRequest.getEmisorName(), friendsRequest.getReceptorName());
+    public String sendMessage(@RequestBody MessageRequest friendsRequest){
+        return repo.createMessage(friendsRequest.getEmisorName(), friendsRequest.getReceptorName());
     }
 
     @PostMapping("/friends/editStatus")
@@ -143,8 +143,8 @@ public class UserController {
     }
 
     @PostMapping("/challenges/newMessage")
-    public void sendChallengeMessage(@RequestBody MessageRequest challengesRequest){
-        repo.createChallengeMessage(challengesRequest.getEmisorName(), challengesRequest.getReceptorName(), challengesRequest.getFilmTitle());
+    public String sendChallengeMessage(@RequestBody MessageRequest challengesRequest){
+        return repo.createChallengeMessage(challengesRequest.getEmisorName(), challengesRequest.getReceptorName(), challengesRequest.getFilmTitle());
     }
 
     @PostMapping("/challenges/editStatus")

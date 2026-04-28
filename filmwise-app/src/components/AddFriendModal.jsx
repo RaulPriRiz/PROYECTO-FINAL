@@ -17,10 +17,9 @@ const AddFriendModal = ({ isOpen, onClose, user }) => {
   const handleSend = async () => {
     try {
       await createNewMessage(emisorName, receptorName);
-      console.log("OK");
       onClose();
     } catch (error) {
-      console.error(error.message);
+      alert(error.message);
     }
   };
 

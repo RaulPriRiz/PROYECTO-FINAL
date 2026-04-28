@@ -19,10 +19,9 @@ const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
   const handleSend = async () => {
     try {
       await createNewChallengeMessage(emisorName, receptorName, filmTitle);
-      console.log("OK");
       onClose();
     } catch (error) {
-      console.error(error.message);
+      alert(error.message);
     }
   };
 

@@ -152,7 +152,11 @@ export const createNewMessage = async (emisorName:string, receptorName:string) =
       })
     });
 
-    if(!response.ok) throw new Error("Error al enviar el mensaje");
+  const data = await response.text(); 
+  
+  if(!response.ok || data == "Error: usuario no encontrado"){
+    throw new Error(data);
+  } 
 
 };
 
@@ -341,8 +345,11 @@ export const createNewChallengeMessage = async(emisorName:string, receptorName:s
       })
     });
 
-    if(!response.ok) throw new Error("Error al enviar el mensaje");
-
+  const data = await response.text(); 
+  
+  if(!response.ok || data == "Error: usuario no encontrado"){
+    throw new Error(data);
+  } 
 }
 
 export const editUser = async (user:any) => {

@@ -44,7 +44,7 @@ function Game() {
     const [game, setGame] = useState(null);
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [preguntaActual, setPreguntaActual] = useState(null);
-    const [lastTriggeredSecond, setLastTriggeredSecond] = useState(null);
+    const [lastSecond, setLastSecond] = useState(null);
     
     //cargar las preguntas + crear partida
     useEffect(() => {
@@ -75,11 +75,11 @@ function Game() {
 
         const preguntaParaAhora = questions.find(q => q.startSeconds === time);
 
-        if (preguntaParaAhora && !showQuestion && lastTriggeredSecond !== time) {
+        if (preguntaParaAhora && !showQuestion && lastSecond !== time) {
             setPlaying(false);
             setPreguntaActual(preguntaParaAhora);
             setShowQuestion(true);
-            setLastTriggeredSecond(time); // Bloqueamos este segundo
+            setLastSecond(time); // Bloqueamos este segundo
         }
     };
 

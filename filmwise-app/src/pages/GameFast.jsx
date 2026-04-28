@@ -25,6 +25,7 @@ function GameFast() {
     const [playing, setPlaying] = useState(true);
     const [preguntaActual, setPreguntaActual] = useState(null);
     const [game, setGame] = useState(null);
+    const [lastSecond, setLastSecond] = useState(null);
 
 
     useEffect(() => {
@@ -66,10 +67,11 @@ function GameFast() {
 
         const preguntaParaAhora = questions.find(q => q.startSeconds === time);
 
-        if (preguntaParaAhora && !showQuestion) {
+        if (preguntaParaAhora && !showQuestion && lastSecond !== time) {
             setPlaying(false);
             setPreguntaActual(preguntaParaAhora);
             setShowQuestion(true);
+            setLastSecond(time); // Bloqueamos este segundo
         }
     };
 
