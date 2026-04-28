@@ -65,6 +65,19 @@ function Profile() {
 
   }, []);
 
+  
+
+  const userName = user ? user.name : "Nombre de usuario no encontrado";
+  const friendsNumber = friends ? friends : "0";
+  const userImage = user?.image ? user.image : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
+  const userLevel = user ? user.levelId : 1;
+  const userLevelName = user ? user.levelName : "Nombre del nivel no encontrado";
+  const stats = user ? [{ title: "Partidas jugadas", value: user.gamesPlayed, icon: play_circle }, { title: "Aciertos totales", value: user.correctAnswers, icon: star }, { title: "Mejor puntuación", value: user.bestScore, icon: competition }, { title: "Género preferido", value: user.favoriteGenre, icon: movie }] : [];
+  const score = user ? user.score : 0;
+  const percentage = score % 100;
+  const pointsToNextLevel = 100 - percentage;
+  const nextLevel = userLevel + 1;
+
   //useEffect para subir de nivel que se ejecuta cuando score cambia
   //no he querido usar otras variables para saber si ha subido de nivel como percentage o pointsToNextLevel 
   //porque pueden saltar de 90 a 105 entonces no sería 105 sino 5 por ejemplo, son imprevisibles
@@ -79,7 +92,6 @@ function Profile() {
       if (user && score >= 100 && centenaActual >= user.levelId) {
         try{
           await editLevel(user.name); //edito el nivel del usuario en la BD
-          window.location.reload(); //recargamos la pagina pa que se vean los cambios
         }catch(error){
           console.log(error.message);
         }
@@ -87,18 +99,7 @@ function Profile() {
     }
    levelUp()
   }, [user, score]);
-
-  const userName = user ? user.name : "Nombre de usuario no encontrado";
-  const friendsNumber = friends ? friends : "0";
-  const userImage = user?.image ? user.image : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
-  const userLevel = user ? user.levelId : 1;
-  const userLevelName = user ? user.levelName : "Nombre del nivel no encontrado";
-  const stats = user ? [{ title: "Partidas jugadas", value: user.gamesPlayed, icon: play_circle }, { title: "Aciertos totales", value: user.correctAnswers, icon: star }, { title: "Mejor puntuación", value: user.bestScore, icon: competition }, { title: "Género preferido", value: user.favoriteGenre, icon: movie }] : [];
-  const score = user ? user.score : 0;
-  const percentage = score % 100;
-  const pointsToNextLevel = 100 - percentage;
-  const nextLevel = userLevel + 1;
-
+  
   return (
     <div className="bg-filmBlack min-h-screen text-white pt-24 pb-24">
 
