@@ -65,7 +65,7 @@ export const loginUser = async (email:string, password:string) => {
 
 //devuelve TODOS los datos del usuario
 export const getUser = async (name:string, token:string) => {
-  const response = await fetch (API_URL, {
+  const response = await fetch (API_URL + "/getUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -152,7 +152,11 @@ export const createNewMessage = async (emisorName:string, receptorName:string) =
       })
     });
 
-    if(!response.ok) throw new Error("Error al enviar el mensaje");
+  const data = await response.text(); 
+  
+  if(!response.ok || data == "Error: usuario no encontrado"){
+    throw new Error(data);
+  } 
 
 };
 
@@ -248,6 +252,38 @@ export const editScore = async (name: string, scoreIncrease:number) => {
   }
 }
 
+export const editGamesPlayed = async (name:string) => {
+ const response = await fetch(API_URL + "/edit/gamesPlayed", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar el numero de partidas jugadas');
+  }
+}
+
+export const editLevel = async (name:string) => {
+    const response = await fetch(API_URL + "/edit/level", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar el level');
+  }
+}
+
 export const editCorrectAnswers = async (name: string, correctAnswersIncrease:number) => {
   const response = await fetch(API_URL + "/edit/correctAnswers", {
     method: "POST",
@@ -279,6 +315,22 @@ export const editBestScore = async (name: string, actualScore:number) => {
 
   if (!response.ok) {
     throw new Error('Error al editar el mejor score');
+  }
+}
+
+export const editFavoriteGenre = async (name:string) => {
+  const response = await fetch(API_URL + "/editFavoriteGenre", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar genero favorito');
   }
 }
 
@@ -341,8 +393,11 @@ export const createNewChallengeMessage = async(emisorName:string, receptorName:s
       })
     });
 
-    if(!response.ok) throw new Error("Error al enviar el mensaje");
-
+  const data = await response.text(); 
+  
+  if(!response.ok || data == "Error: usuario no encontrado"){
+    throw new Error(data);
+  } 
 }
 
 export const editUser = async (user:any) => {

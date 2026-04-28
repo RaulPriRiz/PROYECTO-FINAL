@@ -11,6 +11,7 @@ import play_circle from "../assets/play_circle.svg";
 import competition from "../assets/competition.svg";
 import RankingModal from "../components/RankingModal";
 import { useNavigate } from "react-router-dom";
+import ChallengeFriendModal from "../components/ChallengeFriendModal";
 
 function Competition() {
 
@@ -18,7 +19,8 @@ function Competition() {
 
   const [missions, setMissions] = useState([]);
   const userLogin = JSON.parse(localStorage.getItem("user")) || null;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChallengeFriendOpen, setIsChallengeFriendOpen] = useState(false);
+  const [isRankingOpen, setIsRankingOpen] = useState(false);
 
   useEffect(() => {
 
@@ -33,13 +35,14 @@ function Competition() {
       try {
         await getUser(userLogin.name, userLogin.token);
         const data = await getMissions(userLogin.name);
+        console.log("Datos que llegan de las misiones:", data);
         setMissions(data);
       } catch (error) {
         //el usuario tiene token pero es desautorizado
         if (error.message === "UNAUTHORIZED") {
           navigate("/unauthorized", { replace: true });
         } else {
-          console.error(error.message);
+          console.log(error);
         }
       }
     };
@@ -102,16 +105,17 @@ function Competition() {
 
           </div>
 
-
           <div className="w-full md:w-[700px] flex flex-col md:flex-row gap-4 mt-4">
 
-            <button className="h-20 md:h-40 md:flex-1 flex items-center justify-center gap-5 bg-red-600 hover:bg-red-700 transition-colors text-white text-xl md:text-2xl rounded-xl">
+            <button
+              onClick={() => setIsChallengeFriendOpen(true)}
+              className="h-20 md:h-40 md:flex-1 flex items-center justify-center gap-5 bg-red-600 hover:bg-red-700 transition-colors text-white text-xl md:text-2xl rounded-xl">
               <img src={swords} alt="swords icon" className="w-10 h-10 md:w-12 md:h-12" />
               Retar a un amigo
             </button>
 
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => setIsRankingOpen(true)}
               className="h-20 md:h-40 md:flex-1 flex items-center justify-center gap-3 bg-filmGold hover:brightness-90 transition-colors text-white text-xl md:text-2xl rounded-xl">
               <img src={ranking} alt="ranking icon" className="w-12 h-12 md:w-16 md:h-16" />
               Ver ranking
@@ -123,9 +127,15 @@ function Competition() {
 
       </div>
 
+      <ChallengeFriendModal
+        isOpen={isChallengeFriendOpen}
+        onClose={() => setIsChallengeFriendOpen(false)}
+        user={userLogin}
+      />
+
       <RankingModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isRankingOpen}
+        onClose={() => setIsRankingOpen(false)}
       />
 
     </div>

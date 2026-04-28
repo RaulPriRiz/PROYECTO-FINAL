@@ -103,7 +103,6 @@ public class GameRepository {
     }
 
     public List<RecentGameResponse> findRecentGames(String name) {
-
         User user = userRepository.findByName(name);
         String sql = "SELECT g.FILM_ID, g.MODE, f.TITLE, f.IMAGE, g.USER_ID FROM Game g INNER JOIN Film f ON g.FILM_ID = f.ID WHERE USER_ID = " + user.getId() + " ORDER BY g.LAST_PLAYED DESC LIMIT 4";
 

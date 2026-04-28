@@ -4,7 +4,7 @@ import { getFilmQuestions, getFilm } from "../data/filmApi";
 import { useParams } from "react-router";
 import Navbar from "../components/Navbar";
 import seats from "../assets/asientos.png";
-import { editCorrectAnswers, editScore, editBestScore } from "../data/userApi";
+import { editCorrectAnswers, editScore, editBestScore, editGamesPlayed } from "../data/userApi";
 import { createNewGame, editGameScore, editGameIsFinished } from "../data/gameApi";
 import QuestionModalFast from "../components/QuestionModalFast";
 
@@ -25,6 +25,7 @@ function GameFast() {
     const [playing, setPlaying] = useState(true);
     const [preguntaActual, setPreguntaActual] = useState(null);
     const [game, setGame] = useState(null);
+    const [lastSecond, setLastSecond] = useState(null);
 
 
     useEffect(() => {
@@ -66,10 +67,11 @@ function GameFast() {
 
         const preguntaParaAhora = questions.find(q => q.startSeconds === time);
 
-        if (preguntaParaAhora && !showQuestion) {
+        if (preguntaParaAhora && !showQuestion && lastSecond !== time) {
             setPlaying(false);
             setPreguntaActual(preguntaParaAhora);
             setShowQuestion(true);
+            setLastSecond(time); // Bloqueamos este segundo
         }
     };
 
@@ -105,6 +107,7 @@ function GameFast() {
             await editScore(userLogin.name, score);
             await editCorrectAnswers(userLogin.name, correctAnswers);
             await editBestScore(userLogin.name, score);
+            await editGamesPlayed(userLogin.name);
             await editGameIsFinished(userLogin.name, film.title);
             setShowEndModal(true);
         } catch (error) {

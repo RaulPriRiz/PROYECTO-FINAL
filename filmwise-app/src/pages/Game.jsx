@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router";
 import { getFilm, getFilmQuestions } from "../data/filmApi";
 import Navbar from "../components/Navbar";
 import seats from "../assets/asientos.png";
-import { editCorrectAnswers, editScore, editBestScore } from "../data/userApi";
+import { editCorrectAnswers, editScore, editBestScore, editGamesPlayed, editFavoriteGenre } from "../data/userApi";
 import { createNewGame, editGameScore, editGameIsFinished } from "../data/gameApi";
 import QuestionModal from "../components/QuestionModal";
 
@@ -44,7 +44,8 @@ function Game() {
     const [game, setGame] = useState(null);
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [preguntaActual, setPreguntaActual] = useState(null);
-
+    const [lastSecond, setLastSecond] = useState(null);
+    
     //cargar las preguntas + crear partida
     useEffect(() => {
         if (!film) return;
@@ -74,10 +75,11 @@ function Game() {
 
         const preguntaParaAhora = questions.find(q => q.startSeconds === time);
 
-        if (preguntaParaAhora && !showQuestion) {
+        if (preguntaParaAhora && !showQuestion && lastSecond !== time) {
             setPlaying(false);
             setPreguntaActual(preguntaParaAhora);
             setShowQuestion(true);
+            setLastSecond(time); // Bloqueamos este segundo
         }
     };
 
@@ -88,7 +90,10 @@ function Game() {
 
     //cuando el player esté ready entonces ejecutamos está función que pone el tiempo del vídeo igual que el atributo lastTime de la partida encontrada
     const handlePlayerReady = () => {
-        if(game) playerRef.current.seekTo(game.lastTime, "seconds");
+        if(game){
+            playerRef.current.seekTo(game.lastTime, "seconds");
+            console.log(game.lastTime);
+        }
     };
 
     //RESPUESTA
@@ -112,6 +117,8 @@ function Game() {
             await editScore(userLogin.name, score);
             await editCorrectAnswers(userLogin.name, correctAnswers);
             await editBestScore(userLogin.name, score);
+            await editGamesPlayed(userLogin.name);
+            await editFavoriteGenre(userLogin.name);
             await editGameIsFinished(userLogin.name, film.title);
             setShowEndModal(true);
         } catch (error) {

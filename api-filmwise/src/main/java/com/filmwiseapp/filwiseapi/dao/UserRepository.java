@@ -51,16 +51,22 @@ public class UserRepository {
         user.setId(maxId + 1);
 
         entityManager.persist(user);
-        //ponemos los score por defecto que tendria el usuario nada más registrarse
+        //ponemos las cosas por defecto que tendria el usuario nada más registrarse
         user.setBestScore(0);
         user.setScore(0);
-
+        user.setLevelId(1);
+        user.setBestScore(0);
+        user.setCorrectAnswers(0);
+        user.setFavoriteGenre("¡Juega alguna partida!");
+        user.setGamesPlayed(0);
         //si se ha creado un nuevo usuario debemos registrar sus misiones por completas en la tabla USER_COMPLETE_MISSION 
-        String sql = "SELECT ID FROM MISSIONS";
+        String sql = "SELECT ID FROM MISSION";
         List<Object> missionIds = entityManager.createNativeQuery(sql).getResultList();
-
+        
+        Integer maxMissionUserId = getMissionUserMaxId();
         for (Object missionId : missionIds) {
-            String sql2 = "INSERT INTO USER_COMPLETE_MISSIONS (USER_ID, MISSION_ID, POINTS_COMPLETED) VALUES (" + user.getId() + ", " + missionId + ", 0)";
+            maxMissionUserId++;
+            String sql2 = "INSERT INTO USER_COMPLETE_MISSION (ID, USER_ID, MISSION_ID, POINTS_COMPLETED) VALUES ("+ maxMissionUserId +","+ user.getId() + ", " + missionId + ", 0)";
         
             entityManager.createNativeQuery(sql2).executeUpdate();
         }
@@ -71,6 +77,17 @@ public class UserRepository {
     public Integer getMaxId() {
 
         String sql = "SELECT MAX(id) FROM Usuario";
+
+        try {
+            return (Integer) entityManager.createNativeQuery(sql).getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public Integer getMissionUserMaxId(){
+        
+        String sql = "SELECT MAX(id) FROM USER_COMPLETE_MISSION";
 
         try {
             return (Integer) entityManager.createNativeQuery(sql).getSingleResult();
@@ -160,6 +177,13 @@ public class UserRepository {
     }
 
     @Transactional
+    public void editLevel(String name){
+        String sql = "UPDATE USUARIO SET LEVEL = LEVEL + 1 WHERE NAME = '" + name + "'";
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+
+    @Transactional
     public void editCorrectAnswers(String name, int correctAnswersIncrease){
         String sql = "UPDATE USUARIO SET CORRECT_ANSWERS = CORRECT_ANSWERS + "+ correctAnswersIncrease +" WHERE NAME = '" + name + "'";
 
@@ -176,6 +200,12 @@ public class UserRepository {
         }
     }
 
+    @Transactional
+    public void editGamesPlayed(String name){
+        String sql = "UPDATE USUARIO SET GAMES_PLAYED = GAMES_PLAYED + 1 WHERE NAME = '" + name + "'";
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+    
     public List<MissionResponse> findUserMissions(String name){
         
         User user = findByName(name);
@@ -226,7 +256,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void createMessage(String emisorName, String receptorName) {
+    public String createMessage(String emisorName, String receptorName) {
         
         Integer maxId = getMaxIdFriendMessage();
 
@@ -236,14 +266,17 @@ public class UserRepository {
 
         User userEmisor = findByName(emisorName);
         User userReceptor = findByName(receptorName);
+        if(userReceptor == null) return "Error: usuario no encontrado";
 
         FriendMessage friendMessage = new FriendMessage();
         friendMessage.setId(maxId + 1);
         friendMessage.setIdUserEmisor(userEmisor.getId());
         friendMessage.setIdUserReceptor(userReceptor.getId());
         friendMessage.setStatus("PENDIENTE");
-
+        friendMessage.setLocalDate(LocalDate.now()); //la fecha de cuando se quiere guardar el mensaje de reto
         entityManager.persist(friendMessage);
+
+        return "Mensaje enviado correctamente";
     }
 
     public Integer getMaxIdFriendMessage() {
@@ -362,7 +395,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void createChallengeMessage(String emisorName, String receptorName, String filmTitle) {
+    public String createChallengeMessage(String emisorName, String receptorName, String filmTitle) {
         
         Integer maxId = getMaxIdChallengeMessage();
 
@@ -372,6 +405,7 @@ public class UserRepository {
 
         User userEmisor = findByName(emisorName);
         User userReceptor = findByName(receptorName);
+        if(userReceptor == null) return "Error: usuario no encontrado";
 
         ChallengeMessage challengeMessage = new ChallengeMessage();
         challengeMessage.setId(maxId + 1);
@@ -382,6 +416,7 @@ public class UserRepository {
         challengeMessage.setFilmTitle(filmTitle); //el titulo de la pelicula a la que se quiere retar
 
         entityManager.persist(challengeMessage);
+        return "Mensaje enviado correctamente";
     }
 
     public Integer getMaxIdChallengeMessage() {
@@ -409,4 +444,25 @@ public class UserRepository {
         entityManager.merge(user); 
     }
 
+    public void editFavoriteGenre(String name){
+        
+        User user = findByName(name);
+
+        
+        String sql = "SELECT f.GENRE FROM Games g JOIN Films f ON g.FILM_ID = f.ID WHERE g.USER_ID = "+ user.getId() +" GROUP BY f.genre ORDER BY COUNT(*) DESC LIMIT 1";
+    
+        String favoriteGenre = "";
+        try{
+            favoriteGenre = (String) entityManager.createNativeQuery(sql).getSingleResult(); 
+        //Por ejemplo si no ha jugado ninguna partida que siga siendo la frase que habiamos puesto por defecto
+        } catch (NoResultException e) {
+            favoriteGenre = "¡Juega alguna partida!";
+        }
+        
+        String sql2 = "UPDATE USUARIO SET FAVORITE_GENRE = '"+ favoriteGenre +"' WHERE ID = " + user.getId();
+        
+        entityManager.createNativeQuery(sql2).executeUpdate();
+
+    }
+    
 }
