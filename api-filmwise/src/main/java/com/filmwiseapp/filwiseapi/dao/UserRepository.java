@@ -57,7 +57,7 @@ public class UserRepository {
         user.setLevelId(1);
         user.setBestScore(0);
         user.setCorrectAnswers(0);
-        user.setFavoriteGenre("¡Juega unas cuantas partidas más!");
+        user.setFavoriteGenre("¡Juega alguna partida!");
         user.setGamesPlayed(0);
         //si se ha creado un nuevo usuario debemos registrar sus misiones por completas en la tabla USER_COMPLETE_MISSION 
         String sql = "SELECT ID FROM MISSION";
@@ -95,6 +95,7 @@ public class UserRepository {
             return 0;
         }
     }
+
     public User findByEmail(String email) {
         
         String sql = "SELECT * FROM Usuario WHERE email = '" + email + "'";
@@ -199,6 +200,12 @@ public class UserRepository {
         }
     }
 
+    @Transactional
+    public void editGamesPlayed(String name){
+        String sql = "UPDATE USUARIO SET GAMES_PLAYED = GAMES_PLAYED + 1 WHERE NAME = '" + name + "'";
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+    
     public List<MissionResponse> findUserMissions(String name){
         
         User user = findByName(name);
@@ -437,5 +444,25 @@ public class UserRepository {
         entityManager.merge(user); 
     }
 
+    public void editFavoriteGenre(String name){
+        
+        User user = findByName(name);
+
+        
+        String sql = "SELECT f.GENRE FROM Games g JOIN Films f ON g.FILM_ID = f.ID WHERE g.USER_ID = "+ user.getId() +" GROUP BY f.genre ORDER BY COUNT(*) DESC LIMIT 1";
+    
+        String favoriteGenre = "";
+        try{
+            favoriteGenre = (String) entityManager.createNativeQuery(sql).getSingleResult(); 
+        //Por ejemplo si no ha jugado ninguna partida que siga siendo la frase que habiamos puesto por defecto
+        } catch (NoResultException e) {
+            favoriteGenre = "¡Juega alguna partida!";
+        }
+        
+        String sql2 = "UPDATE USUARIO SET FAVORITE_GENRE = '"+ favoriteGenre +"' WHERE ID = " + user.getId();
+        
+        entityManager.createNativeQuery(sql2).executeUpdate();
+
+    }
     
 }

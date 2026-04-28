@@ -101,6 +101,11 @@ public class UserController {
         return repo.findUserMissions(nameRequest.getName());
     }
 
+    @PostMapping("/editFavoriteGenre")
+    public void editFavoriteGenre(@RequestBody NameRequest nameRequest){
+        repo.editFavoriteGenre(nameRequest.getName());
+    }
+
     //sumamos al score actual del usuario el scoreIncrease cuando se termina una partida
     @PostMapping("/edit/score")
     public void editUserScore(@RequestBody EditNumber editScore){
@@ -120,6 +125,11 @@ public class UserController {
     @PostMapping("/edit/bestScore")
     public void editBestScore(@RequestBody EditNumber editBestScore){
         repo.editBestScore(editBestScore.getName(), editBestScore.getNumber());
+    }
+
+    @PostMapping("/edit/gamesPlayed")
+    public void editGamesPlayed(@RequestBody NameRequest nameRequest){
+        repo.editGamesPlayed(nameRequest.getName());
     }
 
     @PostMapping("/friends/messages")

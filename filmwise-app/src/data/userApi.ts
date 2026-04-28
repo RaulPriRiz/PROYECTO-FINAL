@@ -252,6 +252,22 @@ export const editScore = async (name: string, scoreIncrease:number) => {
   }
 }
 
+export const editGamesPlayed = async (name:string) => {
+ const response = await fetch(API_URL + "/edit/gamesPlayed", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar el numero de partidas jugadas');
+  }
+}
+
 export const editLevel = async (name:string) => {
     const response = await fetch(API_URL + "/edit/level", {
     method: "POST",
@@ -299,6 +315,22 @@ export const editBestScore = async (name: string, actualScore:number) => {
 
   if (!response.ok) {
     throw new Error('Error al editar el mejor score');
+  }
+}
+
+export const editFavoriteGenre = async (name:string) => {
+  const response = await fetch(API_URL + "/editFavoriteGenre", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar genero favorito');
   }
 }
 

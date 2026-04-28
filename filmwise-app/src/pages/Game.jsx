@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router";
 import { getFilm, getFilmQuestions } from "../data/filmApi";
 import Navbar from "../components/Navbar";
 import seats from "../assets/asientos.png";
-import { editCorrectAnswers, editScore, editBestScore } from "../data/userApi";
+import { editCorrectAnswers, editScore, editBestScore, editGamesPlayed, editFavoriteGenre } from "../data/userApi";
 import { createNewGame, editGameScore, editGameIsFinished } from "../data/gameApi";
 import QuestionModal from "../components/QuestionModal";
 
@@ -117,6 +117,8 @@ function Game() {
             await editScore(userLogin.name, score);
             await editCorrectAnswers(userLogin.name, correctAnswers);
             await editBestScore(userLogin.name, score);
+            await editGamesPlayed(userLogin.name);
+            await editFavoriteGenre(userLogin.name);
             await editGameIsFinished(userLogin.name, film.title);
             setShowEndModal(true);
         } catch (error) {
