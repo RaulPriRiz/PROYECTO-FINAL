@@ -91,7 +91,7 @@ function Profile() {
   const userName = user ? user.name : "Nombre de usuario no encontrado";
   const friendsNumber = friends ? friends : "0";
   const userImage = user?.image ? user.image : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
-  const userLevel = user ? user.levelId : 0;
+  const userLevel = user ? user.levelId : 1;
   const userLevelName = user ? user.levelName : "Nombre del nivel no encontrado";
   const stats = user ? [{ title: "Partidas jugadas", value: user.gamesPlayed, icon: play_circle }, { title: "Aciertos totales", value: user.correctAnswers, icon: star }, { title: "Mejor puntuación", value: user.bestScore, icon: competition }, { title: "Género preferido", value: user.favoriteGenre, icon: movie }] : [];
   const score = user ? user.score : 0;
