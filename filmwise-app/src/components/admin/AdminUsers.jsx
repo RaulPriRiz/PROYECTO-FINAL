@@ -1,42 +1,80 @@
 import { useEffect, useState } from "react";
-import { getRankingUsers } from "../../data/userApi";
+import { getUsers, deleteUser, editUser } from "../../data/userApi";
+import AdminUserModal from "./AdminUserModal";
 
 function AdminUsers() {
 
     const [users, setUsers] = useState([]);
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const fetchUsers = async () => {
+        try {
+            const data = await getUsers();
+            setUsers(data);
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            const data = await getRankingUsers();
-            setUsers(data);
-        };
-
         fetchUsers();
     }, []);
+
+    const handleDelete = async (name) => {
+        if (!confirm("¿Seguro que quieres eliminar este usuario?")) return;
+
+        try {
+            await deleteUser(name);
+            fetchUsers();
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const openEditModal = (user) => {
+        setSelectedUser(user);
+        setShowModal(true);
+    };
+
+    const handleSave = async (updatedUser) => {
+        try {
+            await editUser(updatedUser);
+            setShowModal(false);
+            fetchUsers();
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     return (
         <div>
 
             <h2 className="text-2xl mb-6">Usuarios</h2>
 
-            <button className="mb-4 bg-green-600 px-4 py-2 rounded">
-                + Crear usuario
-            </button>
-
             <div className="flex flex-col gap-4">
                 {users.map((u, i) => (
                     <div key={i} className="bg-[#1f1f1f] p-4 rounded flex justify-between">
 
                         <div>
-                            <p>{u.name}</p>
+                            <p className="font-semibold">{u.name}</p>
+                            <p className="text-sm opacity-70">{u.email}</p>
                             <p className="text-sm opacity-70">{u.score} pts</p>
+                            <p className="text-xs text-gray-400">Rol: {u.rol}</p>
                         </div>
 
                         <div className="flex gap-2">
-                            <button className="bg-yellow-600 px-3 py-1 rounded">
+                            <button
+                                onClick={() => openEditModal(u)}
+                                className="bg-yellow-600 px-3 py-1 rounded"
+                            >
                                 Editar
                             </button>
-                            <button className="bg-red-600 px-3 py-1 rounded">
+
+                            <button
+                                onClick={() => handleDelete(u.name)}
+                                className="bg-red-600 px-3 py-1 rounded"
+                            >
                                 Eliminar
                             </button>
                         </div>
@@ -44,6 +82,14 @@ function AdminUsers() {
                     </div>
                 ))}
             </div>
+
+            {/* MODAL */}
+            <AdminUserModal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                user={selectedUser}
+                onSave={handleSave}
+            />
 
         </div>
     );

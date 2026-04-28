@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { editQuestion } from "../../data/questionApi";
+import { editAnswer } from "../../data/answerApi";
 
 function QuestionEditor({ question }) {
 
@@ -26,6 +28,28 @@ function QuestionEditor({ question }) {
             correct: i === index
         }));
         setAnswers(updated);
+    };
+
+    const handleSave = async () => {
+        try {
+            // 1. actualizar pregunta
+            await editQuestion({
+                id: question.id,
+                questionText: text,
+                startSeconds: seconds,
+                filmId: question.filmId
+            });
+
+            // 2. actualizar respuestas
+            for (const ans of answers) {
+                await editAnswer(ans);
+            }
+
+            alert("Cambios guardados");
+
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     return (
@@ -79,7 +103,10 @@ function QuestionEditor({ question }) {
             </div>
 
             {/* BOTÓN GUARDAR (visual) */}
-            <button className="bg-filmGold text-black py-2 rounded mt-4">
+            <button
+                onClick={handleSave}
+                className="bg-filmGold text-black py-2 rounded mt-4"
+            >
                 Guardar cambios
             </button>
 

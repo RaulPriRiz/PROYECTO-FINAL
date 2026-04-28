@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getFilmQuestions } from "../../data/filmApi";
+import { deleteQuestion } from "../../data/questionApi";
 import AdminModal from "./AdminModal";
+
 
 function AdminFilmDetail({ film, onClose }) {
 
@@ -22,6 +24,16 @@ function AdminFilmDetail({ film, onClose }) {
 
         fetchQuestions();
     }, [film]);
+
+    const handleDeleteQuestion = async (q) => {
+        try {
+            await deleteQuestion(q);
+            const data = await getFilmQuestions(film.title);
+            setQuestions(data);
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     const openEditModal = (question) => {
         setSelectedQuestion(question);
@@ -75,7 +87,10 @@ function AdminFilmDetail({ film, onClose }) {
                                         Editar
                                     </button>
 
-                                    <button className="bg-red-600 px-3 py-1 rounded">
+                                    <button
+                                        onClick={() => handleDeleteQuestion(q)}
+                                        className="bg-red-600 px-3 py-1 rounded"
+                                    >
                                         Eliminar
                                     </button>
                                 </div>
@@ -86,11 +101,10 @@ function AdminFilmDetail({ film, onClose }) {
                                 {q.answers.map((ans, idx) => (
                                     <div
                                         key={idx}
-                                        className={`p-2 rounded ${
-                                            ans.correct
-                                                ? "bg-green-700"
-                                                : "bg-gray-700"
-                                        }`}
+                                        className={`p-2 rounded ${ans.correct
+                                            ? "bg-green-700"
+                                            : "bg-gray-700"
+                                            }`}
                                     >
                                         {ans.answerText}
                                     </div>

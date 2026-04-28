@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
-import { getFilms } from "../../data/filmApi";
+import { getFilms, deleteFilm } from "../../data/filmApi";
 import AdminFilmDetail from "./AdminFilmDetail";
 
 function AdminFilms() {
 
     const [films, setFilms] = useState([]);
     const [selectedFilm, setSelectedFilm] = useState(null);
+
+    const handleDelete = async (title) => {
+        try {
+            await deleteFilm(title);
+            const data = await getFilms();
+            setFilms(data);
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     useEffect(() => {
         const fetchFilms = async () => {
@@ -44,7 +54,10 @@ function AdminFilms() {
                                     Editar
                                 </button>
 
-                                <button className="bg-red-600 px-3 py-1 rounded">
+                                <button
+                                    onClick={() => handleDelete(film.title)}
+                                    className="bg-red-600 px-3 py-1 rounded"
+                                >
                                     Eliminar
                                 </button>
                             </div>
