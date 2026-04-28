@@ -259,7 +259,7 @@ public class UserRepository {
         friendMessage.setIdUserEmisor(userEmisor.getId());
         friendMessage.setIdUserReceptor(userReceptor.getId());
         friendMessage.setStatus("PENDIENTE");
-
+        friendMessage.setLocalDate(LocalDate.now()); //la fecha de cuando se quiere guardar el mensaje de reto
         entityManager.persist(friendMessage);
 
         return "Mensaje enviado correctamente";
