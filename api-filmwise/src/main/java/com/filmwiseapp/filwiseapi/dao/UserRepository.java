@@ -176,6 +176,13 @@ public class UserRepository {
     }
 
     @Transactional
+    public void editLevel(String name){
+        String sql = "UPDATE USUARIO SET LEVEL = LEVEL + 1 WHERE NAME = '" + name + "'";
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+
+    @Transactional
     public void editCorrectAnswers(String name, int correctAnswersIncrease){
         String sql = "UPDATE USUARIO SET CORRECT_ANSWERS = CORRECT_ANSWERS + "+ correctAnswersIncrease +" WHERE NAME = '" + name + "'";
 
@@ -430,4 +437,5 @@ public class UserRepository {
         entityManager.merge(user); 
     }
 
+    
 }

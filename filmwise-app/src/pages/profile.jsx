@@ -44,7 +44,7 @@ function Profile() {
         if (error.message === "UNAUTHORIZED") {
           navigate("/unauthorized", { replace: true });
         } else {
-          console.error(error.message);
+          console.log(error.message);
         }
       }
     };
@@ -57,13 +57,36 @@ function Profile() {
         //console.log("FRIENDS COUNT:", data);
         setFriends(data);
       } catch (error) {
-        console.error(error.message);
+        console.log(error.message);
       }
     };
 
     friendsCount();
 
   }, []);
+
+  //useEffect para subir de nivel que se ejecuta cuando score cambia
+  //no he querido usar otras variables para saber si ha subido de nivel como percentage o pointsToNextLevel 
+  //porque pueden saltar de 90 a 105 entonces no sería 105 sino 5 por ejemplo, son imprevisibles
+  //asi que uso score que es de lo que se calcula todo y nunca cambia
+  useEffect(() => {
+    //Calculamos en qué centena está el score (90/100 = 0, 105/100 = 1)
+    const centenaActual = Math.floor(score / 100);
+
+    const levelUp = async () => {
+      //si la centena es igual o mayor que el nivel significa que hay q subir el nivel
+      //ejemplo: tiene 105 puntos (centena 1) y es Nivel 1 entonces debería subir al nivel 2 (ya que el nivel 1 es de 0 a 99)
+      if (user && score >= 100 && centenaActual >= user.levelId) {
+        try{
+          await editLevel(user.name); //edito el nivel del usuario en la BD
+          window.location.reload(); //recargamos la pagina pa que se vean los cambios
+        }catch(error){
+          console.log(error.message);
+        }
+      }
+    }
+   levelUp()
+  }, [user, score]);
 
   const userName = user ? user.name : "Nombre de usuario no encontrado";
   const friendsNumber = friends ? friends : "0";

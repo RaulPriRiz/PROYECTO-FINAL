@@ -107,6 +107,11 @@ public class UserController {
         repo.editScore(editScore.getName(), editScore.getNumber());
     }
 
+    @PostMapping("/edit/level")
+    public void editUserLevel(@RequestBody NameRequest nameRequest){
+        repo.editLevel(nameRequest.getName());
+    }
+
     @PostMapping("/edit/correctAnswers")
     public void editUserCorrectAnswers(@RequestBody EditNumber editCorrectAnswers){
         repo.editCorrectAnswers(editCorrectAnswers.getName(), editCorrectAnswers.getNumber());

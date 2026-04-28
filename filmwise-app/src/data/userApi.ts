@@ -252,6 +252,22 @@ export const editScore = async (name: string, scoreIncrease:number) => {
   }
 }
 
+export const editLevel = async (name:string) => {
+    const response = await fetch(API_URL + "/edit/level", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al editar el level');
+  }
+}
+
 export const editCorrectAnswers = async (name: string, correctAnswersIncrease:number) => {
   const response = await fetch(API_URL + "/edit/correctAnswers", {
     method: "POST",
