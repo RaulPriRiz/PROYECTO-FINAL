@@ -78,6 +78,7 @@ function Profile() {
   const pointsToNextLevel = 100 - percentage;
   const nextLevel = userLevel + 1;
 
+  /*
   //useEffect para subir de nivel que se ejecuta cuando score cambia
   //no he querido usar otras variables para saber si ha subido de nivel como percentage o pointsToNextLevel 
   //porque pueden saltar de 90 a 105 entonces no sería 105 sino 5 por ejemplo, son imprevisibles
@@ -99,7 +100,7 @@ function Profile() {
     }
    levelUp()
   }, [user, score]);
-  
+  */
   return (
     <div className="bg-filmBlack min-h-screen text-white pt-24 pb-24">
 

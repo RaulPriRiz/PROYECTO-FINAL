@@ -23,10 +23,8 @@ function Game() {
     useEffect(() => {
         const fetchMovie = async () => {
             try {
-
                 const filmData = await getFilm(title);
                 setFilm(filmData);
-
             } catch (error) {
                 console.error(error);
             }
@@ -104,14 +102,19 @@ function Game() {
             setScore(newScore);       
             await editGameScore(userLogin.name, film.title, 10);
             setCorrectAnswers(prev => prev + 1);
-        }
 
-        setTimeout(() => {
-            setShowQuestion(false);
-            setPlaying(true);
-        }, 1000);
-    };
+            const centenaActual = Math.floor(newScore / 100);
+            // Si la nueva centena es igual al nivel actual, subimos nivel (por ejemplo centena 1 y nivel 1 entonces es que tiene +100 puntos por lo que deberia subir al nivel 2)
+            if (newScore >= 100 && centenaActual === userLogin.levelId) {
+                await editLevel(userLogin.name);
+            }
 
+            setTimeout(() => {
+                setShowQuestion(false);
+                setPlaying(true);
+            }, 1000);
+        };
+    }
     const handleEndGame = async () => {
         try {
             await editScore(userLogin.name, score);
@@ -209,5 +212,4 @@ function Game() {
         </div>
     );
 }
-
 export default Game;

@@ -75,8 +75,6 @@ export const editGameScore = async (userName:string, filmTitle:string, newScore:
   if (!response.ok) {
     throw new Error("Error al editar el score de la partida");
   }
-
-  return await response.json();
 }
 
 export const editGameIsFinished = async (userName:string, filmTitle:string) => {
