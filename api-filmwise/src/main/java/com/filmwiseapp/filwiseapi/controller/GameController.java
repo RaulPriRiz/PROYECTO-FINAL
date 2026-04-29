@@ -34,6 +34,11 @@ public class GameController {
         return repo.findRecentGames(nameRequest.getName());
     }
 
+    @PostMapping("/recent/oneGame")
+    public Game getMostRecent(@RequestBody GameRequest gameRequest){
+        return repo.findMostRecentGame(gameRequest.getUserName(), gameRequest.getFilmTitle());
+    }
+
     @PostMapping("/editScore")
      public void editScore(@RequestBody GameRequest gameRequest) {
         repo.editScore(gameRequest.getUserName(), gameRequest.getFilmTitle(), gameRequest.getScore());

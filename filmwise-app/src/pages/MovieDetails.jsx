@@ -3,7 +3,7 @@ import { getMoviesByTitle } from "../data/filmApi";
 import { Link, useParams } from "react-router";
 import { getFilm } from "../data/filmApi";
 import { useNavigate } from "react-router-dom";
-
+import { getMostRecentGame } from "../data/gameApi";
 import playIcon from "../assets/play_circle.svg";
 import starIcon from "../assets/star.svg";
 import groupIcon from "../assets/group.svg";
@@ -25,6 +25,8 @@ const MovieDetails = () => {
   const [film, setFilm] = useState(null);
   const navigate = useNavigate();
 
+  const [mostRecentGame, setMostRecentGame] = useState(null);
+
   useEffect(() => {
     const fetchMovie = async () => {
       try {
@@ -33,6 +35,10 @@ const MovieDetails = () => {
 
         const filmData = await getFilm(title);
         setFilm(filmData);
+
+        const user = JSON.parse(localStorage.getItem("user"));
+        const recentGame = await getMostRecentGame(user.name, title);
+        setMostRecentGame(recentGame);
       } catch (error) {
         console.error(error);
       }
@@ -45,7 +51,7 @@ const MovieDetails = () => {
 
   const genres = movie.genre_ids?.map(id => GENRES[id]).join(" • ");
 
-  return (
+return (
     <div className="bg-filmBlack text-white min-h-screen flex flex-col">
 
       <div className="relative w-full h-[200px] md:h-[89vh]">
@@ -150,13 +156,21 @@ const MovieDetails = () => {
             </Link>
           </div>
 
-          <div className="bg-filmRed p-3 rounded-lg flex items-center justify-center gap-2">
-            <img src={playIcon} className="w-4" />
+          <div className="bg-gray-500 p-3 rounded-lg flex items-center justify-center gap-2">
             <div>
-              <p className="font-bold text-sm">REANUDAR PARTIDA</p>
-              <p className="text-xs text-gray-200">
-                07/03/2026 - RÁPIDO
-              </p>
+              <p className="font-bold text-sm">ÚLTIMO ACCESO:</p>
+              {/* CAMBIADO: Se eliminó el <p> padre para evitar anidamiento de <p> */}
+              <div className="text-sm text-gray-300">
+                {mostRecentGame ? (
+                  <p className="text-xs text-gray-200">
+                    {mostRecentGame.lastPlayed} - {mostRecentGame.mode}
+                  </p>
+                ) : (
+                  <p className="text-sm text-white italic">
+                    Aún no has jugado a esta película
+                  </p>
+                )}            
+              </div>              
             </div>
           </div>
         </div>
@@ -181,13 +195,21 @@ const MovieDetails = () => {
           </Link>
         </div>
 
-        <div className="bg-filmRed px-6 py-3 rounded-lg flex items-center gap-3">
-          <img src={playIcon} className="w-5" />
+        <div className="bg-gray-500 px-6 py-3 rounded-lg flex items-center gap-3">
           <div>
-            <p className="font-bold">REANUDAR PARTIDA</p>
-            <p className="text-sm text-gray-300">
-              07/03/2026 - RÁPIDO
-            </p>
+            <p className="font-bold">ÚLTIMO ACCESO:</p>
+            {/* CAMBIADO: Se cambió el <p> por un <div> para permitir <p> hijos */}
+            <div className="text-sm text-gray-300">
+              {mostRecentGame ? (
+                <p className="text-xs text-gray-200">
+                  {mostRecentGame.lastPlayed} - {mostRecentGame.mode}
+                </p>
+              ) : (
+                <p className="text-sm text-white italic">
+                  Aún no has jugado a esta película
+                </p>
+              )}            
+            </div>
           </div>
         </div>
       </div>

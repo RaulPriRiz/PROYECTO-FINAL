@@ -1,3 +1,4 @@
+import { use } from "react";
 import { API_BASE } from "./api";
 
 const API_KEY: string = "71fb13539da0df28f3f1ad418ffa652a";
@@ -131,3 +132,4 @@ export const createFilm = async (film:any) => {
     throw new Error("Error al crear la película");
   }
 }
+
