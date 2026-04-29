@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { getFilms, deleteFilm } from "../../data/filmApi";
 import AdminFilmDetail from "./AdminFilmDetail";
+import FilmFormModal from "./FilmFormModal";
 
 function AdminFilms() {
 
     const [films, setFilms] = useState([]);
     const [selectedFilm, setSelectedFilm] = useState(null);
+    const [showFilmModal, setShowFilmModal] = useState(false);
+    const [editingFilm, setEditingFilm] = useState(null);
 
     const handleDelete = async (title) => {
         try {
-            if (!confirm("¿Seguro que quieres eliminar esta película (se eliminarán todas sus preguntas y respuestas?")) return;            
+            if (!confirm("¿Seguro que quieres eliminar esta película (se eliminarán todas sus preguntas y respuestas?")) return;
             await deleteFilm(title);
             const data = await getFilms();
             setFilms(data);
@@ -32,7 +35,13 @@ function AdminFilms() {
 
             <h2 className="text-2xl mb-6">Películas</h2>
 
-            <button className="mb-4 bg-green-600 px-4 py-2 rounded">
+            <button
+                onClick={() => {
+                    setEditingFilm(null);
+                    setShowFilmModal(true);
+                }}
+                className="mb-4 bg-green-600 px-4 py-2 rounded"
+            >
                 + Añadir película
             </button>
 
@@ -49,10 +58,19 @@ function AdminFilms() {
 
                             <div className="flex gap-2">
                                 <button
+                                    onClick={() => {
+                                        setEditingFilm(film);
+                                        setShowFilmModal(true);
+                                    }}
+                                    className="bg-blue-600 px-3 py-1 rounded"
+                                >
+                                    Editar
+                                </button>
+                                <button
                                     onClick={() => setSelectedFilm(film)}
                                     className="bg-yellow-600 px-3 py-1 rounded"
                                 >
-                                    Editar
+                                    Editar preguntas
                                 </button>
 
                                 <button
@@ -75,6 +93,16 @@ function AdminFilms() {
                     onClose={() => setSelectedFilm(null)}
                 />
             )}
+
+            <FilmFormModal
+                isOpen={showFilmModal}
+                onClose={() => setShowFilmModal(false)}
+                film={editingFilm}
+                onSaved={async () => {
+                    const data = await getFilms();
+                    setFilms(data);
+                }}
+            />
 
         </div>
     );

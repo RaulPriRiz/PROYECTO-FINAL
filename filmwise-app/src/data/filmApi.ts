@@ -104,7 +104,7 @@ export const editFilm = async (film:any) => {
 };
 
 export const deleteFilm = async (title: string) => {
-  const response = await fetch(`${API_BASE}/deleteFilm`, {
+  const response = await fetch(`${API_URL}/deleteFilm`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

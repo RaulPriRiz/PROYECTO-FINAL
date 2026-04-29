@@ -3,12 +3,17 @@ import { getFilmQuestions } from "../../data/filmApi";
 import { deleteQuestion } from "../../data/questionApi";
 import AdminModal from "./AdminModal";
 import QuestionEditor from "./QuestionEditor";
+import CreateAnswerModal from "./CreateAnswerModal";
+import CreateQuestionModal from "./CreateQuestionModal";
 
 function AdminFilmDetail({ film, onClose }) {
 
     const [questions, setQuestions] = useState([]);
     const [selectedQuestion, setSelectedQuestion] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [showAnswerModal, setShowAnswerModal] = useState(false);
+    const [selectedQuestionForAnswer, setSelectedQuestionForAnswer] = useState(null);
+    const [showCreateQuestionModal, setShowCreateQuestionModal] = useState(false);
 
     useEffect(() => {
         if (!film) return;
@@ -59,6 +64,7 @@ function AdminFilmDetail({ film, onClose }) {
 
                 {/* BOTÓN AÑADIR */}
                 <button
+                    onClick={() => setShowCreateQuestionModal(true)}
                     className="mb-6 bg-green-600 px-4 py-2 rounded"
                 >
                     + Añadir pregunta
@@ -87,6 +93,16 @@ function AdminFilmDetail({ film, onClose }) {
                                         className="bg-yellow-600 px-3 py-1 rounded"
                                     >
                                         Editar
+                                    </button>
+
+                                    <button
+                                        onClick={() => {
+                                            setSelectedQuestionForAnswer(q);
+                                            setShowAnswerModal(true);
+                                        }}
+                                        className="bg-blue-600 px-3 py-1 rounded"
+                                    >
+                                        + Respuesta
                                     </button>
 
                                     <button
@@ -126,9 +142,32 @@ function AdminFilmDetail({ film, onClose }) {
                 title="Editar pregunta"
             >
                 {selectedQuestion && (
-                    <QuestionEditor question={selectedQuestion} />
+                    <QuestionEditor
+                        question={selectedQuestion}
+                        filmId={film.id}
+                    />
                 )}
             </AdminModal>
+
+            <CreateAnswerModal
+                isOpen={showAnswerModal}
+                onClose={() => setShowAnswerModal(false)}
+                question={selectedQuestionForAnswer}
+                onCreated={async () => {
+                    const data = await getFilmQuestions(film.title);
+                    setQuestions(data);
+                }}
+            />
+
+            <CreateQuestionModal
+                isOpen={showCreateQuestionModal}
+                onClose={() => setShowCreateQuestionModal(false)}
+                film={film}
+                onCreated={async () => {
+                    const data = await getFilmQuestions(film.title);
+                    setQuestions(data);
+                }}
+            />
 
         </div>
     );

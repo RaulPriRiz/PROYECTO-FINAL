@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { editQuestion } from "../../data/questionApi";
 import { editAnswer } from "../../data/answerApi";
 
-function QuestionEditor({ question }) {
+function QuestionEditor({ question, filmId}) {
 
     const [text, setText] = useState("");
     const [seconds, setSeconds] = useState(0);
@@ -37,7 +37,7 @@ function QuestionEditor({ question }) {
                 id: question.id,
                 questionText: text,
                 startSeconds: seconds,
-                filmId: question.filmId
+                filmId: filmId
             });
 
             // 2. actualizar respuestas
@@ -102,7 +102,7 @@ function QuestionEditor({ question }) {
                 ))}
             </div>
 
-            {/* BOTÓN GUARDAR (visual) */}
+            {/* BOTÓN GUARDAR */}
             <button
                 onClick={handleSave}
                 className="bg-filmGold text-black py-2 rounded mt-4"
