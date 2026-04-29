@@ -19,6 +19,7 @@ function Home() {
 
   const userLogin = JSON.parse(localStorage.getItem("user"));
   const isRegistered = userLogin?.rol === "REGISTRADO";
+  const isAdmin = userLogin?.rol === "ADMIN";
 
   const randomMovieTitle = movies[Math.floor(Math.random() * movies.length)]?.title;
 
@@ -69,7 +70,7 @@ function Home() {
         <h1 className="text-2xl md:text-4xl font-semibold">
           NUEVAS PELÍCULAS DISPONIBLES
         </h1>
-        {isRegistered && (
+        {isRegistered || isAdmin && (
           <button className="hover:opacity-70 transition">
             <img src={bell} alt="icono" className="w-6 md:w-8" />
           </button>
@@ -88,7 +89,7 @@ function Home() {
 
       <div className="mt-10">
 
-        {isRegistered ? (
+        {isRegistered || isAdmin ? (
           //Si está registrado
           <>
             <div className="inline-flex items-center gap-3 bg-filmGray text-white px-5 py-2 rounded-full font-semibold mb-4">

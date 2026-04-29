@@ -25,7 +25,7 @@ public class FilmRepository {
 
     public List<Film> findNewFilms() {
 
-        String sql = "SELECT * FROM Film WHERE CREATION_DATE >= DATEADD('DAY', -7, CURRENT_DATE)";
+        String sql = "SELECT * FROM Film WHERE INSERT_DATE >= DATEADD('DAY', -7, CURRENT_DATE)";
 
         return entityManager.createNativeQuery(sql, Film.class).getResultList();
     }
@@ -61,7 +61,7 @@ public class FilmRepository {
 
         film.setId(maxId + 1);
         LocalDate today = java.time.LocalDate.now();
-        film.setCreationDate(today);
+        film.setInsertDate(today);
         entityManager.persist(film);
     } 
 
