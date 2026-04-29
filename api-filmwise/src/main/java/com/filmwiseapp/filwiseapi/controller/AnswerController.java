@@ -36,4 +36,8 @@ public class AnswerController {
         repo.deleteAnswer(answer);
     }
 
+    @PostMapping("/newAnswer")
+    public void createNewAnswer(@RequestBody Answer answer){
+        repo.createAnswer(answer);
+    }
 }

@@ -42,3 +42,17 @@ export const deleteAnswer = async (answer: any) => {
     throw new Error("No se pudo eliminar la respuesta");
   }
 };
+
+export const createAnswer = async (answer:any) => {
+  const response = await fetch(`${API_URL}/newAnswer`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(answer)
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al crear la respuesta");
+  }
+}

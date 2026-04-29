@@ -43,3 +43,17 @@ export const deleteQuestion = async (question: any) => {
     throw new Error("No se pudo eliminar la pregunta");
   }
 };
+
+export const createQuestion = async (question:any) => {
+  const response = await fetch(`${API_URL}/newQuestion`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(question)
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al crear la pregunta");
+  }
+}

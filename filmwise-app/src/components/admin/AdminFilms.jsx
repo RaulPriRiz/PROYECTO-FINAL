@@ -9,11 +9,10 @@ function AdminFilms() {
 
     const handleDelete = async (title) => {
         try {
+            if (!confirm("¿Seguro que quieres eliminar esta película (se eliminarán todas sus preguntas y respuestas)?")) return;            
             await deleteFilm(title);
-            const data = await getFilms();
-            setFilms(data);
         } catch (e) {
-            console.error(e);
+            alert(e.message);
         }
     };
 

@@ -6,7 +6,7 @@ function AdminUsers() {
 
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);    
 
     const fetchUsers = async () => {
         try {
@@ -22,13 +22,21 @@ function AdminUsers() {
     }, []);
 
     const handleDelete = async (name) => {
-        if (!confirm("¿Seguro que quieres eliminar este usuario?")) return;
+        
+        const user = JSON.parse(localStorage.getItem("user"));
 
+        if(name === user.name){
+            alert("No puedes eliminarte a ti mismo");
+            return;
+        }
+
+        if (!confirm("¿Seguro que quieres eliminar este usuario?")) return;            
+        
         try {
             await deleteUser(name);
             fetchUsers();
         } catch (e) {
-            console.error(e);
+            alert(e.message);
         }
     };
 
@@ -43,7 +51,7 @@ function AdminUsers() {
             setShowModal(false);
             fetchUsers();
         } catch (e) {
-            console.error(e);
+            alert(e.message);
         }
     };
 
@@ -60,7 +68,7 @@ function AdminUsers() {
                             <p className="font-semibold">{u.name}</p>
                             <p className="text-sm opacity-70">{u.email}</p>
                             <p className="text-sm opacity-70">{u.score} pts</p>
-                            <p className="text-xs text-gray-400">Rol: {u.rol}</p>
+                            <p className="text-xs text-gray-400">{u.rol}</p>
                         </div>
 
                         <div className="flex gap-2">
