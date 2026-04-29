@@ -4,12 +4,17 @@ import homeIcon from "../assets/home.svg";
 import movieIcon from "../assets/movie.svg";
 import profileIcon from "../assets/profile.svg";
 import competitionIcon from "../assets/competition.svg";
+import adminIcon from "../assets/admin.svg";
 
 const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
     const isActive = (path) => location.pathname === path;
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const isAdmin = user?.rol === "ADMIN";
 
     const navItem = (path, icon) => (
         <button
@@ -37,6 +42,7 @@ const Navbar = () => {
                 {navItem("/movies", movieIcon)}
                 {navItem("/competition", competitionIcon)}
                 {navItem("/profile", profileIcon)}
+                {isAdmin && navItem("/admin", adminIcon)}
             </div>
 
             {/* Vista PC (arriba) */}
@@ -51,6 +57,7 @@ const Navbar = () => {
                     {navItem("/movies", movieIcon)}
                     {navItem("/competition", competitionIcon)}
                     {navItem("/profile", profileIcon)}
+                    {isAdmin && navItem("/admin", adminIcon)}
                 </div>
             </div>
         </>

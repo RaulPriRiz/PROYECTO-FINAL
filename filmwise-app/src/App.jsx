@@ -9,6 +9,8 @@ import Competition from "./pages/competition";
 import Unauthorized from "./pages/Unauthorized";
 import Game from "./pages/Game";
 import GameFast from "./pages/GameFast";
+import AdminPanel from "./pages/AdminPanel";
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/game/:title" element={<Game />} />
         <Route path="/game-fast/:title" element={<GameFast />} />
+        <Route path="/admin" element={<AdminPanel />} />
       </Routes>
     </BrowserRouter>
   );

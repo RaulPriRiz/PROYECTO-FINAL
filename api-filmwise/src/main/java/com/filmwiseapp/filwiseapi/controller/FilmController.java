@@ -63,6 +63,7 @@ public class FilmController {
         for (Question question : questions) {
 
             QuestionResponse questionResponse = new QuestionResponse();
+            questionResponse.setId(question.getId());
             questionResponse.setQuestionText(question.getQuestionText());
             questionResponse.setStartSeconds(question.getstartSeconds());
 
