@@ -99,7 +99,6 @@ public class GameRepository {
         } catch (NoResultException e) {
             return null;
         }
-
     }
 
     public List<RecentGameResponse> findRecentGames(String name) {
@@ -133,7 +132,6 @@ public class GameRepository {
         String sql = "UPDATE Game SET SCORE = SCORE + " + scoreIncrease + " WHERE FILM_ID = " + film.getId() + " AND USER_ID = " + user.getId();
 
         entityManager.createNativeQuery(sql).executeUpdate();
-
     }
 
     @Transactional
@@ -145,6 +143,5 @@ public class GameRepository {
         String sql = "UPDATE Game SET IS_FINISHED = TRUE WHERE FILM_ID = " + film.getId() + " AND USER_ID = " + user.getId();
 
         entityManager.createNativeQuery(sql).executeUpdate();
-
     }
 }

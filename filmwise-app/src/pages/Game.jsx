@@ -108,12 +108,11 @@ function Game() {
             if (newScore >= 100 && centenaActual === userLogin.levelId) {
                 await editLevel(userLogin.name);
             }
-
-            setTimeout(() => {
+        }
+        setTimeout(() => {
                 setShowQuestion(false);
                 setPlaying(true);
             }, 1000);
-        };
     }
     const handleEndGame = async () => {
         try {
