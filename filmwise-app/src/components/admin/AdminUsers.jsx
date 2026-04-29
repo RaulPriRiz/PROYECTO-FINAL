@@ -8,16 +8,17 @@ function AdminUsers() {
     const [selectedUser, setSelectedUser] = useState(null);
     const [showModal, setShowModal] = useState(false);    
 
-    const fetchUsers = async () => {
-        try {
-            const data = await getUsers();
-            setUsers(data);
-        } catch (e) {
-            console.error(e);
-        }
-    };
+ 
 
     useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const data = await getUsers();
+                setUsers(data);
+            } catch (e) {
+                console.error(e);
+            }
+        };
         fetchUsers();
     }, []);
 
@@ -34,7 +35,8 @@ function AdminUsers() {
         
         try {
             await deleteUser(name);
-            fetchUsers();
+            const data = await getUsers();
+            setUsers(data);
         } catch (e) {
             alert(e.message);
         }
