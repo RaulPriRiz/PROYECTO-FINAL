@@ -102,7 +102,6 @@ function QuestionEditor({ question, filmId}) {
                 ))}
             </div>
 
-            {/* BOTÓN GUARDAR */}
             <button
                 onClick={handleSave}
                 className="bg-filmGold text-black py-2 rounded mt-4"
