@@ -50,7 +50,6 @@ function AdminFilmDetail({ film, onClose }) {
 
             <div className="max-w-4xl mx-auto">
 
-                {/* HEADER */}
                 <div className="flex justify-between items-center mb-8">
                     <h2 className="text-3xl">{film.title}</h2>
 
@@ -62,7 +61,6 @@ function AdminFilmDetail({ film, onClose }) {
                     </button>
                 </div>
 
-                {/* BOTÓN AÑADIR */}
                 <button
                     onClick={() => setShowCreateQuestionModal(true)}
                     className="mb-6 bg-green-600 px-4 py-2 rounded"
@@ -149,6 +147,7 @@ function AdminFilmDetail({ film, onClose }) {
                 )}
             </AdminModal>
 
+            {/* MODAL CREAR RESPUESTA */}
             <CreateAnswerModal
                 isOpen={showAnswerModal}
                 onClose={() => setShowAnswerModal(false)}
@@ -159,10 +158,11 @@ function AdminFilmDetail({ film, onClose }) {
                 }}
             />
 
+            {/* MODAL CREAR PREGUNTA */}
             <CreateQuestionModal
                 isOpen={showCreateQuestionModal}
                 onClose={() => setShowCreateQuestionModal(false)}
-                film={film}
+                filmId={film.id}   
                 onCreated={async () => {
                     const data = await getFilmQuestions(film.title);
                     setQuestions(data);
