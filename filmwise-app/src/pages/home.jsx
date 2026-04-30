@@ -9,6 +9,8 @@ import { getRecentGames } from "../data/gameApi";
 import GameCard from "../components/GameCard";
 import { Link } from "react-router";
 import bgFilm from "../assets/bgFilm.jpg";
+import NotificationModal from "../components/NotificationModal";
+import { getFriendsMessages, getChallengesMessages } from "../data/userApi";
 
 
 function Home() {
@@ -16,12 +18,25 @@ function Home() {
   const [newFilms, setNewFilms] = useState([]);
   const [recentGames, setRecentGames] = useState([]);
   const [movies, setMovies] = useState([]);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+
+  const [friendsMessages, setFriendsMessages] = useState([]);
+  const [challengesMessages, setChallengesMessages] = useState([]);
 
   const userLogin = JSON.parse(localStorage.getItem("user"));
   const isRegistered = userLogin?.rol === "REGISTRADO";
   const isAdmin = userLogin?.rol === "ADMIN";
 
-  const randomMovieTitle = movies[Math.floor(Math.random() * movies.length)]?.title;
+  const fetchMessages = async () => {
+    try {
+      const friends = await getFriendsMessages(userLogin.name);
+      setFriendsMessages(friends);
+      const challenges = await getChallengesMessages(userLogin.name);
+      setChallengesMessages(challenges);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
     const fetchNewFilms = async () => {
@@ -59,7 +74,12 @@ function Home() {
     };
 
     fetchFilms();
+
+    fetchMessages();
   }, []);
+
+  const totalMessages = friendsMessages.length + challengesMessages.length;
+  const randomMovieTitle = movies[Math.floor(Math.random() * movies.length)]?.title;
 
   return (
     <div className="min-h-screen bg-filmBlack text-white px-6 md:px-16 pt-24 pb-24">
@@ -70,10 +90,24 @@ function Home() {
         <h1 className="text-2xl md:text-4xl font-semibold">
           NUEVAS PELÍCULAS DISPONIBLES
         </h1>
-        {isRegistered || isAdmin && (
-          <button className="hover:opacity-70 transition">
-            <img src={bell} alt="icono" className="w-6 md:w-8" />
-          </button>
+
+        {(isRegistered || isAdmin) && (
+          <div className="relative">
+
+            <button
+              onClick={() => setIsNotificationOpen(true)}
+              className="hover:opacity-70 transition"
+            >
+              <img src={bell} alt="icono" className="w-6 md:w-8" />
+            </button>
+
+            {totalMessages > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+                {totalMessages}
+              </span>
+            )}
+
+          </div>
         )}
       </div>
 
@@ -141,8 +175,18 @@ function Home() {
             </div>
           </>
         )}
-        
+
       </div>
+
+      <NotificationModal
+        isOpen={isNotificationOpen}
+        onClose={() => { setIsNotificationOpen(false); }}
+        user={userLogin}
+        friendsMessages={friendsMessages}
+        challengesMessages={challengesMessages}
+        updateMessages={fetchMessages}
+      />
+
     </div>
   );
 }
