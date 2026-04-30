@@ -382,12 +382,12 @@ public class UserRepository {
             MessageResponse friendMessage = new MessageResponse();
 
             //buscamos el nombre del usuario que ha enviado el mensaje
-            User emisorUser = findById((Integer)row[1]);
+            User emisorUser = findById((Integer)row[3]);
 
             friendMessage.setEmisorName(emisorUser.getName());
             friendMessage.setStatus((String)row[5]);
             friendMessage.setFilmTitle((String) row[2]);
-            friendMessage.setDate((LocalDate) row[1]);
+            friendMessage.setDate(((java.sql.Date) row[1]).toLocalDate());
             res.add(friendMessage);
         }
 
