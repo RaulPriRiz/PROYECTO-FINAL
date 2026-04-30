@@ -81,6 +81,12 @@ public class UserController {
         return repo.findNumberOfFriends(nameRequest.getName());
     }
 
+    @PostMapping("/friends")
+    public List<User> getFriends(@RequestBody NameRequest nameRequest){
+        return repo.findFriends(nameRequest.getName());
+    }
+
+
     @PostMapping("/edit/name")
     public void editUserName(@RequestBody EditName editName){
         repo.editName(editName.getOldName(), editName.getNewName());
