@@ -1,3 +1,4 @@
+import { use } from "react";
 import { API_BASE } from "./api";
 
 const API_KEY: string = "71fb13539da0df28f3f1ad418ffa652a";
@@ -103,7 +104,7 @@ export const editFilm = async (film:any) => {
 };
 
 export const deleteFilm = async (title: string) => {
-  const response = await fetch(`${API_BASE}/deleteFilm`, {
+  const response = await fetch(`${API_URL}/deleteFilm`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -117,3 +118,18 @@ export const deleteFilm = async (title: string) => {
     throw new Error("No se pudo eliminar la película");
   }
 };
+
+export const createFilm = async (film:any) => {
+  const response = await fetch(`${API_URL}/newFilm`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(film)
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al crear la película");
+  }
+}
+

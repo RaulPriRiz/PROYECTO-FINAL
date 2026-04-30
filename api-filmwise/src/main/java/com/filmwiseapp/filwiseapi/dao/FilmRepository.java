@@ -25,7 +25,7 @@ public class FilmRepository {
 
     public List<Film> findNewFilms() {
 
-        String sql = "SELECT * FROM Film WHERE CREATION_DATE >= DATEADD('DAY', -7, CURRENT_DATE)";
+        String sql = "SELECT * FROM Film WHERE INSERT_DATE >= DATEADD('DAY', -7, CURRENT_DATE)";
 
         return entityManager.createNativeQuery(sql, Film.class).getResultList();
     }
@@ -61,7 +61,7 @@ public class FilmRepository {
 
         film.setId(maxId + 1);
         LocalDate today = java.time.LocalDate.now();
-        film.setCreationDate(today);
+        film.setInsertDate(today);
         entityManager.persist(film);
     } 
 
@@ -76,11 +76,26 @@ public class FilmRepository {
         }
     }
 
+    
+    //si eliminamos una pelicula tambien debemos eliminar todas sus preguntas y sus respuestas
+    @Transactional
     public void deleteFilm(String title){
         
-        String sql = "DELETE FROM FILM WHERE TITLE = '" + title + "'";
+        Film film = findFilm(title);
 
-        entityManager.createNativeQuery(sql).executeUpdate();
+        //primero tengo que saber qué respuestas son las que tengo que borrar. Entonces para ello saco los IDs de las preguntas que tienen ese id film
+        String sql = "SELECT ID FROM QUESTION WHERE FILM_ID = " + film.getId();
+        List<Object> idsQuestions = entityManager.createNativeQuery(sql).getResultList();
+        //Ahora recorremos todos los ids de las preguntas que tenemos y por cada una borramos sus respuestas
+        for (Object object : idsQuestions) {
+            String sql2 = "DELETE FROM ANSWER WHERE QUESTION_ID = " + object; 
+            entityManager.createNativeQuery(sql2).executeUpdate();
+        }
+        String sql3 = "DELETE FROM QUESTION WHERE FILM_ID = " + film.getId(); 
+        entityManager.createNativeQuery(sql3).executeUpdate();
+        String sql4 = "DELETE FROM FILM WHERE TITLE = '" + title + "'";
+
+        entityManager.createNativeQuery(sql4).executeUpdate();
     }
 
     @Transactional

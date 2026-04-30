@@ -9,6 +9,7 @@ import movie from "../assets/movie.svg";
 import EditProfileModal from "../components/EditProfileModal";
 import ProgressBar from "../components/ProgressBar";
 import { useNavigate } from "react-router-dom";
+import AddFriendModal from "../components/AddFriendModal";
 
 function Profile() {
 
@@ -17,7 +18,9 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [friends, setFriends] = useState(null);
   const userLogin = JSON.parse(localStorage.getItem("user")) || null;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [isAddFriendOpen, setIsAddFriendOpen] = useState(false);
+
   const handleLogout = () => {
     localStorage.clear();
     navigate("/");
@@ -41,7 +44,7 @@ function Profile() {
         if (error.message === "UNAUTHORIZED") {
           navigate("/unauthorized", { replace: true });
         } else {
-          console.error(error.message);
+          console.log(error.message);
         }
       }
     };
@@ -54,7 +57,7 @@ function Profile() {
         //console.log("FRIENDS COUNT:", data);
         setFriends(data);
       } catch (error) {
-        console.error(error.message);
+        console.log(error.message);
       }
     };
 
@@ -62,10 +65,12 @@ function Profile() {
 
   }, []);
 
+  
+
   const userName = user ? user.name : "Nombre de usuario no encontrado";
   const friendsNumber = friends ? friends : "0";
   const userImage = user?.image ? user.image : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
-  const userLevel = user ? user.levelId : 0;
+  const userLevel = user ? user.levelId : 1;
   const userLevelName = user ? user.levelName : "Nombre del nivel no encontrado";
   const stats = user ? [{ title: "Partidas jugadas", value: user.gamesPlayed, icon: play_circle }, { title: "Aciertos totales", value: user.correctAnswers, icon: star }, { title: "Mejor puntuación", value: user.bestScore, icon: competition }, { title: "Género preferido", value: user.favoriteGenre, icon: movie }] : [];
   const score = user ? user.score : 0;
@@ -73,6 +78,29 @@ function Profile() {
   const pointsToNextLevel = 100 - percentage;
   const nextLevel = userLevel + 1;
 
+  /*
+  //useEffect para subir de nivel que se ejecuta cuando score cambia
+  //no he querido usar otras variables para saber si ha subido de nivel como percentage o pointsToNextLevel 
+  //porque pueden saltar de 90 a 105 entonces no sería 105 sino 5 por ejemplo, son imprevisibles
+  //asi que uso score que es de lo que se calcula todo y nunca cambia
+  useEffect(() => {
+    //Calculamos en qué centena está el score (90/100 = 0, 105/100 = 1)
+    const centenaActual = Math.floor(score / 100);
+
+    const levelUp = async () => {
+      //si la centena es igual o mayor que el nivel significa que hay q subir el nivel
+      //ejemplo: tiene 105 puntos (centena 1) y es Nivel 1 entonces debería subir al nivel 2 (ya que el nivel 1 es de 0 a 99)
+      if (user && score >= 100 && centenaActual >= user.levelId) {
+        try{
+          await editLevel(user.name); //edito el nivel del usuario en la BD
+        }catch(error){
+          console.log(error.message);
+        }
+      }
+    }
+   levelUp()
+  }, [user, score]);
+  */
   return (
     <div className="bg-filmBlack min-h-screen text-white pt-24 pb-24">
 
@@ -102,11 +130,13 @@ function Profile() {
 
               <div className="flex gap-5 mt-4 md:mt-10">
                 <button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => setIsEditProfileOpen(true)}
                   className="bg-red-900 hover:bg-red-700 px-4 py-2 md:px-8 rounded-full text-sm font-semibold transition">
                   Editar perfil
                 </button>
-                <button className="bg-red-900 hover:bg-red-700 px-6 py-2 md:px-10 rounded-full text-sm font-semibold transition">
+                <button
+                  onClick={() => setIsAddFriendOpen(true)}
+                  className="bg-red-900 hover:bg-red-700 px-6 py-2 md:px-10 rounded-full text-sm font-semibold transition">
                   + Amigo
                 </button>
                 <button
@@ -156,10 +186,17 @@ function Profile() {
       </div>
 
       <EditProfileModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isEditProfileOpen}
+        onClose={() => setIsEditProfileOpen(false)}
         user={user}
       />
+
+      <AddFriendModal
+        isOpen={isAddFriendOpen}
+        onClose={() => setIsAddFriendOpen(false)}
+        user={user}
+      />
+
     </div >
   );
 }

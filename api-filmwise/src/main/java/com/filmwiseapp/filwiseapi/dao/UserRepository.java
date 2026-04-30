@@ -57,7 +57,7 @@ public class UserRepository {
         user.setLevelId(1);
         user.setBestScore(0);
         user.setCorrectAnswers(0);
-        user.setFavoriteGenre("¡Juega unas cuantas partidas más!");
+        user.setFavoriteGenre("¡Juega alguna partida!");
         user.setGamesPlayed(0);
         //si se ha creado un nuevo usuario debemos registrar sus misiones por completas en la tabla USER_COMPLETE_MISSION 
         String sql = "SELECT ID FROM MISSION";
@@ -95,6 +95,7 @@ public class UserRepository {
             return 0;
         }
     }
+
     public User findByEmail(String email) {
         
         String sql = "SELECT * FROM Usuario WHERE email = '" + email + "'";
@@ -176,6 +177,13 @@ public class UserRepository {
     }
 
     @Transactional
+    public void editLevel(String name){
+        String sql = "UPDATE USUARIO SET LEVEL = LEVEL + 1 WHERE NAME = '" + name + "'";
+
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+
+    @Transactional
     public void editCorrectAnswers(String name, int correctAnswersIncrease){
         String sql = "UPDATE USUARIO SET CORRECT_ANSWERS = CORRECT_ANSWERS + "+ correctAnswersIncrease +" WHERE NAME = '" + name + "'";
 
@@ -192,6 +200,12 @@ public class UserRepository {
         }
     }
 
+    @Transactional
+    public void editGamesPlayed(String name){
+        String sql = "UPDATE USUARIO SET GAMES_PLAYED = GAMES_PLAYED + 1 WHERE NAME = '" + name + "'";
+        entityManager.createNativeQuery(sql).executeUpdate();
+    }
+    
     public List<MissionResponse> findUserMissions(String name){
         
         User user = findByName(name);
@@ -242,7 +256,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void createMessage(String emisorName, String receptorName) {
+    public String createMessage(String emisorName, String receptorName) {
         
         Integer maxId = getMaxIdFriendMessage();
 
@@ -252,14 +266,17 @@ public class UserRepository {
 
         User userEmisor = findByName(emisorName);
         User userReceptor = findByName(receptorName);
+        if(userReceptor == null) return "Error: usuario no encontrado";
 
         FriendMessage friendMessage = new FriendMessage();
         friendMessage.setId(maxId + 1);
         friendMessage.setIdUserEmisor(userEmisor.getId());
         friendMessage.setIdUserReceptor(userReceptor.getId());
         friendMessage.setStatus("PENDIENTE");
-
+        friendMessage.setLocalDate(LocalDate.now()); //la fecha de cuando se quiere guardar el mensaje de reto
         entityManager.persist(friendMessage);
+
+        return "Mensaje enviado correctamente";
     }
 
     public Integer getMaxIdFriendMessage() {
@@ -365,12 +382,12 @@ public class UserRepository {
             MessageResponse friendMessage = new MessageResponse();
 
             //buscamos el nombre del usuario que ha enviado el mensaje
-            User emisorUser = findById((Integer)row[1]);
+            User emisorUser = findById((Integer)row[3]);
 
             friendMessage.setEmisorName(emisorUser.getName());
             friendMessage.setStatus((String)row[5]);
             friendMessage.setFilmTitle((String) row[2]);
-            friendMessage.setDate((LocalDate) row[1]);
+            friendMessage.setDate(((java.sql.Date) row[1]).toLocalDate());
             res.add(friendMessage);
         }
 
@@ -378,7 +395,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void createChallengeMessage(String emisorName, String receptorName, String filmTitle) {
+    public String createChallengeMessage(String emisorName, String receptorName, String filmTitle) {
         
         Integer maxId = getMaxIdChallengeMessage();
 
@@ -388,6 +405,7 @@ public class UserRepository {
 
         User userEmisor = findByName(emisorName);
         User userReceptor = findByName(receptorName);
+        if(userReceptor == null) return "Error: usuario no encontrado";
 
         ChallengeMessage challengeMessage = new ChallengeMessage();
         challengeMessage.setId(maxId + 1);
@@ -398,6 +416,7 @@ public class UserRepository {
         challengeMessage.setFilmTitle(filmTitle); //el titulo de la pelicula a la que se quiere retar
 
         entityManager.persist(challengeMessage);
+        return "Mensaje enviado correctamente";
     }
 
     public Integer getMaxIdChallengeMessage() {
@@ -425,4 +444,25 @@ public class UserRepository {
         entityManager.merge(user); 
     }
 
+    public void editFavoriteGenre(String name){
+        
+        User user = findByName(name);
+
+        
+        String sql = "SELECT f.GENRE FROM Games g JOIN Films f ON g.FILM_ID = f.ID WHERE g.USER_ID = "+ user.getId() +" GROUP BY f.genre ORDER BY COUNT(*) DESC LIMIT 1";
+    
+        String favoriteGenre = "";
+        try{
+            favoriteGenre = (String) entityManager.createNativeQuery(sql).getSingleResult(); 
+        //Por ejemplo si no ha jugado ninguna partida que siga siendo la frase que habiamos puesto por defecto
+        } catch (NoResultException e) {
+            favoriteGenre = "¡Juega alguna partida!";
+        }
+        
+        String sql2 = "UPDATE USUARIO SET FAVORITE_GENRE = '"+ favoriteGenre +"' WHERE ID = " + user.getId();
+        
+        entityManager.createNativeQuery(sql2).executeUpdate();
+
+    }
+    
 }

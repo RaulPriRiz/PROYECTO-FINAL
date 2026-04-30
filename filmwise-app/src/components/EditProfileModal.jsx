@@ -47,7 +47,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
       }
 
       if (image !== user.image) {
-        await editImage(user.name, image);
+        await editImage(name, image);
         changes = true;
       }
 

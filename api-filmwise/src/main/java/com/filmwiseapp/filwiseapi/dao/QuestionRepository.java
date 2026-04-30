@@ -1,11 +1,8 @@
 package com.filmwiseapp.filwiseapi.dao;
 
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import com.filmwiseapp.filwiseapi.model.Film;
 import com.filmwiseapp.filwiseapi.model.Question;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -42,4 +39,30 @@ public class QuestionRepository {
         entityManager.createNativeQuery(sql).executeUpdate();
         entityManager.createNativeQuery(sql2).executeUpdate();
     }
+
+    @Transactional
+    public void createQuestion(Question question) {
+
+        Integer maxId = getMaxId();
+
+        if (maxId == null) {
+            maxId = 0;
+        }
+
+        question.setId(maxId + 1);
+        entityManager.persist(question);
+    }
+    
+    public Integer getMaxId() {
+
+        String sql = "SELECT MAX(id) FROM QUESTION";
+
+        try {
+            return (Integer) entityManager.createNativeQuery(sql).getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    
 }

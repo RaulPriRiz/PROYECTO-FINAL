@@ -38,9 +38,33 @@ public class AnswerRepository {
     } 
 
     @Transactional
-    public void deleteAnswer(@RequestBody Answer answer) {
+    public void deleteAnswer(Answer answer) {
         String sql = "DELETE FROM Answer WHERE id =" + answer.getId();
         
         entityManager.createNativeQuery(sql).executeUpdate();
+    }
+
+    @Transactional
+    public void createAnswer(Answer answer) {
+
+        Integer maxId = getMaxId();
+
+        if (maxId == null) {
+            maxId = 0;
+        }
+
+        answer.setId(maxId + 1);
+        entityManager.persist(answer);
+    }
+    
+    public Integer getMaxId() {
+
+        String sql = "SELECT MAX(id) FROM ANSWER";
+
+        try {
+            return (Integer) entityManager.createNativeQuery(sql).getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

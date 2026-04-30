@@ -4,9 +4,11 @@ import { getFilmQuestions, getFilm } from "../data/filmApi";
 import { useParams } from "react-router";
 import Navbar from "../components/Navbar";
 import seats from "../assets/asientos.png";
-import { editCorrectAnswers, editScore, editBestScore } from "../data/userApi";
+import { editCorrectAnswers, editScore, editBestScore, editGamesPlayed } from "../data/userApi";
 import { createNewGame, editGameScore, editGameIsFinished } from "../data/gameApi";
 import QuestionModalFast from "../components/QuestionModalFast";
+import { updateGame } from "../data/gameApi";
+import { useNavigate } from "react-router-dom";
 
 const ReactPlayer = ReactPlayerImport?.default ?? ReactPlayerImport;
 
@@ -25,6 +27,10 @@ function GameFast() {
     const [playing, setPlaying] = useState(true);
     const [preguntaActual, setPreguntaActual] = useState(null);
     const [game, setGame] = useState(null);
+    const [lastSecond, setLastSecond] = useState(null);
+    const [currentTime, setCurrentTime] = useState(0); 
+    const [showExitModal, setShowExitModal] = useState(false);
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -46,18 +52,18 @@ function GameFast() {
             try {
                 const data = await getFilmQuestions(film.title);
                 setQuestions(data);
-                } catch (error) {
-                    console.error("Error cargando preguntas:", error.message);
-                }
-        
-                if (userLogin) {
-                    const game = await createNewGame(userLogin.name, film.title, "NORMAL");
-                    setGame(game);
-                    //ponemos el score guardado de la partida en el score que se va guardado
-                    setScore(game.score);
-                }
-            };
-        fetchQuestions();
+            } catch (error) {
+                console.error("Error cargando preguntas:", error.message);
+            }
+
+            if (userLogin) {
+                const game = await createNewGame(userLogin.name, film.title, "NORMAL");
+                setGame(game);
+                //ponemos el score guardado de la partida en el score que se va guardado
+                setScore(game.score);
+            }
+        };
+        start();
     }, [film]);
 
     const handleProgress = (state) => {
@@ -66,24 +72,25 @@ function GameFast() {
 
         const preguntaParaAhora = questions.find(q => q.startSeconds === time);
 
-        if (preguntaParaAhora && !showQuestion) {
+        if (preguntaParaAhora && !showQuestion && lastSecond !== time) {
             setPlaying(false);
             setPreguntaActual(preguntaParaAhora);
             setShowQuestion(true);
+            setLastSecond(time); // Bloqueamos este segundo
         }
     };
 
     //cuando el player esté ready entonces ejecutamos está función que pone el tiempo del vídeo igual que el atributo lastTime de la partida encontrada
     const handlePlayerReady = () => {
-        if(game) playerRef.current.seekTo(game.lastTime, "seconds");
+        if (game) playerRef.current.seekTo(game.lastTime, "seconds");
     };
 
 
     const handleAnswer = async (answer) => {
 
         if (answer.correct) {
-            const newScore = score + 15; 
-            setScore(newScore);       
+            const newScore = score + 15;
+            setScore(newScore);
             await editGameScore(userLogin.name, film.title, 15);
             setCorrectAnswers(prev => prev + 1);
         }
@@ -92,6 +99,20 @@ function GameFast() {
             setShowQuestion(false);
             setPlaying(true);
         }, 1000);
+    };
+
+    const handleSaveGame = async () => {
+        try {
+            await updateGame(userLogin.name, film.title, currentTime);
+            navigate("/movies");
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const handleContinueGame = () => {
+        setShowExitModal(false);
+        setPlaying(true);
     };
 
     // CUANDO SE ACABA EL TIEMPO
@@ -105,6 +126,7 @@ function GameFast() {
             await editScore(userLogin.name, score);
             await editCorrectAnswers(userLogin.name, correctAnswers);
             await editBestScore(userLogin.name, score);
+            await editGamesPlayed(userLogin.name);
             await editGameIsFinished(userLogin.name, film.title);
             setShowEndModal(true);
         } catch (error) {
@@ -120,6 +142,16 @@ function GameFast() {
         <div className="bg-filmBlack h-screen text-white flex flex-col overflow-hidden">
 
             <Navbar />
+
+            <button
+                onClick={() => {
+                    setPlaying(false);
+                    setShowExitModal(true);
+                }}
+                className="absolute top-24 right-10 bg-red-600 px-3 py-2 rounded-full z-50"
+            >
+                ✕
+            </button>
 
             <div className="flex flex-1 items-center justify-center pt-4 pb-2">
 
@@ -161,7 +193,7 @@ function GameFast() {
                 />
             </div>
 
-            <div className="absolute top-24 right-10 text-lg">
+            <div className="absolute top-24 left-10 text-lg font-medium">
                 Puntuación: {score}
             </div>
 
@@ -183,6 +215,39 @@ function GameFast() {
                         </button>
 
                     </div>
+                </div>
+            )}
+
+            {/* MODAL SALIR PARTIDA */}
+            {showExitModal && (
+                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+
+                    <div className="bg-[#1f1f1f] p-8 rounded-xl text-center w-[90%] max-w-md">
+
+                        <h2 className="text-xl mb-6">
+                            ¿Seguro que quieres salir de la partida?
+                        </h2>
+
+                        <div className="flex justify-center gap-4">
+
+                            <button
+                                onClick={handleSaveGame}
+                                className="bg-filmGold text-black px-4 py-2 rounded"
+                            >
+                                Guardar y salir
+                            </button>
+
+                            <button
+                                onClick={handleContinueGame}
+                                className="bg-gray-600 px-4 py-2 rounded"
+                            >
+                                Continuar
+                            </button>
+
+                        </div>
+
+                    </div>
+
                 </div>
             )}
 

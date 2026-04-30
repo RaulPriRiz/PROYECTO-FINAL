@@ -37,5 +37,10 @@ public class QuestionController {
         repo.deleteQuestion(question);
     }
 
+    @PostMapping("/newQuestion")
+    public void createNewQuestion(@RequestBody Question question){
+        repo.createQuestion(question);
+    }
+
 
 }

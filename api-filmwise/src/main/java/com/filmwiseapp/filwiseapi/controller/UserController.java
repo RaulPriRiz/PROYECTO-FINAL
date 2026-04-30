@@ -101,10 +101,20 @@ public class UserController {
         return repo.findUserMissions(nameRequest.getName());
     }
 
+    @PostMapping("/editFavoriteGenre")
+    public void editFavoriteGenre(@RequestBody NameRequest nameRequest){
+        repo.editFavoriteGenre(nameRequest.getName());
+    }
+
     //sumamos al score actual del usuario el scoreIncrease cuando se termina una partida
     @PostMapping("/edit/score")
     public void editUserScore(@RequestBody EditNumber editScore){
         repo.editScore(editScore.getName(), editScore.getNumber());
+    }
+
+    @PostMapping("/edit/level")
+    public void editUserLevel(@RequestBody NameRequest nameRequest){
+        repo.editLevel(nameRequest.getName());
     }
 
     @PostMapping("/edit/correctAnswers")
@@ -117,14 +127,19 @@ public class UserController {
         repo.editBestScore(editBestScore.getName(), editBestScore.getNumber());
     }
 
+    @PostMapping("/edit/gamesPlayed")
+    public void editGamesPlayed(@RequestBody NameRequest nameRequest){
+        repo.editGamesPlayed(nameRequest.getName());
+    }
+
     @PostMapping("/friends/messages")
     public List<MessageResponse> getUserMessages(@RequestBody NameRequest nameRequest){
         return repo.findUserMessages(nameRequest.getName());
     }
 
     @PostMapping("/friends/newMessage")
-    public void sendMessage(@RequestBody MessageRequest friendsRequest){
-        repo.createMessage(friendsRequest.getEmisorName(), friendsRequest.getReceptorName());
+    public String sendMessage(@RequestBody MessageRequest friendsRequest){
+        return repo.createMessage(friendsRequest.getEmisorName(), friendsRequest.getReceptorName());
     }
 
     @PostMapping("/friends/editStatus")
@@ -143,8 +158,8 @@ public class UserController {
     }
 
     @PostMapping("/challenges/newMessage")
-    public void sendChallengeMessage(@RequestBody MessageRequest challengesRequest){
-        repo.createChallengeMessage(challengesRequest.getEmisorName(), challengesRequest.getReceptorName(), challengesRequest.getFilmTitle());
+    public String sendChallengeMessage(@RequestBody MessageRequest challengesRequest){
+        return repo.createChallengeMessage(challengesRequest.getEmisorName(), challengesRequest.getReceptorName(), challengesRequest.getFilmTitle());
     }
 
     @PostMapping("/challenges/editStatus")

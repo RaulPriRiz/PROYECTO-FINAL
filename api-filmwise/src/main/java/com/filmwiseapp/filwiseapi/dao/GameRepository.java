@@ -99,12 +99,11 @@ public class GameRepository {
         } catch (NoResultException e) {
             return null;
         }
-
     }
 
     public List<RecentGameResponse> findRecentGames(String name) {
         User user = userRepository.findByName(name);
-        String sql = "SELECT g.FILM_ID, g.MODE, f.TITLE, f.IMAGE, g.USER_ID FROM Game g INNER JOIN Film f ON g.FILM_ID = f.ID WHERE USER_ID = " + user.getId() + " ORDER BY g.LAST_PLAYED DESC LIMIT 4";
+        String sql = "SELECT g.FILM_ID, g.MODE, f.TITLE, f.IMAGE, g.USER_ID FROM Game g INNER JOIN Film f ON g.FILM_ID = f.ID WHERE USER_ID = " + user.getId() + " ORDER BY g.LAST_PLAYED DESC LIMIT 5";
 
         List<RecentGameResponse> res = new ArrayList<>();
 
@@ -133,7 +132,6 @@ public class GameRepository {
         String sql = "UPDATE Game SET SCORE = SCORE + " + scoreIncrease + " WHERE FILM_ID = " + film.getId() + " AND USER_ID = " + user.getId();
 
         entityManager.createNativeQuery(sql).executeUpdate();
-
     }
 
     @Transactional
@@ -145,6 +143,20 @@ public class GameRepository {
         String sql = "UPDATE Game SET IS_FINISHED = TRUE WHERE FILM_ID = " + film.getId() + " AND USER_ID = " + user.getId();
 
         entityManager.createNativeQuery(sql).executeUpdate();
-
     }
+
+    //devuelve la partida mas reciente
+    public Game findMostRecentGame(String userName, String filmTitle){
+        
+        User user = userRepository.findByName(userName);
+        Film film = filmRepository.findFilm(filmTitle);
+
+        String sql = "SELECT * FROM GAME WHERE FILM_ID = " + film.getId() + " AND USER_ID = " + user.getId() + " ORDER BY LAST_PLAYED DESC LIMIT 1" ;
+
+        try {
+            return (Game) entityManager.createNativeQuery(sql, Game.class).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }    
+    }    
 }

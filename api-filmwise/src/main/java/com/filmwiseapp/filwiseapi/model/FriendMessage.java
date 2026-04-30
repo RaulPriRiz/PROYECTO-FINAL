@@ -1,5 +1,6 @@
 package com.filmwiseapp.filwiseapi.model;
 
+import java.time.LocalDate;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,7 +13,7 @@ public class FriendMessage {
     private Integer idUserEmisor;
     private Integer idUserReceptor;
     private String status;
-
+    private LocalDate date;
 
     public FriendMessage(){}
     
@@ -46,5 +47,12 @@ public class FriendMessage {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDate getDate(){
+        return date;
+    }
+    public void setLocalDate(LocalDate date){
+        this.date = date;
     }
 }

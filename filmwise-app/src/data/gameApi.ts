@@ -75,8 +75,6 @@ export const editGameScore = async (userName:string, filmTitle:string, newScore:
   if (!response.ok) {
     throw new Error("Error al editar el score de la partida");
   }
-
-  return await response.json();
 }
 
 export const editGameIsFinished = async (userName:string, filmTitle:string) => {
@@ -95,4 +93,26 @@ export const editGameIsFinished = async (userName:string, filmTitle:string) => {
   if (!response.ok) {
     throw new Error("Error al editar el estado de la partida");
   }
+}
+
+export const getMostRecentGame = async (userName:string, filmTitle:string) => {
+  
+  const response = await fetch(API_URL + "/recent/oneGame", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },  
+    //envia un string en forma de JSON
+    body: JSON.stringify({
+      userName:userName,
+      filmTitle:filmTitle
+    })
+  });
+
+  if(!response.ok){
+    throw new Error("Error al obtener la partida más reciente");
+  }
+
+  return await response.json();
+
 }

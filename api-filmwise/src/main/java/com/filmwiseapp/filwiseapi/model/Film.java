@@ -13,7 +13,7 @@ public class Film {
     private String title;
     private String genre;
     private String image;
-    private LocalDate creationDate;
+    private LocalDate insertDate;
     private String videoUrl;
     private String imageCarrousel;
 
@@ -36,8 +36,8 @@ public class Film {
         return image;
     }
 
-    public LocalDate getCreationDate() {
-        return creationDate;
+    public LocalDate getInsertDate() {
+        return insertDate;
     }
 
     public String getVideoUrl(){
@@ -60,8 +60,8 @@ public class Film {
         this.image = image;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
+    public void setInsertDate(LocalDate creationDate) {
+        this.insertDate = creationDate;
     }
 
     public void setVideoUrl(String videoUrl){
