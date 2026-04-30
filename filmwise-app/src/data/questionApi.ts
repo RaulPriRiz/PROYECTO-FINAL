@@ -31,7 +31,7 @@ export const editQuestion = async (question: any) => {
 };
 
 export const deleteQuestion = async (question: any) => {
-  const response = await fetch(`${API_BASE}/deleteQuestion`, {
+  const response = await fetch(`${API_URL}/deleteQuestion`, {
     method: "POST", 
     headers: {
       "Content-Type": "application/json",
