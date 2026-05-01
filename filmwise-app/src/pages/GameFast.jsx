@@ -28,7 +28,7 @@ function GameFast() {
     const [preguntaActual, setPreguntaActual] = useState(null);
     const [game, setGame] = useState(null);
     const [lastSecond, setLastSecond] = useState(null);
-    const [currentTime, setCurrentTime] = useState(0); 
+    const [currentTime, setCurrentTime] = useState(0);
     const [showExitModal, setShowExitModal] = useState(false);
     const navigate = useNavigate();
 
@@ -139,26 +139,33 @@ function GameFast() {
     }
 
     return (
-        <div className="bg-filmBlack h-screen text-white flex flex-col overflow-hidden">
+        <div className="bg-filmBlack min-h-screen text-white flex flex-col overflow-hidden">
 
             <Navbar />
 
+            {/* BOTÓN SALIR */}
             <button
                 onClick={() => {
                     setPlaying(false);
                     setShowExitModal(true);
                 }}
-                className="absolute top-24 right-10 bg-red-600 px-3 py-2 rounded-full z-50"
+                className="absolute top-20 right-4 md:top-24 md:right-10 bg-red-600 px-3 py-2 rounded-full z-50"
             >
                 ✕
             </button>
 
+            {/* SCORE */}
+            <div className="absolute top-20 left-4 md:top-24 md:left-10 text-sm md:text-lg font-medium">
+                Puntuación: {score}
+            </div>
+
             <div className="flex flex-1 items-center justify-center pt-4 pb-2">
 
-                <div className="flex w-full max-w-7xl mx-auto h-[380px] relative ml-80">
+                <div className="flex flex-col md:flex-row w-full max-w-7xl mx-auto relative px-2 md:px-0 md:ml-80">
 
-                    <div className="flex-1 flex justify-center items-center">
-                        <div className="w-[1520px] h-[800px]">
+                    {/* VIDEO */}
+                    <div className="flex-1 flex justify-center items-center mt-6 md:mt-0">
+                        <div className="w-full md:w-[1520px] aspect-video md:h-[800px]">
                             <ReactPlayer
                                 ref={playerRef}
                                 url={film.videoUrl}
@@ -173,7 +180,11 @@ function GameFast() {
                         </div>
                     </div>
 
-                    <div className={`absolute top-0 left-0 w-full h-full flex justify-center items-center ${showQuestion ? '' : 'hidden'}`}>
+                    {/* PREGUNTAS */}
+                    <div
+                        className={`absolute inset-0 flex justify-center items-center ${showQuestion ? "" : "hidden"
+                            }`}
+                    >
                         <QuestionModalFast
                             isOpen={showQuestion}
                             question={preguntaActual}
@@ -185,7 +196,8 @@ function GameFast() {
                 </div>
             </div>
 
-            <div className="h-48">
+            {/* ASIENTOS */}
+            <div className="h-24 md:h-48">
                 <img
                     src={seats}
                     alt="asientos"
@@ -193,23 +205,22 @@ function GameFast() {
                 />
             </div>
 
-            <div className="absolute top-24 left-10 text-lg font-medium">
-                Puntuación: {score}
-            </div>
-
+            {/* MODAL FINAL */}
             {showEndModal && (
-                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-                    <div className="bg-[#1f1f1f] p-8 rounded-xl text-center">
+                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+                    <div className="bg-[#1f1f1f] p-6 md:p-8 rounded-xl text-center w-full max-w-md">
 
-                        <h2 className="text-2xl mb-4">Modo rápido terminado</h2>
+                        <h2 className="text-xl md:text-2xl mb-4">
+                            Modo rápido terminado
+                        </h2>
 
-                        <p className="text-lg mb-6">
+                        <p className="text-base md:text-lg mb-6">
                             Puntuación: {score}
                         </p>
 
                         <button
                             onClick={() => window.location.href = "/movies"}
-                            className="bg-filmGold text-filmBlack px-6 py-2 rounded-lg"
+                            className="bg-filmGold text-filmBlack px-6 py-2 rounded-lg w-full md:w-auto"
                         >
                             Continuar
                         </button>
@@ -220,26 +231,26 @@ function GameFast() {
 
             {/* MODAL SALIR PARTIDA */}
             {showExitModal && (
-                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
 
-                    <div className="bg-[#1f1f1f] p-8 rounded-xl text-center w-[90%] max-w-md">
+                    <div className="bg-[#1f1f1f] p-6 md:p-8 rounded-xl text-center w-full max-w-md">
 
-                        <h2 className="text-xl mb-6">
+                        <h2 className="text-lg md:text-xl mb-6">
                             ¿Seguro que quieres salir de la partida?
                         </h2>
 
-                        <div className="flex justify-center gap-4">
+                        <div className="flex flex-col md:flex-row justify-center gap-4">
 
                             <button
                                 onClick={handleSaveGame}
-                                className="bg-filmGold text-black px-4 py-2 rounded"
+                                className="bg-filmGold text-black px-4 py-2 rounded w-full md:w-auto"
                             >
                                 Guardar y salir
                             </button>
 
                             <button
                                 onClick={handleContinueGame}
-                                className="bg-gray-600 px-4 py-2 rounded"
+                                className="bg-gray-600 px-4 py-2 rounded w-full md:w-auto"
                             >
                                 Continuar
                             </button>
