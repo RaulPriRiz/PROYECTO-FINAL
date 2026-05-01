@@ -5,7 +5,7 @@ function CreateQuestionModal({ isOpen, onClose, filmId, onCreated }) {
 
     const [form, setForm] = useState({
         questionText: "",
-        startSeconds: 0
+        startSeconds: ""
     });
 
     if (!isOpen) return null;
