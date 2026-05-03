@@ -445,12 +445,13 @@ public class UserRepository {
         entityManager.merge(user); 
     }
 
+    @Transactional
     public void editFavoriteGenre(String name){
         
         User user = findByName(name);
 
         
-        String sql = "SELECT f.GENRE FROM Games g JOIN Films f ON g.FILM_ID = f.ID WHERE g.USER_ID = "+ user.getId() +" GROUP BY f.genre ORDER BY COUNT(*) DESC LIMIT 1";
+        String sql = "SELECT f.GENRE FROM Game g JOIN Film f ON g.FILM_ID = f.ID WHERE g.USER_ID = "+ user.getId() +" GROUP BY f.genre ORDER BY COUNT(*) DESC LIMIT 1";
     
         String favoriteGenre = "";
         try{
