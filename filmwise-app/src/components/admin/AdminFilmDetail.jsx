@@ -46,24 +46,28 @@ function AdminFilmDetail({ film, onClose }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/90 z-50 p-10 overflow-auto">
+        <div className="fixed inset-0 bg-black/90 z-50 p-4 md:p-10 overflow-auto">
 
             <div className="max-w-4xl mx-auto">
 
-                <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-3xl">{film.title}</h2>
+                {/* HEADER */}
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
+                    <h2 className="text-2xl md:text-3xl text-center md:text-left">
+                        {film.title}
+                    </h2>
 
                     <button
                         onClick={onClose}
-                        className="bg-red-600 px-4 py-2 rounded"
+                        className="bg-red-600 px-4 py-2 rounded w-full md:w-auto"
                     >
                         Cerrar
                     </button>
                 </div>
 
+                {/* BOTÓN AÑADIR */}
                 <button
                     onClick={() => setShowCreateQuestionModal(true)}
-                    className="mb-6 bg-green-600 px-4 py-2 rounded"
+                    className="mb-6 bg-green-600 px-4 py-2 rounded w-full md:w-auto"
                 >
                     + Añadir pregunta
                 </button>
@@ -72,12 +76,13 @@ function AdminFilmDetail({ film, onClose }) {
                 <div className="flex flex-col gap-6">
 
                     {questions.map((q) => (
-                        <div key={q.id} className="bg-[#1f1f1f] p-6 rounded">
+                        <div key={q.id} className="bg-[#1f1f1f] p-4 md:p-6 rounded">
 
                             {/* PREGUNTA */}
-                            <div className="flex justify-between mb-4">
+                            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4">
+
                                 <div>
-                                    <p className="text-lg font-semibold">
+                                    <p className="text-base md:text-lg font-semibold">
                                         {q.questionText}
                                     </p>
                                     <p className="text-sm opacity-70">
@@ -85,10 +90,10 @@ function AdminFilmDetail({ film, onClose }) {
                                     </p>
                                 </div>
 
-                                <div className="flex gap-2">
+                                <div className="flex flex-wrap gap-2">
                                     <button
                                         onClick={() => openEditModal(q)}
-                                        className="bg-yellow-600 px-3 py-1 rounded"
+                                        className="bg-yellow-600 px-3 py-1 rounded w-full sm:w-auto"
                                     >
                                         Editar
                                     </button>
@@ -98,14 +103,14 @@ function AdminFilmDetail({ film, onClose }) {
                                             setSelectedQuestionForAnswer(q);
                                             setShowAnswerModal(true);
                                         }}
-                                        className="bg-blue-600 px-3 py-1 rounded"
+                                        className="bg-blue-600 px-3 py-1 rounded w-full sm:w-auto"
                                     >
                                         + Respuesta
                                     </button>
 
                                     <button
                                         onClick={() => handleDeleteQuestion(q)}
-                                        className="bg-red-600 px-3 py-1 rounded"
+                                        className="bg-red-600 px-3 py-1 rounded w-full sm:w-auto"
                                     >
                                         Eliminar
                                     </button>
@@ -117,9 +122,9 @@ function AdminFilmDetail({ film, onClose }) {
                                 {q.answers.map((ans, idx) => (
                                     <div
                                         key={idx}
-                                        className={`p-2 rounded ${ans.correct
-                                            ? "bg-green-700"
-                                            : "bg-gray-700"
+                                        className={`p-2 rounded text-sm md:text-base ${ans.correct
+                                                ? "bg-green-700"
+                                                : "bg-gray-700"
                                             }`}
                                     >
                                         {ans.answerText}
@@ -162,7 +167,7 @@ function AdminFilmDetail({ film, onClose }) {
             <CreateQuestionModal
                 isOpen={showCreateQuestionModal}
                 onClose={() => setShowCreateQuestionModal(false)}
-                filmId={film.id}   
+                filmId={film.id}
                 onCreated={async () => {
                     const data = await getFilmQuestions(film.title);
                     setQuestions(data);

@@ -31,54 +31,65 @@ function AdminFilms() {
     }, []);
 
     return (
-        <div>
+        <div className="p-4 md:p-8 max-w-5xl mx-auto">
 
-            <h2 className="text-2xl mb-6">Películas</h2>
+            <h2 className="text-2xl md:text-3xl mb-6 text-center md:text-left">
+                Películas
+            </h2>
 
             <button
                 onClick={() => {
                     setEditingFilm(null);
                     setShowFilmModal(true);
                 }}
-                className="mb-4 bg-green-600 px-4 py-2 rounded"
+                className="mb-6 bg-green-600 px-4 py-3 rounded w-full md:w-auto"
             >
                 + Añadir película
             </button>
 
             <div className="flex flex-col gap-4">
                 {films.map((film, i) => (
-                    <div key={i} className="bg-[#1f1f1f] p-4 rounded">
+                    <div key={i} className="bg-[#1f1f1f] p-4 md:p-5 rounded-xl">
 
-                        <div className="flex justify-between">
+                        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
 
+                            {/* INFO */}
                             <div>
-                                <p className="text-lg">{film.title}</p>
-                                <p className="text-sm opacity-70">{film.genre}</p>
+                                <p className="text-lg md:text-xl font-semibold">
+                                    {film.title}
+                                </p>
+                                <p className="text-sm opacity-70">
+                                    {film.genre}
+                                </p>
                             </div>
 
-                            <div className="flex gap-2">
+                            {/* BOTONES */}
+                            <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+
                                 <button
                                     onClick={() => {
                                         setEditingFilm(film);
                                         setShowFilmModal(true);
                                     }}
-                                    className="bg-blue-600 px-3 py-1 rounded"
+                                    className="bg-blue-600 px-3 py-2 rounded w-full sm:w-auto"
                                 >
                                     Editar
                                 </button>
+
                                 <button
                                     onClick={() => setSelectedFilm(film)}
-                                    className="bg-yellow-600 px-3 py-1 rounded"
+                                    className="bg-yellow-600 px-3 py-2 rounded w-full sm:w-auto"
                                 >
                                     Editar preguntas
                                 </button>
 
                                 <button
                                     onClick={() => handleDelete(film.title)}
-                                    className="bg-red-600 px-3 py-1 rounded"
+                                    className="bg-red-600 px-3 py-2 rounded w-full sm:w-auto"
                                 >
                                     Eliminar
                                 </button>
+
                             </div>
 
                         </div>

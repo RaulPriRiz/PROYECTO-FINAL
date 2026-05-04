@@ -430,3 +430,19 @@ export const deleteUser = async (name: string) => {
     throw new Error("No se pudo eliminar al usuario");
   }
 };
+
+export const getFriends = async (name:string) => {
+    const response = await fetch(API_URL + "/friends", 
+    {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({name:name})
+    });
+
+    if(!response.ok) throw new Error("Error al obtener los amigos");
+
+    const data = await response.json();
+    return data;
+}

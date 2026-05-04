@@ -249,6 +249,7 @@ public class UserRepository {
 
             friendMessage.setEmisorName(emisorUser.getName());
             friendMessage.setStatus((String)row[3]);
+            friendMessage.setDate(((java.sql.Date) row[4]).toLocalDate());
             res.add(friendMessage);
         }
 
@@ -444,12 +445,13 @@ public class UserRepository {
         entityManager.merge(user); 
     }
 
+    @Transactional
     public void editFavoriteGenre(String name){
         
         User user = findByName(name);
 
         
-        String sql = "SELECT f.GENRE FROM Games g JOIN Films f ON g.FILM_ID = f.ID WHERE g.USER_ID = "+ user.getId() +" GROUP BY f.genre ORDER BY COUNT(*) DESC LIMIT 1";
+        String sql = "SELECT f.GENRE FROM Game g JOIN Film f ON g.FILM_ID = f.ID WHERE g.USER_ID = "+ user.getId() +" GROUP BY f.genre ORDER BY COUNT(*) DESC LIMIT 1";
     
         String favoriteGenre = "";
         try{
@@ -465,4 +467,13 @@ public class UserRepository {
 
     }
     
+    //coge la lista de usuarios amigo del usuario 
+    public List<User> findFriends(String name){
+        
+        User user = findByName(name);
+
+        String sql = "SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 ="+user.getId()+ " OR F.FRIEND2 ="+user.getId()+") AND U.ID <> "+ user.getId()+ ";";
+        
+        return (List<User>) entityManager.createNativeQuery(sql, User.class).getResultList();
+    }
 }

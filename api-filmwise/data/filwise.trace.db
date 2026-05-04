@@ -8550,6 +8550,13 @@ INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "INSERT_DA
 2026-04-29 15:09:22.309362+02:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
 Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+<<<<<<< HEAD
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
+2026-04-27 21:50:18.434811+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
+=======
 INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "INSERT_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "INSERT_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
 2026-04-29 15:29:44.347829+02:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
@@ -8563,11 +8570,118 @@ update from question set FILM_ID = 2 [42001-232]
 org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
 Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
 INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "INSERT_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "INSERT_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
-2026-04-30 18:17:34.166397+02:00 jdbc[3]: exception
+>>>>>>> a4a898ff5c0613c819c6c48b14ac33cbfbbae01b
+2026-04-30 21:00:28.679612+02:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
 Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
-INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "INSERT_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "INSERT_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
-2026-05-04 04:31:32.251290+02:00 jdbc[3]: exception
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
+2026-04-30 21:15:27.627161+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "LEVEL" no encontrada
+Column "LEVEL" not found; SQL statement:
+update usuario set level = 1 where id >= 5 and id <= 10 [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.command.Parser.readTableColumn(Parser.java:963)
+	at org.h2.command.Parser.readUpdateSetClause(Parser.java:1050)
+	at org.h2.command.Parser.parseUpdate(Parser.java:1003)
+	at org.h2.command.Parser.parsePrepared(Parser.java:744)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1775)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2026-04-30 21:17:31.592619+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "insert into IS_FRIEND_OF values (2,1,3)\000d\000a[*]insert into IS_FRIEND_OF values (3,4,1)\000d\000ainsert into IS_FRIEND_OF values (4,5,1)\000d\000ainsert into IS_FRIEND_OF values (5,7,1)"
+Syntax error in SQL statement "insert into IS_FRIEND_OF values (2,1,3)\000d\000a[*]insert into IS_FRIEND_OF values (3,4,1)\000d\000ainsert into IS_FRIEND_OF values (4,5,1)\000d\000ainsert into IS_FRIEND_OF values (5,7,1)"; SQL statement:
+insert into IS_FRIEND_OF values (2,1,3)
+insert into IS_FRIEND_OF values (3,4,1)
+insert into IS_FRIEND_OF values (4,5,1)
+insert into IS_FRIEND_OF values (5,7,1) [42000-232]
+2026-04-30 21:19:21.976347+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1 [42001-232]
+2026-05-01 19:14:22.381502+02:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
 Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
-INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "INSERT_DATE", "VIDEO_URL", "IMAGE_CARROUSEL") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "INSERT_DATE", "VIDEO_URL", "IMAGE_CARROUSEL" FROM "PUBLIC"."FILM" [22001-232]
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
+2026-05-03 21:12:16.381868+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
+2026-05-03 21:15:08.722544+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "GAMES" no encontrada
+Table "GAMES" not found; SQL statement:
+SELECT f.GENRE FROM Games g JOIN Films f ON g.FILM_ID = f.ID WHERE g.USER_ID = 1 GROUP BY f.genre ORDER BY COUNT(*) DESC LIMIT 1 [42102-232]
+2026-05-03 21:25:38.754741+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
+2026-05-03 21:26:49.960681+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "GAMES" no encontrada
+Table "GAMES" not found; SQL statement:
+SELECT f.GENRE FROM Games g JOIN Films f ON g.FILM_ID = f.ID WHERE g.USER_ID = 1 GROUP BY f.genre ORDER BY COUNT(*) DESC LIMIT 1 [42102-232]
+2026-05-03 21:28:20.592324+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
+2026-05-03 21:29:04.261913+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "FILMS" no encontrada
+Table "FILMS" not found; SQL statement:
+SELECT f.GENRE FROM Game g JOIN Films f ON g.FILM_ID = f.ID WHERE g.USER_ID = 1 GROUP BY f.genre ORDER BY COUNT(*) DESC LIMIT 1 [42102-232]
+2026-05-04 00:36:21.597635+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
+2026-05-04 00:38:46.514951+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
