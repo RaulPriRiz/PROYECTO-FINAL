@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { createNewMessage } from "../data/userApi";
+import { createNewMessage, getFriends } from "../data/userApi";
 
 const AddFriendModal = ({ isOpen, onClose, user }) => {
 
   const [emisorName, setEmisorName] = useState("");
   const [receptorName, setReceptorName] = useState("");
+  const [friends, setFriends] = useState([]);
 
-  //Cargar datos cuando llega user
+  //cuando se abre y llega user
   useEffect(() => {
     if (isOpen && user) {
+
       setEmisorName(user.name || "");
       setReceptorName("");
+
+      const fetchFriends = async () => {
+        try {
+          const data = await getFriends(user.name);
+          console.log("FRIENDS:", data);
+          setFriends(data);
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+
+      fetchFriends();
     }
   }, [isOpen, user]);
 
@@ -61,6 +75,26 @@ const AddFriendModal = ({ isOpen, onClose, user }) => {
           >
             ENVIAR SOLICITUD
           </button>
+
+          {/* LISTA DE AMIGOS */}
+          <h2 className="mt-4 text-2xl font-bold text-center">
+            Mis amigos:
+          </h2>
+          <div className="flex flex-col gap-3 max-h-[250px] overflow-y-auto pr-3">
+            {friends.map((friend) => (
+              <div
+                key={friend.id}
+                className="flex items-center gap-3 bg-[#252525] px-4 py-2 rounded-xl"
+              >
+                <img
+                  src={friend.image}
+                  alt={friend.name}
+                  className="w-14 h-14 rounded-full object-cover"
+                />
+                <p className="text-lg md:text-lg font-semibold px-2">{friend.name}</p>
+              </div>
+            ))}
+          </div>
 
         </div>
       </div>
