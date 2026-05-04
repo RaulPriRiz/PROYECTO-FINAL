@@ -1,46 +1,69 @@
 import group from "../assets/group.svg";
 import swords from "../assets/swords.svg";
 
-function NotificationCard({ name, messageText, type, onAction }) {
+function NotificationCard({ name, msg, date, type, onAction }) {
 
   const isFriend = type === "friend";
 
   const icon = isFriend ? group : swords;
 
-  const text = isFriend ? `${name} te ha enviado una solicitud de amistad.` : `${name} te ha enviado un mensaje: "${messageText}"`;
+  const text = isFriend ? `${name} te ha enviado una solicitud de amistad.` : `${name} te ha enviado un mensaje: "${msg}"`;
 
   return (
-    <div className="relative rounded-2xl px-4 md:px-7 h-20 flex items-center text-white bg-[#252525]">
+    <div className="relative rounded-2xl px-4 md:px-7 py-3 flex flex-col text-white bg-[#252525]">
 
-      <img
-        src={icon}
-        alt={name}
-        className="w-10 h-10"
-      />
+      {/* CONTENIDO */}
+      <div className="flex items-center mt-3">
 
-      <div className="ml-4 flex-1 flex items-center justify-between">
+        <img
+          src={icon}
+          alt={name}
+          className="w-10 h-10"
+        />
 
-        <p className="text-sm md:text-base flex-1">
-          {text}
-        </p>
+        <div className="ml-4 flex-1 flex items-center justify-between">
 
-        <div className="flex gap-2">
-          <button
-            onClick={() => onAction(name, "ACEPTADA", type)}
-            className="bg-green-600 hover:bg-green-600 px-4 py-1 rounded-full text-sm"
-          >
-            ACEPTAR
-          </button>
+          <p className="text-sm md:text-base flex-1">
+            {text}
+          </p>
 
-          <button
-            onClick={() => onAction(name, "RECHAZADA", type)}
-            className="bg-red-700 hover:bg-red-600 px-3 py-1 rounded-full text-sm"
-          >
-            RECHAZAR
-          </button>
+          <div className="flex gap-2">
+            {isFriend ? (
+              <>
+                <button
+                  onClick={() => onAction(name, "ACEPTADA", type)}
+                  className="bg-green-600 hover:bg-green-600 px-4 py-1 rounded-full text-sm"
+                >
+                  ACEPTAR
+                </button>
+
+                <button
+                  onClick={() => onAction(name, "RECHAZADA", type)}
+                  className="bg-red-700 hover:bg-red-600 px-3 py-1 rounded-full text-sm"
+                >
+                  RECHAZAR
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => onAction(name, "RECHAZADA", type)}
+                className="bg-red-700 hover:bg-red-600 px-4 py-1 rounded-full text-sm"
+              >
+                ELIMINAR
+              </button>
+            )}
+          </div>
         </div>
-
       </div>
+
+      {/* FECHA */}
+      <div className="flex justify-end">
+        <span className="text-xs text-gray-400">
+          {date}
+        </span>
+      </div>
+
+
     </div>
   );
 }
