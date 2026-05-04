@@ -165,7 +165,7 @@ public class UserController {
 
     @PostMapping("/challenges/newMessage")
     public String sendChallengeMessage(@RequestBody MessageRequest challengesRequest){
-        return repo.createChallengeMessage(challengesRequest.getEmisorName(), challengesRequest.getReceptorName(), challengesRequest.getFilmTitle());
+        return repo.createChallengeMessage(challengesRequest.getEmisorName(), challengesRequest.getReceptorName(), challengesRequest.getMessageText());
     }
 
     @PostMapping("/challenges/editStatus")

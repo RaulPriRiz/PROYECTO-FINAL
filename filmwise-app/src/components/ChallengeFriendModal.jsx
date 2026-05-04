@@ -5,7 +5,7 @@ const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
 
   const [emisorName, setEmisorName] = useState("");
   const [receptorName, setReceptorName] = useState("");
-  const [filmTitle, setFilmTitle] = useState("");
+  const [messageText, setMessageText] = useState("");
   const [friends, setFriends] = useState([]);
 
   //cuando se abre y llega user
@@ -14,7 +14,7 @@ const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
 
       setEmisorName(user.name || "");
       setReceptorName("");
-      setFilmTitle("");
+      setMessageText("");
 
       const fetchFriends = async () => {
         try {
@@ -32,7 +32,7 @@ const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
 
   const handleSend = async () => {
     try {
-      await createNewChallengeMessage(emisorName, receptorName, filmTitle);
+      await createNewChallengeMessage(emisorName, receptorName, messageText);
       onClose();
     } catch (error) {
       alert(error.message);
@@ -82,15 +82,15 @@ const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
             </select>
           </div>
 
-          {/* TÍTULO PELÍCULA */}
+          {/* mensaje*/}
           <div className="flex flex-col gap-1">
             <label className="text-sm text-gray-300">
-              Introduce el título de una película.
+              Introduce el mensaje de reto.
             </label>
             <input
               type="text"
-              value={filmTitle}
-              onChange={(e) => setFilmTitle(e.target.value)}
+              value={messageText}
+              onChange={(e) => setMessageText(e.target.value)}
               className="bg-filmBlack p-3 rounded outline-none text-white"
             />
           </div>

@@ -383,11 +383,10 @@ public class UserRepository {
             MessageResponse friendMessage = new MessageResponse();
 
             //buscamos el nombre del usuario que ha enviado el mensaje
-            User emisorUser = findById((Integer)row[3]);
+            User emisorUser = findById((Integer)row[2]);
 
             friendMessage.setEmisorName(emisorUser.getName());
-            friendMessage.setStatus((String)row[5]);
-            friendMessage.setFilmTitle((String) row[2]);
+            friendMessage.setMessageText((String) row[4]);
             friendMessage.setDate(((java.sql.Date) row[1]).toLocalDate());
             res.add(friendMessage);
         }
@@ -396,7 +395,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public String createChallengeMessage(String emisorName, String receptorName, String filmTitle) {
+    public String createChallengeMessage(String emisorName, String receptorName, String messageText) {
         
         Integer maxId = getMaxIdChallengeMessage();
 
@@ -414,7 +413,7 @@ public class UserRepository {
         challengeMessage.setIdUserReceptor(userReceptor.getId());
         challengeMessage.setStatus("PENDIENTE");
         challengeMessage.setDate(LocalDate.now()); //la fecha de cuando se quiere guardar el mensaje de reto
-        challengeMessage.setFilmTitle(filmTitle); //el titulo de la pelicula a la que se quiere retar
+        challengeMessage.setMessageText(messageText); //el mensaje de la pelicula a la que se quiere retar
 
         entityManager.persist(challengeMessage);
         return "Mensaje enviado correctamente";

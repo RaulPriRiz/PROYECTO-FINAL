@@ -12,7 +12,7 @@ public class ChallengeMessage {
 
     private Integer idUserEmisor;
     private Integer idUserReceptor;
-    private String filmTitle;
+    private String messageText;
     private LocalDate date;
     private String status;
 
@@ -42,12 +42,12 @@ public class ChallengeMessage {
         this.idUserReceptor = idUserReceptor;
     }
 
-    public String getFilmTitle() {
-        return filmTitle;
+    public String getMessageText() {
+        return messageText;
     }
 
-    public void setFilmTitle(String filmTitle) {
-        this.filmTitle = filmTitle;
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
     }
 
     public LocalDate getDate(){

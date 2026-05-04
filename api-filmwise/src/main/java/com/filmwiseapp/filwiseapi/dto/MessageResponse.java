@@ -6,7 +6,7 @@ public class MessageResponse {
 
     public String emisorName;
     public String status;
-    public String filmTitle; 
+    public String messageText;
     public LocalDate date;
 
     public String getEmisorName() {
@@ -17,12 +17,12 @@ public class MessageResponse {
         this.emisorName = emisorName;
     }
 
-    public String getFilmTitle(){
-        return filmTitle;
+    public String getMessageText(){
+        return messageText;
     }
 
-    public void setFilmTitle(String filmTitle){
-        this.filmTitle = filmTitle;
+    public void setMessageText(String messageText){
+        this.messageText = messageText;
     }
 
     public String getStatus() {

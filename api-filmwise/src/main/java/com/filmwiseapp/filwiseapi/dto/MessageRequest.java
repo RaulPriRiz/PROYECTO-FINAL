@@ -5,7 +5,7 @@ public class MessageRequest {
     
     public String emisorName;
     public String receptorName;
-    public String filmTitle;
+    public String messageText;
 
     public String getEmisorName() {
         return emisorName;
@@ -23,10 +23,10 @@ public class MessageRequest {
         this.receptorName = receptorName;
     }
 
-    public String getFilmTitle(){
-        return filmTitle;
+    public String getMessageText(){
+        return messageText;
     }
-    public void setFilmTitle(String filmTitle){
-        this.filmTitle = filmTitle;
+    public void setMessageText(String messageText){
+        this.messageText = messageText;
     }
 }

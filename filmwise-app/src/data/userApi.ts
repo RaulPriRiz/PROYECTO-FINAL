@@ -379,7 +379,7 @@ export const editMessageChallengeStatus = async (nameEmisor: string, newStatus:s
 
 }
 
-export const createNewChallengeMessage = async(emisorName:string, receptorName:string, filmTitle:string) => {
+export const createNewChallengeMessage = async(emisorName:string, receptorName:string, messageText:string) => {
     const response = await fetch(API_URL + "/challenges/newMessage",
     {
       method: "POST",
@@ -389,7 +389,7 @@ export const createNewChallengeMessage = async(emisorName:string, receptorName:s
       body: JSON.stringify({
         emisorName:emisorName, 
         receptorName:receptorName,
-        filmTitle:filmTitle
+        messageText:messageText
       })
     });
 
