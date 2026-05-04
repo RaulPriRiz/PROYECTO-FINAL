@@ -469,10 +469,10 @@ public class UserRepository {
     
     //coge la lista de usuarios amigo del usuario 
     public List<User> findFriends(String name){
-        
+
         User user = findByName(name);
 
-        String sql = "SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 ="+user.getId()+ " OR F.FRIEND2 ="+user.getId()+") AND U.ID <> "+ user.getId()+ ";";
+        String sql = "SELECT U.* FROM USUARIO U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 ="+user.getId()+ " OR F.FRIEND2 ="+user.getId()+") AND U.ID <> "+ user.getId()+ ";";
         
         return (List<User>) entityManager.createNativeQuery(sql, User.class).getResultList();
     }

@@ -1,13 +1,13 @@
 import group from "../assets/group.svg";
 import swords from "../assets/swords.svg";
 
-function NotificationCard({ name, type, onAction }) {
+function NotificationCard({ name, title, type, onAction }) {
 
   const isFriend = type === "friend";
 
   const icon = isFriend ? group : swords;
 
-  const text = isFriend ? `${name} te ha enviado una solicitud de amistad.` : `${name} te ha retado a una partida.`;
+  const text = isFriend ? `${name} te ha enviado una solicitud de amistad.` : `${name} te ha retado a una partida de "${title}"`;
 
   return (
     <div className="relative rounded-2xl px-4 md:px-7 h-20 flex items-center text-white bg-[#252525]">

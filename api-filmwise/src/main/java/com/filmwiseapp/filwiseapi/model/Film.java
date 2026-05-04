@@ -15,6 +15,8 @@ public class Film {
     private String image;
     private LocalDate insertDate;
     private String videoUrl;
+
+    @Column(name = "IMAGE_CARROUSEL", length = 500)
     private String imageCarrousel;
 
     public Film() {

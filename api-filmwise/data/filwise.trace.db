@@ -8685,3 +8685,71 @@ INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_
 org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
 Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
 INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
+2026-05-04 04:52:53.499277+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
+2026-05-04 05:08:52.452376+02:00 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:09:33.260625+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:13:06.979638+02:00 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:15:14.975102+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:19:07.802583+02:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:20:58.467682+02:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:21:04.231180+02:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:27:10.419406+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:27:23.616725+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:33:05.898763+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:34:33.621640+02:00 jdbc[15]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 05:43:57.917486+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
+2026-05-04 06:05:17.248172+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_13_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
+2026-05-04 06:07:41.582301+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"
+Value too long for column "IMAGE_CARROUSEL CHARACTER VARYING(255)": "'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh88PCbHm3hyphenhyphe... (297)"; SQL statement:
+INSERT INTO "PUBLIC"."FILM_COPY_3_0"("ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE") OVERRIDING SYSTEM VALUE SELECT "ID", "GENRE", "IMAGE", "TITLE", "CREATION_DATE", "VIDEO_URL", "IMAGE_CARROUSEL", "INSERT_DATE" FROM "PUBLIC"."FILM" [22001-232]
+2026-05-04 06:11:48.465199+02:00 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-04 06:15:08.846533+02:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
+Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
+SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]

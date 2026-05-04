@@ -1,27 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { createNewChallengeMessage } from "../data/userApi";
+import { createNewChallengeMessage, getFriends } from "../data/userApi";
 
 const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
 
   const [emisorName, setEmisorName] = useState("");
   const [receptorName, setReceptorName] = useState("");
   const [filmTitle, setFilmTitle] = useState("");
+  const [friends, setFriends] = useState([]);
 
-  //Cargar datos cuando llega user
+  //cuando se abre y llega user
   useEffect(() => {
     if (isOpen && user) {
+
       setEmisorName(user.name || "");
       setReceptorName("");
       setFilmTitle("");
+
+      const fetchFriends = async () => {
+        try {
+          const data = await getFriends(user.name);
+          console.log("FRIENDS:", data);
+          setFriends(data);
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+
+      fetchFriends();
     }
   }, [isOpen, user]);
-
-  const handleChange = (field, value) => {
-    setForm(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
 
   const handleSend = async () => {
     try {
@@ -59,11 +66,19 @@ const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
               Escoge el amigo al que quieres retar.
             </label>
             <select
-              value={"" || ""}
-              onChange={(e) => handleChange("rol", e.target.value)}
+              value={receptorName}
+              onChange={(e) => setReceptorName(e.target.value)}
               className="p-2 bg-gray-800 rounded"
             >
-              <option value=""></option>
+              <option value="" disabled>
+                ...
+              </option>
+
+              {friends.map((friend) => (
+                <option key={friend.id} value={friend.name}>
+                  {friend.name}
+                </option>
+              ))}
             </select>
           </div>
 

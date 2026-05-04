@@ -51,6 +51,7 @@ const NotificationModal = ({ isOpen, onClose, user, friendsMessages, challengesM
               <NotificationCard
                 key={index}
                 name={message.emisorName}
+                title={message.filmTitle}
                 type={message.type}
                 onAction={handleResponse}
               />

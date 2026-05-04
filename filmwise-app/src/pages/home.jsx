@@ -30,8 +30,10 @@ function Home() {
   const fetchMessages = async () => {
     try {
       const friends = await getFriendsMessages(userLogin.name);
+      console.log("FRIENDS:", friends);
       setFriendsMessages(friends);
       const challenges = await getChallengesMessages(userLogin.name);
+      console.log("CHALLENGES:", challenges);
       setChallengesMessages(challenges);
     } catch (error) {
       console.log(error.message);
