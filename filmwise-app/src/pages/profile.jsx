@@ -124,7 +124,7 @@ function Profile() {
               <h2 className="text-3xl md:text-4xl font-serif font-bold">
                 {userName}
               </h2>
-              <span className="text-md mt-1 font-semibold mt-3">
+              <span className="text-md font-semibold mt-3">
                 {friendsNumber} Amigos
               </span>
 

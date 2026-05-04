@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { createNewChallengeMessage } from "../data/userApi";
+import { createNewChallengeMessage, getFriends } from "../data/userApi";
 
 const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
 
   const [emisorName, setEmisorName] = useState("");
   const [receptorName, setReceptorName] = useState("");
   const [filmTitle, setFilmTitle] = useState("");
+  const [friends, setFriends] = useState([]);
 
-  //Cargar datos cuando llega user
+  //cuando se abre y llega user
   useEffect(() => {
     if (isOpen && user) {
+
       setEmisorName(user.name || "");
       setReceptorName("");
       setFilmTitle("");
+
+      const fetchFriends = async () => {
+        try {
+          const data = await getFriends(user.name);
+          console.log("FRIENDS:", data);
+          setFriends(data);
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+
+      fetchFriends();
     }
   }, [isOpen, user]);
 
@@ -49,14 +63,23 @@ const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
           {/* NOMBRE USUARIO RECEPTOR */}
           <div className="flex flex-col gap-1">
             <label className="text-sm text-gray-300">
-              Introduce el nombre del amigo al que quieres retar.
+              Escoge el amigo al que quieres retar.
             </label>
-            <input
-              type="text"
+            <select
               value={receptorName}
               onChange={(e) => setReceptorName(e.target.value)}
-              className="bg-filmBlack p-3 rounded outline-none text-white"
-            />
+              className="p-2 bg-gray-800 rounded"
+            >
+              <option value="" disabled>
+                ...
+              </option>
+
+              {friends.map((friend) => (
+                <option key={friend.id} value={friend.name}>
+                  {friend.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* TÍTULO PELÍCULA */}
