@@ -16,6 +16,13 @@ const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
     }
   }, [isOpen, user]);
 
+  const handleChange = (field, value) => {
+    setForm(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
   const handleSend = async () => {
     try {
       await createNewChallengeMessage(emisorName, receptorName, filmTitle);
@@ -49,14 +56,15 @@ const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
           {/* NOMBRE USUARIO RECEPTOR */}
           <div className="flex flex-col gap-1">
             <label className="text-sm text-gray-300">
-              Introduce el nombre del amigo al que quieres retar.
+              Escoge el amigo al que quieres retar.
             </label>
-            <input
-              type="text"
-              value={receptorName}
-              onChange={(e) => setReceptorName(e.target.value)}
-              className="bg-filmBlack p-3 rounded outline-none text-white"
-            />
+            <select
+              value={"" || ""}
+              onChange={(e) => handleChange("rol", e.target.value)}
+              className="p-2 bg-gray-800 rounded"
+            >
+              <option value=""></option>
+            </select>
           </div>
 
           {/* TÍTULO PELÍCULA */}
