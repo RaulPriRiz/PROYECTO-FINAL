@@ -5,12 +5,12 @@ const NotificationModal = ({ isOpen, onClose, user, friendsMessages, challengesM
 
   if (!isOpen) return null;
 
-  const handleResponse = async (emisorName, response, type) => {
+  const handleResponse = async (id, response, type) => {
     try {
       if (type === "friend") {
-        await editMessageStatus(emisorName, response, user.name);
+        await editMessageStatus(id, response);
       } else {
-        await editMessageChallengeStatus(emisorName, response, user.name);
+        await editMessageChallengeStatus(id, response);
       }
       // sincroniza home y contador
       await updateMessages();
@@ -47,9 +47,10 @@ const NotificationModal = ({ isOpen, onClose, user, friendsMessages, challengesM
               No tienes notificaciones en este momento.
             </p>
           ) : (
-            messages.map((message, index) => (
+            messages.map((message) => (
               <NotificationCard
-                key={index}
+                key={message.id}
+                id={message.id}
                 name={message.emisorName}
                 msg={message.messageText}
                 type={message.type}

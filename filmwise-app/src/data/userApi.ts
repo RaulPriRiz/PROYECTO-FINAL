@@ -121,7 +121,7 @@ export const getFriendsMessages = async (name: string) => {
 };
 
 //si el usuario acepta o rechaza el mensaje, hay que editar el status del mensaje de amistad
-export const editMessageStatus = async (nameEmisor: string, newStatus:string, nameReceptor:string) => {
+export const editMessageStatus = async (id:number, newStatus:string) => {
   const response = await fetch(API_URL + "/friends/editStatus",
     {
       method: "POST",
@@ -129,9 +129,8 @@ export const editMessageStatus = async (nameEmisor: string, newStatus:string, na
         "Content-Type" : "application/json"
       },
       body: JSON.stringify({
-        nameEmisor:nameEmisor,
-        newStatus:newStatus,
-        nameReceptor:nameReceptor
+        id:id,
+        newStatus:newStatus
       })
     });
 
@@ -361,7 +360,7 @@ export const getChallengesMessages = async (name:string) => {
     return data;
 }
 
-export const editMessageChallengeStatus = async (nameEmisor: string, newStatus:string, nameReceptor:string) => {
+export const editMessageChallengeStatus = async (id:number, newStatus:string) => {
   const response = await fetch(API_URL + "/challenges/editStatus",
     {
       method: "POST",
@@ -369,9 +368,8 @@ export const editMessageChallengeStatus = async (nameEmisor: string, newStatus:s
         "Content-Type" : "application/json"
       },
       body: JSON.stringify({
-        nameEmisor:nameEmisor,
-        newStatus:newStatus,
-        nameReceptor:nameReceptor
+        id:id,
+        newStatus:newStatus
       })
     });
 
