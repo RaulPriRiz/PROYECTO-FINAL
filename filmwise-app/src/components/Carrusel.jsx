@@ -36,7 +36,7 @@ function Carrusel({ movies }) {
           <img
             src={movie.imageCarrousel}
             alt={movie.title}
-            className="w-full h-[350px] object-cover object-[center_35%]"
+            className="w-full h-[220px] md:h-[350px] object-cover object-[center_35%]"
           /></Link>
         ))}
       </div>

@@ -82,6 +82,7 @@ function Home() {
 
   const totalMessages = friendsMessages.length + challengesMessages.length;
   const randomMovieTitle = movies[Math.floor(Math.random() * movies.length)]?.title;
+  const hasRecentGames = recentGames.length > 0;
 
   return (
     <div className="min-h-screen bg-filmBlack text-white px-6 md:px-16 pt-24 pb-24">
@@ -100,7 +101,7 @@ function Home() {
               onClick={() => setIsNotificationOpen(true)}
               className="hover:opacity-70 transition"
             >
-              <img src={bell} alt="icono" className="w-6 md:w-8" />
+              <img src={bell} alt="icono" className="w-8" />
             </button>
 
             {totalMessages > 0 && (
@@ -116,7 +117,7 @@ function Home() {
       <Carrusel movies={newFilms} />
 
       <div className="flex justify-center mt-10">
-        <Link to={`/details/${randomMovieTitle}`} className="flex items-center gap-3 bg-emerald-500 text-black font-serif font-bold px-6 md:px-7 py-3 md:py-4 rounded-xl text-lg hover:bg-white hover:text-black transition">
+        <Link to={`/details/${randomMovieTitle}`} className="flex items-center justify-center text-center gap-3 bg-emerald-500 text-black font-serif font-bold px-2 md:px-7 py-3 md:py-4 rounded-xl text-sm md:text-lg hover:bg-white hover:text-black transition">
           <img src={dice} alt="icono" className="w-6 md:w-8" />
 
           <span>JUGAR PELÍCULA ALEATORIA</span>
@@ -134,16 +135,25 @@ function Home() {
             </div>
 
             <div className="flex gap-6 mt-4 flex-wrap">
-              {recentGames.map((game, index) => (
-                <Link
-                  key={index}
-                  to={`/details/${game.title}`}>
-                  <GameCard
-                    title={game.title}
-                    mode={game.mode}
-                    image={game.image}
-                  /></Link>
-              ))}
+              {hasRecentGames ? (
+                recentGames.map((game, index) => (
+                  <Link
+                    key={index}
+                    to={`/details/${game.title}`}>
+                    <GameCard
+                      title={game.title}
+                      mode={game.mode}
+                      image={game.image}
+                    /></Link>
+                ))
+
+              ) : (
+                <GameCard
+                  title=""
+                  mode="¡Juega una partida!"
+                  image={bgFilm}
+                />)}
+
             </div>
           </>
 
