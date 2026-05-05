@@ -2,16 +2,15 @@ package com.filmwiseapp.filwiseapi.dto;
 
 public class EditMessageStatus {
     
-    private String nameEmisor;
+    private Integer id;
     private String newStatus;
-    private String nameReceptor; //En el caso de que se vaya a crear una nueva amistad (si newStatus = ACEPTADA) lo necesitamos
 
-    public String getNameEmisor() {
-        return nameEmisor;
+    public Integer getId() {
+        return id;
     }
 
-    public void setNameEmisor(String nameEmisor) {
-        this.nameEmisor = nameEmisor;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNewStatus() {
@@ -20,13 +19,5 @@ public class EditMessageStatus {
 
     public void setNewStatus(String newStatus) {
         this.newStatus = newStatus;
-    }
-
-     public String getNameReceptor() {
-        return nameReceptor;
-    }
-
-    public void setNameReceptor(String nameReceptor) {
-        this.nameReceptor = nameReceptor;
     }
 }

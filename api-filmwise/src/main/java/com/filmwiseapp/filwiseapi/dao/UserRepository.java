@@ -247,6 +247,7 @@ public class UserRepository {
             //buscamos el nombre del usuario que ha enviado el mensaje
             User emisorUser = findById((Integer)row[1]);
 
+            friendMessage.setId((Integer) row[0]);
             friendMessage.setEmisorName(emisorUser.getName());
             friendMessage.setStatus((String)row[3]);
             friendMessage.setDate(((java.sql.Date) row[4]).toLocalDate());
@@ -292,13 +293,13 @@ public class UserRepository {
     }
 
     @Transactional
-    public void editStatusMessage(String emisorName, String receptorName, String newStatus){
+    public void editStatusMessage(Integer id, String newStatus){
 
-        User user = findByName(emisorName);
+        //User user = findByName(emisorName);
         
-        User user2 = findByName(receptorName);
+        //User user2 = findByName(receptorName);
 
-        String sql = "UPDATE FRIEND_MESSAGE SET STATUS = '" + newStatus + "' WHERE ID_USER_EMISOR = " + user.getId() + " AND ID_USER_RECEPTOR = " + user2.getId();
+        String sql = "UPDATE FRIEND_MESSAGE SET STATUS = '" + newStatus + "' WHERE ID = " + id;
 
         entityManager.createNativeQuery(sql).executeUpdate();
 
@@ -313,14 +314,16 @@ public class UserRepository {
             
 
             //PERO ANTES HAY QUE COMPROBAR QUE NO EXISTA LA AMISTAD YA
-            if(areFriends(user.getId(), user2.getId())) return;
+            //if(areFriends(user.getId(), user2.getId())) return;
 
             //si no existe ya la amistad entonces se crea:
+            /*
             IsFriendOf newFriendShip = new IsFriendOf();
             newFriendShip.setId(maxId + 1);
             newFriendShip.setFriend1(user.getId());
             newFriendShip.setFriend2(user2.getId());
             entityManager.persist(newFriendShip);
+            */
         }
     }
 
@@ -358,13 +361,9 @@ public class UserRepository {
     }
 
     @Transactional
-    public void editStatusChallengeMessage(String emisorName, String receptorName, String newStatus){
+    public void editStatusChallengeMessage(Integer id, String newStatus){
 
-        User user = findByName(emisorName);
-        
-        User user2 = findByName(receptorName);
-
-        String sql = "UPDATE CHALLENGE_MESSAGE SET STATUS = '" + newStatus + "' WHERE ID_USER_EMISOR = " + user.getId() + " AND ID_USER_RECEPTOR = " + user2.getId();
+        String sql = "UPDATE CHALLENGE_MESSAGE SET STATUS = '" + newStatus + "' WHERE ID = " + id;
 
         entityManager.createNativeQuery(sql).executeUpdate();
     }
@@ -385,6 +384,7 @@ public class UserRepository {
             //buscamos el nombre del usuario que ha enviado el mensaje
             User emisorUser = findById((Integer)row[2]);
 
+            friendMessage.setId((Integer) row[0]);
             friendMessage.setEmisorName(emisorUser.getName());
             friendMessage.setMessageText((String) row[4]);
             friendMessage.setDate(((java.sql.Date) row[1]).toLocalDate());

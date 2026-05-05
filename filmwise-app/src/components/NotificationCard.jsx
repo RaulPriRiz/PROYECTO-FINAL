@@ -1,7 +1,7 @@
 import group from "../assets/group.svg";
 import swords from "../assets/swords.svg";
 
-function NotificationCard({ name, msg, date, type, onAction }) {
+function NotificationCard({ id, name, msg, date, type, onAction }) {
 
   const isFriend = type === "friend";
 
@@ -31,14 +31,14 @@ function NotificationCard({ name, msg, date, type, onAction }) {
             {isFriend ? (
               <>
                 <button
-                  onClick={() => onAction(name, "ACEPTADA", type)}
+                  onClick={() => onAction(id, "ACEPTADA", type)}
                   className="bg-green-600 hover:bg-green-600 px-4 py-1 rounded-full text-sm"
                 >
                   ACEPTAR
                 </button>
 
                 <button
-                  onClick={() => onAction(name, "RECHAZADA", type)}
+                  onClick={() => onAction(id, "RECHAZADA", type)}
                   className="bg-red-700 hover:bg-red-600 px-3 py-1 rounded-full text-sm"
                 >
                   RECHAZAR
@@ -46,7 +46,7 @@ function NotificationCard({ name, msg, date, type, onAction }) {
               </>
             ) : (
               <button
-                onClick={() => onAction(name, "RECHAZADA", type)}
+                onClick={() => onAction(id, "ACEPTADA", type)}
                 className="bg-red-700 hover:bg-red-600 px-4 py-1 rounded-full text-sm"
               >
                 ELIMINAR

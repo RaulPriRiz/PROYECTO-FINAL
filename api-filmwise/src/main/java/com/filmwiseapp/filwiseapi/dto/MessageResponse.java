@@ -4,10 +4,19 @@ import java.time.LocalDate;
 
 public class MessageResponse {
 
+    public Integer id;
     public String emisorName;
     public String status;
     public String messageText;
     public LocalDate date;
+
+    public Integer getId(){
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getEmisorName() {
         return emisorName;
