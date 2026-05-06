@@ -15,6 +15,7 @@ public class Film {
     private String image;
     private LocalDate insertDate;
     private String videoUrl;
+    private String mode; 
 
     @Column(name = "IMAGE_CARROUSEL", length = 500)
     private String imageCarrousel;
@@ -76,5 +77,13 @@ public class Film {
 
     public void setImageCarrousel(String imageCarrousel){
         this.imageCarrousel = imageCarrousel;
+    }
+
+    public String getMode(){
+        return mode;
+    }
+
+    public void setMode(String mode){
+        this.mode = mode;
     }
 }
