@@ -75,6 +75,7 @@ function Movies() {
             title={movie.title}
             image={movie.image}
             genre={movie.genre}
+            mode={movie.mode}
           />
         ))}
       </div>
