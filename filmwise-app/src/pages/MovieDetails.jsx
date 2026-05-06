@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router";
 import { getFilm } from "../data/filmApi";
 import { useNavigate } from "react-router-dom";
 import { getMostRecentGame } from "../data/gameApi";
+import Navbar from "../components/Navbar";
 import playIcon from "../assets/play_circle.svg";
 import starIcon from "../assets/star.svg";
 import groupIcon from "../assets/group.svg";
@@ -51,8 +52,10 @@ const MovieDetails = () => {
 
   const genres = movie.genre_ids?.map(id => GENRES[id]).join(" • ");
 
-return (
+  return (
     <div className="bg-filmBlack text-white min-h-screen flex flex-col">
+
+      <Navbar />
 
       <div className="relative w-full h-[200px] md:h-[89vh]">
         <img
@@ -169,8 +172,8 @@ return (
                   <p className="text-sm text-white italic">
                     Aún no has jugado a esta película
                   </p>
-                )}            
-              </div>              
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -208,7 +211,7 @@ return (
                 <p className="text-sm text-white italic">
                   Aún no has jugado a esta película
                 </p>
-              )}            
+              )}
             </div>
           </div>
         </div>
