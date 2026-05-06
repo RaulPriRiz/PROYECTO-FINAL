@@ -5,10 +5,10 @@ const NotificationModal = ({ isOpen, onClose, user, friendsMessages, challengesM
 
   if (!isOpen) return null;
 
-  const handleResponse = async (id, response, type) => {
+  const handleResponse = async (emisorName, receptorName, id, response, type) => {
     try {
       if (type === "friend") {
-        await editMessageStatus(id, response);
+        await editMessageStatus(emisorName, receptorName, id, response);
       } else {
         await editMessageChallengeStatus(id, response);
       }

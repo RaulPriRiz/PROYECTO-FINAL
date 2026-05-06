@@ -4,6 +4,8 @@ public class EditMessageStatus {
     
     private Integer id;
     private String newStatus;
+    private String emisorName;
+    private String receptorName;
 
     public Integer getId() {
         return id;
@@ -19,5 +21,21 @@ public class EditMessageStatus {
 
     public void setNewStatus(String newStatus) {
         this.newStatus = newStatus;
+    }
+
+    public String getEmisorName(){
+        return emisorName;
+    }
+
+    public void setEmisorName(String emisorName){
+        this.emisorName = emisorName;
+    }
+
+       public String getReceptorName(){
+        return receptorName;
+    }
+
+    public void setReceptorName(String receptorName){
+        this.receptorName = receptorName;
     }
 }

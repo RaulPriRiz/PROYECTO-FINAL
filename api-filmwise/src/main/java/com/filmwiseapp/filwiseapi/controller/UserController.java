@@ -150,7 +150,7 @@ public class UserController {
 
     @PostMapping("/friends/editStatus")
     public void editMessageStatus(@RequestBody EditMessageStatus editMessageStatus){
-        repo.editStatusMessage(editMessageStatus.getId(), editMessageStatus.getNewStatus());
+        repo.editStatusMessage(editMessageStatus.getEmisorName(), editMessageStatus.getReceptorName(), editMessageStatus.getId(), editMessageStatus.getNewStatus());
     }
 
     @GetMapping("/rankingUsers")

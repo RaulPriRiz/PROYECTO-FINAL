@@ -8,6 +8,8 @@ function NotificationCard({ id, name, msg, date, type, onAction }) {
   const icon = isFriend ? group : swords;
 
   const text = isFriend ? `${name} te ha enviado una solicitud de amistad.` : `${name} te ha enviado un mensaje: "${msg}"`;
+  
+  const userLogin = JSON.parse(localStorage.getItem("user")) || null;
 
   return (
     <div className="relative rounded-2xl px-4 md:px-7 py-3 flex flex-col text-white bg-[#252525]">
@@ -31,14 +33,14 @@ function NotificationCard({ id, name, msg, date, type, onAction }) {
             {isFriend ? (
               <>
                 <button
-                  onClick={() => onAction(id, "ACEPTADA", type)}
+                  onClick={() => onAction(name, userLogin.name, id, "ACEPTADA", type)}
                   className="bg-green-600 hover:bg-green-600 px-4 py-1 rounded-full text-sm"
                 >
                   ACEPTAR
                 </button>
 
                 <button
-                  onClick={() => onAction(id, "RECHAZADA", type)}
+                  onClick={() => onAction(name, userLogin.name, id, "RECHAZADA", type)}
                   className="bg-red-700 hover:bg-red-600 px-3 py-1 rounded-full text-sm"
                 >
                   RECHAZAR
@@ -46,7 +48,7 @@ function NotificationCard({ id, name, msg, date, type, onAction }) {
               </>
             ) : (
               <button
-                onClick={() => onAction(id, "ACEPTADA", type)}
+                onClick={() => onAction(null, null, id, "ACEPTADA", type)}
                 className="bg-red-700 hover:bg-red-600 px-4 py-1 rounded-full text-sm"
               >
                 ELIMINAR

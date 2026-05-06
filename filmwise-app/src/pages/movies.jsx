@@ -62,6 +62,7 @@ function Movies() {
             <option value="Acción">Acción</option>
             <option value="Animación">Animación</option>
             <option value="Terror">Terror</option>
+            <option value="Educación">Educación</option>
           </select>
 
         </div>

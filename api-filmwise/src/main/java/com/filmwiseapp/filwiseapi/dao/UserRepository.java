@@ -293,11 +293,11 @@ public class UserRepository {
     }
 
     @Transactional
-    public void editStatusMessage(Integer id, String newStatus){
+    public void editStatusMessage(String emisorName, String receptorName, Integer id, String newStatus){
 
-        //User user = findByName(emisorName);
+        User user = findByName(emisorName);
         
-        //User user2 = findByName(receptorName);
+        User user2 = findByName(receptorName);
 
         String sql = "UPDATE FRIEND_MESSAGE SET STATUS = '" + newStatus + "' WHERE ID = " + id;
 
@@ -314,16 +314,15 @@ public class UserRepository {
             
 
             //PERO ANTES HAY QUE COMPROBAR QUE NO EXISTA LA AMISTAD YA
-            //if(areFriends(user.getId(), user2.getId())) return;
+            if(areFriends(user.getId(), user2.getId())) return;
 
             //si no existe ya la amistad entonces se crea:
-            /*
             IsFriendOf newFriendShip = new IsFriendOf();
             newFriendShip.setId(maxId + 1);
             newFriendShip.setFriend1(user.getId());
             newFriendShip.setFriend2(user2.getId());
             entityManager.persist(newFriendShip);
-            */
+            
         }
     }
 

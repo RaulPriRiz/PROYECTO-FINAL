@@ -121,7 +121,7 @@ export const getFriendsMessages = async (name: string) => {
 };
 
 //si el usuario acepta o rechaza el mensaje, hay que editar el status del mensaje de amistad
-export const editMessageStatus = async (id:number, newStatus:string) => {
+export const editMessageStatus = async (emisorName:string, receptorName:string, id:number, newStatus:string) => {
   const response = await fetch(API_URL + "/friends/editStatus",
     {
       method: "POST",
@@ -129,6 +129,8 @@ export const editMessageStatus = async (id:number, newStatus:string) => {
         "Content-Type" : "application/json"
       },
       body: JSON.stringify({
+        emisorName:emisorName,
+        receptorName:receptorName,
         id:id,
         newStatus:newStatus
       })
