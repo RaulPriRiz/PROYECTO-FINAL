@@ -8753,3 +8753,15 @@ SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIE
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; se esperaba "identifier"
 Syntax error in SQL statement "SELECT U.* FROM [*]USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1;"; expected "identifier"; SQL statement:
 SELECT U.* FROM USER U JOIN IS_FRIEND_OF F ON (U.ID = F.FRIEND1 OR U.ID = F.FRIEND2) WHERE (F.FRIEND1 =1 OR F.FRIEND2 =1) AND U.ID <> 1; [42001-232]
+2026-05-07 15:16:54.520049+02:00 jdbc[29]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "update [*]from usuario set password = '12345678'"; se esperaba "identifier"
+Syntax error in SQL statement "update [*]from usuario set password = '12345678'"; expected "identifier"; SQL statement:
+update from usuario set password = '12345678' [42001-232]
+2026-05-07 15:17:03.344618+02:00 jdbc[29]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "update [*]from usuario set password = '12345678'"; se esperaba "identifier"
+Syntax error in SQL statement "update [*]from usuario set password = '12345678'"; expected "identifier"; SQL statement:
+update from usuario set password = '12345678' [42001-232]
+2026-05-07 15:17:17.099983+02:00 jdbc[29]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "update [*]from usuario set password = '12345678'"; se esperaba "identifier"
+Syntax error in SQL statement "update [*]from usuario set password = '12345678'"; expected "identifier"; SQL statement:
+update from usuario set password = '12345678' [42001-232]
