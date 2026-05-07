@@ -59,7 +59,10 @@ function AdminFilms() {
                                     {film.title}
                                 </p>
                                 <p className="text-sm opacity-70">
-                                    {film.genre}
+                                    Género: {film.genre}
+                                </p>
+                                <p className="text-sm opacity-70">
+                                    Modo: {film.mode}
                                 </p>
                             </div>
 

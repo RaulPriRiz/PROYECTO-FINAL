@@ -10,7 +10,7 @@ import Unauthorized from "./pages/Unauthorized";
 import Game from "./pages/Game";
 import GameFast from "./pages/GameFast";
 import AdminPanel from "./pages/AdminPanel";
-
+import GenericDetails from "./pages/GenericDetails";
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/details/:title" element={<MovieDetails />} />
+        <Route path="/gendetails/:title" element={<GenericDetails />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/competition" element={<Competition />} />
         <Route path="/unauthorized" element={<Unauthorized />} />

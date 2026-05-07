@@ -11,7 +11,8 @@ function FilmFormModal({ isOpen, onClose, film, onSaved }) {
         genre: "",
         image: "",
         videoUrl: "",
-        imageCarrousel: ""
+        imageCarrousel: "",
+        mode: ""
     });
 
     useEffect(() => {
@@ -22,7 +23,8 @@ function FilmFormModal({ isOpen, onClose, film, onSaved }) {
                 genre: film.genre || "",
                 image: film.image || "",
                 videoUrl: film.videoUrl || "",
-                imageCarrousel: film.imageCarrousel || ""
+                imageCarrousel: film.imageCarrousel || "",
+                mode: film.mode || ""
             });
         } else {
             setForm({
@@ -31,7 +33,8 @@ function FilmFormModal({ isOpen, onClose, film, onSaved }) {
                 genre: "",
                 image: "",
                 videoUrl: "",
-                imageCarrousel: ""
+                imageCarrousel: "",
+                mode: ""
             });
         }
     }, [film]);
@@ -77,12 +80,18 @@ function FilmFormModal({ isOpen, onClose, film, onSaved }) {
                         className="p-2 bg-gray-800 rounded"
                     />
 
-                    <input
-                        placeholder="Género"
+                    <select
+                        className="p-2 bg-gray-800 rounded"
                         value={form.genre}
                         onChange={(e) => handleChange("genre", e.target.value)}
-                        className="p-2 bg-gray-800 rounded"
-                    />
+                    >
+                        <option value="Todas">Selecciona el género</option>
+                        <option value="Ciencia ficción">Ciencia ficción</option>
+                        <option value="Acción">Acción</option>
+                        <option value="Animación">Animación</option>
+                        <option value="Terror">Terror</option>
+                        <option value="Educación">Educación</option>
+                    </select>
 
                     <input
                         placeholder="Imagen"
@@ -104,6 +113,16 @@ function FilmFormModal({ isOpen, onClose, film, onSaved }) {
                         onChange={(e) => handleChange("imageCarrousel", e.target.value)}
                         className="p-2 bg-gray-800 rounded"
                     />
+
+                    <select
+                        value={form.mode}
+                        onChange={(e) => handleChange("mode", e.target.value)}
+                        className="p-2 bg-gray-800 rounded"
+                    >
+                        <option value="">Selecciona modo</option>
+                        <option value="Cine">Cine</option>
+                        <option value="Educación">Educación</option>
+                    </select>
 
                     <div className="flex justify-between mt-4">
                         <button
