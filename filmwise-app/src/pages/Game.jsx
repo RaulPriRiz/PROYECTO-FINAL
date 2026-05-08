@@ -183,7 +183,7 @@ function Game() {
                                 playing={playing}
                                 onReady={handlePlayerReady}
                                 onProgress={handleProgress}
-                                controls
+                                controls={false}
                                 width="100%"
                                 height="100%"
                                 onEnded={handleEndGame}
