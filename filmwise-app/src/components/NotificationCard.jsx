@@ -29,19 +29,19 @@ function NotificationCard({ id, name, msg, date, type, onAction }) {
             {text}
           </p>
 
-          <div className="flex gap-2">
+          <div className="flex flex-col md:flex-row gap-2">
             {isFriend ? (
               <>
                 <button
                   onClick={() => onAction(name, userLogin.name, id, "ACEPTADA", type)}
-                  className="bg-green-600 hover:bg-green-600 px-4 py-1 rounded-full text-sm"
+                  className="bg-green-600 hover:bg-green-600 px-3 md:px-4 py-1 rounded-full text-sm"
                 >
                   ACEPTAR
                 </button>
 
                 <button
                   onClick={() => onAction(name, userLogin.name, id, "RECHAZADA", type)}
-                  className="bg-red-700 hover:bg-red-600 px-3 py-1 rounded-full text-sm"
+                  className="bg-red-700 hover:bg-red-600 md:px-3 py-1 rounded-full text-sm mb-2 md:mb-0"
                 >
                   RECHAZAR
                 </button>
@@ -49,7 +49,7 @@ function NotificationCard({ id, name, msg, date, type, onAction }) {
             ) : (
               <button
                 onClick={() => onAction(null, null, id, "ACEPTADA", type)}
-                className="bg-red-700 hover:bg-red-600 px-4 py-1 rounded-full text-sm"
+                className="bg-red-700 hover:bg-red-600 px-2 md:px-4 py-1 rounded-full text-sm"
               >
                 ELIMINAR
               </button>

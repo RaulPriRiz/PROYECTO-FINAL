@@ -52,7 +52,7 @@ const AddFriendModal = ({ isOpen, onClose, user }) => {
           ✕
         </button>
 
-        <h2 className="text-2xl font-bold mb-6 text-center">
+        <h2 className="text-2xl font-serif mb-6 text-center">
           ¡Añade amigos!
         </h2>
 
@@ -77,7 +77,7 @@ const AddFriendModal = ({ isOpen, onClose, user }) => {
           </button>
 
           {/* LISTA DE AMIGOS */}
-          <h2 className="mt-4 text-2xl font-bold text-center">
+          <h2 className="mt-4 text-2xl font-serif text-center">
             Mis amigos:
           </h2>
           <div className="flex flex-col gap-3 max-h-[250px] overflow-y-auto pr-3">
