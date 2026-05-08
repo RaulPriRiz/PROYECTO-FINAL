@@ -1,7 +1,7 @@
 function GameCard({ title, mode, image }) {
   return (
     <div
-      className="w-56 h-32 rounded-xl p-4 flex flex-col justify-end text-white bg-cover bg-center relative overflow-hidden"
+      className="w-80 md:w-56 h-40 md:h-32 rounded-xl p-4 flex flex-col justify-end text-white bg-cover bg-center relative overflow-hidden"
       style={{ backgroundImage: `url(${image})` }}
     >
       <div className="absolute inset-0 bg-black/50"></div>

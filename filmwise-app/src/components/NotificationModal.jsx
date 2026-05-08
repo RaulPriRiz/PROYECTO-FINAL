@@ -28,7 +28,7 @@ const NotificationModal = ({ isOpen, onClose, user, friendsMessages, challengesM
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
 
-      <div className="bg-filmGray w-[90%] md:w-[600px] rounded-2xl p-6 relative max-h-[800px] overflow-y-auto">
+      <div className="bg-filmGray w-[90%] md:w-[600px] rounded-2xl px-3 py-4 md:p-6 relative max-h-[800px] overflow-y-auto">
 
         <button
           onClick={onClose}

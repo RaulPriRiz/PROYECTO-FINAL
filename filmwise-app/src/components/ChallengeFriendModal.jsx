@@ -54,8 +54,8 @@ const ChallengeFriendModal = ({ isOpen, onClose, user }) => {
           ✕
         </button>
 
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          Reta a un amigo
+        <h2 className="text-2xl font-serif mb-6 text-center">
+          ¡Reta a un amigo!
         </h2>
 
         <div className="flex flex-col gap-5">

@@ -129,12 +129,14 @@ function Home() {
         {isRegistered || isAdmin ? (
           //Si está registrado
           <>
-            <div className="inline-flex items-center gap-3 bg-filmGray text-white px-5 py-2 rounded-full font-semibold mb-4">
-              <img src={gameIcon} alt="icono" className="w-5 md:w-6" />
-              <span>PARTIDAS RECIENTES</span>
+            <div className="flex justify-center md:justify-start">
+              <div className="inline-flex items-center gap-3 bg-filmGray text-white px-5 py-2 rounded-full font-semibold mb-4">
+                <img src={gameIcon} alt="icono" className="w-5 md:w-6" />
+                <span>PARTIDAS RECIENTES</span>
+              </div>
             </div>
 
-            <div className="flex gap-6 mt-4 flex-wrap">
+            <div className="flex gap-6 mt-4 flex-wrap justify-center md:justify-start">
               {hasRecentGames ? (
                 recentGames.map((game, index) => (
                   <Link

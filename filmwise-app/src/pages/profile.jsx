@@ -128,7 +128,7 @@ function Profile() {
                 {friendsNumber} Amigos
               </span>
 
-              <div className="flex gap-5 mt-4 md:mt-10">
+              <div className="flex gap-3 md:gap-5 mt-4 md:mt-10">
                 <button
                   onClick={() => setIsEditProfileOpen(true)}
                   className="bg-red-900 hover:bg-red-700 px-4 py-2 md:px-8 rounded-full text-sm font-semibold transition">
@@ -163,7 +163,7 @@ function Profile() {
                 {percentage}%
               </p>
             </div>
-            <p className="mt-4">
+            <p className="mt-4 text-sm md:text-base">
               {score} puntos - {pointsToNextLevel} puntos más para subir al nivel {nextLevel}
             </p>
 

@@ -78,7 +78,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
           ✕
         </button>
 
-        <h2 className="text-2xl font-bold mb-6 text-center">
+        <h2 className="text-2xl font-serif mb-6 text-center">
           Editar Perfil
         </h2>
 
